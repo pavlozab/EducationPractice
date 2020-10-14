@@ -58,7 +58,6 @@ class Validation():
                 print('You must enter an integer')
 
 
-
     @staticmethod
     def intValidateInRange(message, l, r):
         while True:

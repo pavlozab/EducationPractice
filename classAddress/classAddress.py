@@ -1,8 +1,7 @@
-from validation import Validation as v
+from decorator import *
 
 class Address:
-
-    def __init__(self, address_line = 'address_line', postal_code = 10000, country = 'country', city = 'city', fax_number = '+3800', phone_number = '+3800'):
+    def __init__(self, address_line = 'addressline', postal_code = 10000, country = 'country', city = 'city', fax_number = '+3800', phone_number = '+3800'):
         self.address_line = address_line
         self.postal_code = postal_code
         self.country = country
@@ -66,69 +65,53 @@ class Address:
         return f'{self.ID} {self.strAddressWithoutId}'
 
 
+
     @address_line.setter
+    @check_str
+    @check_symbol
     def address_line(self, value):
         '''Set address_line. type, symbol'''
-        try:
-            value = v.symbolValidate(value, 'Address line')
-        except Exception as e:
-            print(e)
-            value = 'None'
         self._address_line = value
 
 
+
+
     @postal_code.setter
+    @check_int
+    @check_lenght_Value(lenght = 5)
     def postal_code(self, value):
         '''Set postal_code. lenght, type'''
-        try:
-            value = v.intValidate(value, 'Postal code')
-            value = v.lenghtValueValidate(value, 5, 'Postal code')
-        except Exception as e:
-            print(e)
-            value = 0
         self._postal_code = value
 
 
 
     @country.setter
+    @check_str
+    @check_symbol
     def country(self, value):
         '''Set country. type, symbol'''
-        try:
-            value = v.symbolValidate(value, 'Country')
-        except Exception as e:
-            print(e)
-            value = 'None'
         self._country = value
 
 
     @city.setter
+    @check_str
+    @check_symbol
     def city(self, value):
         '''Set city. type, symbol'''
-        try:
-            value = v.symbolValidate(value, 'City')
-        except Exception as e:
-            print(e)
-            value = 'None'
         self._city = value
 
 
     @fax_number.setter
+    @check_str
+    @check_phone_number
     def fax_number(self, value):
         '''Set fax_number. type, symbol and +380'''
-        try:
-            value = v.numberValidate(value, 'fax_number')
-        except Exception as e:
-            print(e)
-            value = 'None'
         self._fax_number = value
 
 
     @phone_number.setter
+    @check_str
+    @check_phone_number
     def phone_number(self, value):
         '''Set phone number. type, symbol and +380'''
-        try:
-            value = v.numberValidate(value, 'phone_number')
-        except Exception as e:
-            print(e)
-            value = 'None'
         self._phone_number = value

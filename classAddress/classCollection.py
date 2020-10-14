@@ -1,5 +1,5 @@
 from classAddress import Address as CA
-from validation import Validation as v
+from decorator import *
 
 class CollectionAddress():
     __arr = []
@@ -53,15 +53,14 @@ class CollectionAddress():
             attributes.remove("ID")
             for i in attributes:
                 if isinstance(getattr(nA, i), int):
-                    valInt = v.enterInteger(f'Enter {i} : ')
+                    valInt = enterInt(0, f'Enter {i} : ')
                     setattr(nA, str(i), valInt)
                 else:
-                    valStr = v.enterStr(f'Enter {i}: ')
+                    valStr = enterStr('0', f'Enter {i}: ')
                     setattr(nA, str(i), valStr)
             self.__arr.append(nA)
         except Exception as e:
             raise e
-
 
     def search(self, value):
         print(f'search value : {value} \n')
@@ -93,13 +92,13 @@ class CollectionAddress():
 
     def editAddress(self):
         try:
-            attr = v.enterStr('Enter attribute: ')
-            index = v.enterInteger('Enter index : ')
+            attr = enterStr('0', 'Enter attribute: ')
+            index = enterIntInRange(0, 'Enter index : ', 0, len(collect))
             if isinstance(getattr(self.__arr[index], attr), int):
-                valInt = v.enterInteger(f'Enter {attr} : ')
+                valInt = enterInt(0, f'Enter {attr} : ')
                 setattr(self.__arr[index], attr, valInt)
             else:
-                valStr = v.enterStr(f'Enter {attr}: ')
+                valStr = enterStr('0', f'Enter {attr}: ')
                 setattr(self.__arr[index], attr, valStr)
 
         except Exception as e:
