@@ -79,7 +79,7 @@ class CollectionAddress():
     def editAddress(self):
         try:
             attr = enterStr('0', 'Enter attribute: ')
-            index = enterIntInRange(0, 'Enter index : ', 0, len(collect))
+            index = enterIntInRange(0, f'Enter index from 0 to {len(self.__arr)}: ', 0, len(self.__arr))
             if isinstance(getattr(self.__arr[index], attr), int):
                 valInt = enterInt(0, f'Enter {attr} : ')
                 setattr(self.__arr[index], attr, valInt)

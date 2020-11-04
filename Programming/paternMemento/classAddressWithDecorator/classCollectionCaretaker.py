@@ -39,8 +39,6 @@ class CollectionCaretaker:
 
     def redo(self):
         self.__isEmpty()
-        print(self._current, ' --  ', len(self._mementos))
-
         if self._current >= (len(self._mementos)-1):
             raise Exception('last caretaker')        
         else:
@@ -53,9 +51,9 @@ class CollectionCaretaker:
 
     def show_history(self):
         print('\n\n!','_'*30 ,'history','_'*30, '!', "\nCaretaker: Here's the list of mementos:")
-        j = 0
+        j = 1
         for memento in self._mementos:
-            print(j, ' -- memento', '-'*40, '\n')
+            print('\n\n', j, ' -- memento', '-'*40, '\n')
             print(memento.name)
             j+=1
         print('!','_'*30 ,'history','_'*30, '!\n\n')
