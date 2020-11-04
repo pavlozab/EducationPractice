@@ -35,11 +35,30 @@ class CollectionAddress():
     def at(self, index):
         return self.__arr[index]
 
-    def deleteElem(self, i):
-        del self.__arr[i]
-
     def insert(self, obj):
         self.__arr.append(obj)
+
+    def sort(self, attr = 'address_line'):
+        try:
+            if isinstance(getattr(self.__arr[0], attr), int):
+                self.__arr.sort(key = lambda x: getattr(x, attr))
+            else:
+                self.__arr.sort(key = lambda x: getattr(x, attr).lower())
+        except AttributeError:
+            raise AttributeError(f'\'Address\' object has no attribute {attr}')
+    
+    def search(self, value):
+        print(f'search value : {value} \n')
+        check = True
+        for i in self.__arr:
+            if i.strAddressWithId().lower().find(str(value.lower())) != -1 :
+                check = False
+                print(i)
+        if check:
+            print('no search elem ')
+    
+    def deleteElem(self, i):
+        del self.__arr[i]
 
     def addNewAddress(self):
         try:
@@ -56,25 +75,6 @@ class CollectionAddress():
             self.__arr.append(nA)
         except Exception as e:
             raise e
-
-    def search(self, value):
-        print(f'search value : {value} \n')
-        check = True
-        for i in self.__arr:
-            if i.strAddressWithId().lower().find(str(value.lower())) != -1 :
-                check = False
-                print(i)
-        if check:
-            print('no search elem ')
-
-    def sort(self, attr = 'address_line'):
-        try:
-            if isinstance(getattr(self.__arr[0], attr), int):
-                self.__arr.sort(key = lambda x: getattr(x, attr))
-            else:
-                self.__arr.sort(key = lambda x: getattr(x, attr).lower())
-        except AttributeError:
-            raise AttributeError(f'\'Address\' object has no attribute {attr}')
 
     def editAddress(self):
         try:

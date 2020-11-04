@@ -48,6 +48,7 @@ def main():
         except Exception as e:
             print('Error ', '--'*20, '  ',e)
 
+
 def readFromFileMenu(caretaker, collect):
     caretaker.backup()
     collect.readJsonFile('data.json')
@@ -89,6 +90,7 @@ def undoMenu(caretaker, collect):
 def redoMenu(caretaker, collect):
     caretaker.redo()
     collect.writeJsonFile("output.json")
+    
 
 if __name__ == '__main__':
     main()
