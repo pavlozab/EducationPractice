@@ -37,10 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'django_filters',
     'rest_framework',
     'address',
-    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +72,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'address_django.wsgi.application'
 
+
+# Rest framework
+#
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination'
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
