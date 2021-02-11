@@ -2,10 +2,19 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Text.Json;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 public class Address
 {
-    /*public Address(int id, string addressLine, string postalCode, string country, string city, string faxNumber, string phoneNumber)
+    [JsonConstructor]
+    public Address() { }
+
+    // FIXME написати конструктор без перелічення всіх атрибутів
+    public Address(int id, string addressLine, 
+        string postalCode, string country, 
+        string city, string faxNumber, 
+        string phoneNumber)
     {
         this.Id = id;
         this.AddressLine = addressLine;
@@ -14,8 +23,10 @@ public class Address
         this.City = city;
         this.FaxNumber = faxNumber;
         this.PhoneNumber = phoneNumber;
-    }*/
-    
+    }
+
+    public Address(int id) { this.Id = id; }
+
     public int Id { get; init; } 
 
     [Required]
@@ -54,12 +65,6 @@ public class Address
             WriteIndented = true
         };
         return JsonSerializer.Serialize<Address>(this, options);
-    }
-
-    public override bool Equals(object obj)
-    {
-        
-        return true;
     }
 }
 

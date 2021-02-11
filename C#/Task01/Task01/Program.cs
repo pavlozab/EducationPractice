@@ -9,57 +9,99 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 
+// FIXME needed better structure, task6-7-8, needed try-catch 
+
 namespace Task01
 {
     class Program
     {
         static void Main(string[] args)
         {
-            MyCollection myCollection = new MyCollection();
-            myCollection.ReadJson("data.json");
-            
-            Console.Write(myCollection.ToString());
+            int choice = 9;
 
-
-            myCollection.Search();
-
-
-
-
-
-            /*
-            foreach (var i in typeof(Address).GetProperties())
+            do
             {
-                Console.WriteLine(i);
-            }
-            try
-            
+                PrintHelp();
                 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception: {0}", ex.Message);
-                Console.WriteLine("Method: {0}", ex.TargetSite);
-                Console.WriteLine("Trace stack: {0}", ex.StackTrace);
-            }*/
-
-            //Console.Read();
-
-            /*int[] myIntArray = new int[5];
-
-            myIntArray.Average();
-
-            string nums = Console.ReadLine();
-            //int[] data =  new int[nums.Split().Length] { foreach(string i in nums.Split()) }
+                
+            } while (choice != 9);
             
-            //int []l2 = nums.Where(num=>num.Tont32())
+            MyCollection collection = new MyCollection();
+            collection.ReadJson("data.json");
+            
+            //Console.WriteLine(collection.ToString());
+            
+            //Search(collection);
 
-            int size = 7;
-            int[][] data = MatrixCreate();*/
-
+            //SortBy(collection);
+            Console.WriteLine(collection.ToString());
+            
+            AddNew(collection);
 
 
         }
+        
+        static void PrintHelp()
+        {
+            Console.WriteLine("\n* * * * * * * * * * * * * * * *");
+            Console.WriteLine("* Help:                       *");
+            Console.WriteLine("* 1 - read from file          *");
+            Console.WriteLine("* 2 - search                  *");
+            Console.WriteLine("* 3 - sort by                 *");
+            Console.WriteLine("*  *");
+            Console.WriteLine("* * * * * * * * * * * * * * * *\n");
+        }
+        
+        static void Search(MyCollection collection)
+        {
+            Console.Write("Enter parameter which elements you want to find: \n");
+            string searchValue = Console.ReadLine();
+            
+            List<Address> searchRes =  collection.Search(searchValue);
+            if (searchRes.Any())
+            {
+                foreach (var obj in searchRes)
+                {
+                    Console.WriteLine(obj.ToString());
+                }
+            }
+            else
+            {
+                Console.WriteLine("\nWe couldn't find for {0}. \nTry different or less specific keywords.",
+                    searchValue);
+            }
+        }
+
+        static void SortBy(MyCollection collection)
+        {
+            Console.Write("Enter field for which you want to sort: \nPOSSIBLE: ");
+            foreach (var i in typeof(Address).GetProperties())
+            {
+                Console.Write("{0}, ", i.Name);
+            }
+            Console.WriteLine();
+            string searchValue = Console.ReadLine();
+            
+            collection.Sort(searchValue);
+            Console.WriteLine(collection.ToString());
+        }
+
+        static void Delete(MyCollection collection)
+        {
+            Console.WriteLine("Enter id to delete: ");
+            int id = Int32.Parse(Console.ReadLine());
+            collection.Delete(id);
+            Console.WriteLine(collection.ToString());
+        }
+
+        static void AddNew(MyCollection collection)
+        {
+            collection.AddNewObj();
+            Console.WriteLine(collection.ToString());
+        }
     }
+    
+    
+    
     
 }

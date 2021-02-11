@@ -4,7 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using Newtonsoft.Json;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Reflection.Metadata;
+using Newtonsoft.Json.Linq;   
+// FIXME delete using witch not used 
 
 public class MyCollection
 {
@@ -33,8 +37,7 @@ public class MyCollection
                 Console.WriteLine(newJsonAddress);
             }
         }
-        else
-            this.Data.Add(newJsonAddress);
+        else { this.Data.Add(newJsonAddress); }
     }
     
     public void ReadJson(string filePath)
@@ -52,14 +55,97 @@ public class MyCollection
         }
     }
 
-    public Address Search()
+    // метод пошуку повертає список об'єктів, які містять шукане значення
+    public List<Address> Search(string searchValue)
     {
-        foreach (var i in typeof(Address).GetProperties())
+        List<Address> searchResult = new List<Address>();
+
+        foreach (var obj in this.Data)
         {
-            Console.WriteLine(i.SetMethod);
+            foreach (var attr in typeof(Address).GetProperties())
+            {
+                // получаємо значення за назвою поля
+                var temp = typeof(Address).GetProperty(attr.Name).GetValue(obj, null);
+                
+                if (temp.ToString().ToLower().Contains(searchValue)) { searchResult.Add(obj); continue; }
+            }
         }
+
+        return searchResult;
+    }
+
+    // функція повертає true, коли параметр належить до проепрті об'єкту 
+    private bool ValidParametr(string param)
+    {
+        return typeof(Address).GetProperties().Any(obj => param == obj.Name);
+    }
+    public void Sort(string sortBy)
+    {
+        // провірка правильності вказаного поля пошуку
+        if (!this.ValidParametr(sortBy))
+        {
+            Console.WriteLine("{0} is invalid. ", sortBy);
+        }
+        else
+        {
+            this.Data.Sort(delegate(Address address, Address address1)
+            {
+                return String.Compare(
+                    typeof(Address).GetProperty(sortBy).GetValue(address, null).ToString().ToLower(),
+                    typeof(Address).GetProperty(sortBy)?.GetValue(address1, null).ToString().ToLower(),
+                    StringComparison.Ordinal);
+            });
+
+        }
+    }
+
+    public void Delete(int id)
+    {
+        bool idCheck = false;
         
-        return this.Data[0];
+        foreach (var i in this.Data)
+        {
+            if (i.Id == id)
+            {
+                this.Data.Remove(i);
+                idCheck = true;
+                break;
+            }
+        }
+
+        if (!idCheck) { Console.WriteLine("No adddress with such ID found"); } // FIXME raise exception ?}
+    }
+    
+    public void AddNewObj()
+    {
+        Address newObj = new Address(this.Data.Max(obj => obj.Id)+1);
+        
+        foreach (var attr in typeof(Address).GetProperties().Skip(1))
+        {
+            Console.Write("Enter {0}: ", attr.Name);
+            string strValue = Console.ReadLine();
+            typeof(Address).GetProperty(attr.Name).SetValue(newObj, strValue, null);
+        }
+        this.ValidateAddObject(newObj);
+    }
+
+    public void EditeObj()
+    {
+        Console.WriteLine("Enter id to edit: ");
+        int id = Int32.Parse(Console.ReadLine());
+        
+        Console.WriteLine("Enter param to edit: ");
+        string param = Console.ReadLine();
+
+        if (!this.ValidParametr(param)) { Console.WriteLine("{0} is invalid.", param); } // FIXME exception}
+        else
+        {
+            Console.WriteLine("Enter value to change: ");
+            string value = Console.ReadLine();
+            
+            // FIXME видалити по id
+            //this.Data.IndexOf(obj=>obj.Id ==id);
+        }
     }
     
 }
