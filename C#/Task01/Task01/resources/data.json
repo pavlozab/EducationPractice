@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "AddressLine": "address",
+    "PostalCode": "12345",
+    "Country": "country",
+    "City": "city",
+    "FaxNumber": "+380979088267",
+    "PhoneNumber": "+380999088267"
+  },
+  {
+    "id": 2,
+    "AddressLine": "address",
+    "PostalCode": "02342",
+    "Country": "country",
+    "City": "city",
+    "FaxNumber": "+380979088261",
+    "PhoneNumber": "+380999088261"
+  },
+  {
+    "id": 3,
+    "AddressLine": "address",
+    "PostalCode": "12334",
+    "Country": "country",
+    "City": "city",
+    "FaxNumber": "+380979088261",
+    "PhoneNumber": "+380999088261"
+  }
+]

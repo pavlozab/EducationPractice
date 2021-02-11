@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "NTCDCUCF8qQtnf3f/sso0FDSZQ44vL/rsX3DuyOy+0JAWbENCXm0ngDZE0jTJeSWX190uf9Mbs5caOJC4905wA==",
+  "success": true,
+  "projectFilePath": "/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/Task01.csproj",
+  "expectedPackageFiles": [
+    "/Users/pasha/.nuget/packages/newtonsoft.json/13.0.1-beta1/newtonsoft.json.13.0.1-beta1.nupkg.sha512"
+  ],
+  "logs": []
+}
