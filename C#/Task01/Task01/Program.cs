@@ -1,13 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
 
 // FIXME needed better structure, task6-7-8, needed try-catch 
 
@@ -41,6 +34,7 @@ namespace Task01
                             break;
                         case "5":
                             collection.AddNewObj();
+                            collection.WriteInFile();
                             break;
                         case "6":
                             Edit(collection);
@@ -58,7 +52,8 @@ namespace Task01
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine("\nError:");
+                    Console.WriteLine(e.Message);
                 }
             } while ( choice != "exit");
         }
@@ -116,6 +111,7 @@ namespace Task01
             Console.WriteLine("Enter id to delete: ");
             int id = Int32.Parse(Console.ReadLine());
             collection.Delete(id);
+            collection.WriteInFile();
         }
         
         static void Edit(MyCollection collection)
@@ -130,6 +126,7 @@ namespace Task01
             string value = Console.ReadLine();
             
             collection.EditeObj(id, param, value);
+            collection.WriteInFile();
         }
     }
 }

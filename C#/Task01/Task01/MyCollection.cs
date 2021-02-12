@@ -1,15 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json;
 using Newtonsoft.Json;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Reflection.Metadata;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 // FIXME delete using witch not used 
 
@@ -40,7 +34,6 @@ public class MyCollection
                 Console.WriteLine(error.ErrorMessage);
                 Console.WriteLine(newJsonAddress);
             }
-
             return false;
         }
         return true; 
@@ -66,7 +59,7 @@ public class MyCollection
         // FIXME розібратись з path
     }
     
-    public async Task WriteInFile(string filePath = "data.json")
+    public void WriteInFile(string filePath = "data.json")
     {
         try
         {
@@ -74,7 +67,7 @@ public class MyCollection
                                filePath;
             using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
             {
-                await sw.WriteAsync(this.ToString());
+                sw.WriteAsync(this.ToString());
             }
         }
         catch (Exception e)
@@ -123,7 +116,7 @@ public class MyCollection
         {
             return String.Compare(
                 typeof(Address).GetProperty(sortBy).GetValue(address, null).ToString().ToLower(),
-                typeof(Address).GetProperty(sortBy)?.GetValue(address1, null).ToString().ToLower(),
+                typeof(Address).GetProperty(sortBy).GetValue(address1, null).ToString().ToLower(),
                 StringComparison.Ordinal);
         });
     }
@@ -132,8 +125,10 @@ public class MyCollection
     {
         try
         {
-            if (this.Data.Remove(this.Data.Find(obj => obj.Id == id))) { }
-            else { throw new Exception("No adddress with such ID found"); }
+            if (!Data.Remove(this.Data.Find(obj => obj.Id == id)))
+            {
+                throw new Exception("No adddress with such ID found");
+            }
         }
         catch (Exception e) { throw; }
     }
