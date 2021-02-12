@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 // FIXME needed better structure, task6-7-8, needed try-catch 
@@ -21,7 +22,7 @@ namespace Task01
                     switch (choice)
                     {
                         case "1":
-                            collection.ReadJson("data.json");
+                            collection.ReadJson("resources/data.json");
                             break;
                         case "2":
                             Search(collection);
