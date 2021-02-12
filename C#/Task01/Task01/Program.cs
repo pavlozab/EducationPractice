@@ -17,44 +17,70 @@ namespace Task01
     {
         static void Main(string[] args)
         {
-            int choice = 9;
-
+            string choice;
+            MyCollection collection = new MyCollection();
             do
             {
                 PrintHelp();
-                
-                
-            } while (choice != 9);
-            
-            MyCollection collection = new MyCollection();
-            collection.ReadJson("data.json");
-            
-            //Console.WriteLine(collection.ToString());
-            
-            //Search(collection);
-
-            //SortBy(collection);
-            Console.WriteLine(collection.ToString());
-            
-            AddNew(collection);
-
-
+                choice = Console.ReadLine();
+                try
+                {
+                    switch (choice)
+                    {
+                        case "1":
+                            collection.ReadJson("data.json");
+                            break;
+                        case "2":
+                            Search(collection);
+                            break;
+                        case "3":
+                            SortBy(collection);
+                            break;
+                        case "4":
+                            Delete(collection);
+                            break;
+                        case "5":
+                            collection.AddNewObj();
+                            break;
+                        case "6":
+                            Edit(collection);
+                            break;
+                        case "7":
+                            Console.WriteLine(collection.ToString());
+                            break;
+                        case "exit":
+                            Console.WriteLine("Goodbye!");
+                            break;
+                        default:
+                            Console.WriteLine("Wrong input!");
+                            break;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            } while ( choice != "exit");
         }
         
         static void PrintHelp()
         {
-            Console.WriteLine("\n* * * * * * * * * * * * * * * *");
-            Console.WriteLine("* Help:                       *");
-            Console.WriteLine("* 1 - read from file          *");
-            Console.WriteLine("* 2 - search                  *");
-            Console.WriteLine("* 3 - sort by                 *");
-            Console.WriteLine("*  *");
-            Console.WriteLine("* * * * * * * * * * * * * * * *\n");
+            Console.WriteLine("\n* * * * * * * * * * * * * * * * * *");
+            Console.WriteLine("* Help:                           *");
+            Console.WriteLine("* 1 - to read from file.          *");
+            Console.WriteLine("* 2 - to search.                  *");
+            Console.WriteLine("* 3 - to sort by.                 *");
+            Console.WriteLine("* 4 - to delete.                  *");
+            Console.WriteLine("* 5 - to add new.                 *");
+            Console.WriteLine("* 6 - to edit element.            *");
+            Console.WriteLine("* 7 - to print colllection.       *");
+            Console.WriteLine("*  exit - to exit.                *");
+            Console.WriteLine("* * * * * * * * * * * * * * * * * *\n");
         }
         
         static void Search(MyCollection collection)
         {
-            Console.Write("Enter parameter which elements you want to find: \n");
+            Console.Write("Enter parameter which elements you want to find:  ");
             string searchValue = Console.ReadLine();
             
             List<Address> searchRes =  collection.Search(searchValue);
@@ -83,7 +109,6 @@ namespace Task01
             string searchValue = Console.ReadLine();
             
             collection.Sort(searchValue);
-            Console.WriteLine(collection.ToString());
         }
 
         static void Delete(MyCollection collection)
@@ -91,17 +116,20 @@ namespace Task01
             Console.WriteLine("Enter id to delete: ");
             int id = Int32.Parse(Console.ReadLine());
             collection.Delete(id);
-            Console.WriteLine(collection.ToString());
         }
-
-        static void AddNew(MyCollection collection)
+        
+        static void Edit(MyCollection collection)
         {
-            collection.AddNewObj();
-            Console.WriteLine(collection.ToString());
+            Console.WriteLine("Enter id to edit: ");
+            int id = Int32.Parse(Console.ReadLine());
+        
+            Console.WriteLine("Enter param to edit: ");
+            string param = Console.ReadLine();
+            
+            Console.WriteLine("Enter value to change: ");
+            string value = Console.ReadLine();
+            
+            collection.EditeObj(id, param, value);
         }
     }
-    
-    
-    
-    
 }

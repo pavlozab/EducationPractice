@@ -7,7 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Metadata;
-using Newtonsoft.Json.Linq;   
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+
 // FIXME delete using witch not used 
 
 public class MyCollection
@@ -19,16 +22,17 @@ public class MyCollection
         this.Data = new List<Address>();
     }
 
+    // Return the point's value as a string.
     public override string ToString()
     {
         return JsonConvert.SerializeObject(Data, Formatting.Indented);
     }
 
-    private void ValidateAddObject(Address newJsonAddress)
+    private bool ValidateObject(Address newJsonAddress)
     {
         var results = new List<ValidationResult>();
         var context = new ValidationContext(newJsonAddress);
-        
+
         if (!Validator.TryValidateObject(newJsonAddress, context, results, true))
         {
             foreach (var error in results)
@@ -36,22 +40,47 @@ public class MyCollection
                 Console.WriteLine(error.ErrorMessage);
                 Console.WriteLine(newJsonAddress);
             }
+
+            return false;
         }
-        else { this.Data.Add(newJsonAddress); }
+        return true; 
     }
     
-    public void ReadJson(string filePath)
+    public void ReadJson(string filePath = "data.json")
     {
-        // FIXME розібратись з path
-        using (StreamReader r = new StreamReader("/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/resources/" + filePath))
+        try
         {
-            string json = r.ReadToEnd();
-            var newJsonAddress = JsonConvert.DeserializeObject<List<Address>>(json); // Nedded to validate new addresses.
-
-            foreach (Address i in newJsonAddress)
+            using (StreamReader r = new StreamReader("/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/resources/" + 
+                                                     filePath))
             {
-                this.ValidateAddObject(i);
+                foreach (Address i in JsonConvert.DeserializeObject<List<Address>>(r.ReadToEnd()))
+                {
+                    if (ValidateObject(i))
+                    {
+                        Data.Add(i);
+                    }
+                }
             }
+        }
+        catch (Exception e) { throw; }
+        // FIXME розібратись з path
+    }
+    
+    public async Task WriteInFile(string filePath = "data.json")
+    {
+        try
+        {
+            string writePath = "/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/resources/" +
+                               filePath;
+            using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
+            {
+                await sw.WriteAsync(this.ToString());
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
     }
 
@@ -70,50 +99,43 @@ public class MyCollection
                 if (temp.ToString().ToLower().Contains(searchValue)) { searchResult.Add(obj); continue; }
             }
         }
-
+        
         return searchResult;
     }
 
-    // функція повертає true, коли параметр належить до проепрті об'єкту 
-    private bool ValidParametr(string param)
+    // функція повертає true, коли параметр належить до проперті об'єкту 
+    private void ValidParametr(string param)
     {
-        return typeof(Address).GetProperties().Any(obj => param == obj.Name);
+        try
+        {
+            if (!typeof(Address).GetProperties().Any(obj => param == obj.Name))
+            {
+                throw new Exception($"{param} is invalid.");
+            }
+        }
+        catch (Exception e) { throw; }
     }
+    
     public void Sort(string sortBy)
     {
-        // провірка правильності вказаного поля пошуку
-        if (!this.ValidParametr(sortBy))
+        ValidParametr(sortBy);
+        Data.Sort(delegate(Address address, Address address1)
         {
-            Console.WriteLine("{0} is invalid. ", sortBy);
-        }
-        else
-        {
-            this.Data.Sort(delegate(Address address, Address address1)
-            {
-                return String.Compare(
-                    typeof(Address).GetProperty(sortBy).GetValue(address, null).ToString().ToLower(),
-                    typeof(Address).GetProperty(sortBy)?.GetValue(address1, null).ToString().ToLower(),
-                    StringComparison.Ordinal);
-            });
-
-        }
+            return String.Compare(
+                typeof(Address).GetProperty(sortBy).GetValue(address, null).ToString().ToLower(),
+                typeof(Address).GetProperty(sortBy)?.GetValue(address1, null).ToString().ToLower(),
+                StringComparison.Ordinal);
+        });
     }
 
     public void Delete(int id)
     {
-        bool idCheck = false;
-        
-        foreach (var i in this.Data)
+        try
         {
-            if (i.Id == id)
-            {
-                this.Data.Remove(i);
-                idCheck = true;
-                break;
-            }
+            if (this.Data.Remove(this.Data.Find(obj => obj.Id == id))) { }
+            else { throw new Exception("No adddress with such ID found"); }
         }
-
-        if (!idCheck) { Console.WriteLine("No adddress with such ID found"); } // FIXME raise exception ?}
+        catch (Exception e) { throw; }
     }
     
     public void AddNewObj()
@@ -126,27 +148,20 @@ public class MyCollection
             string strValue = Console.ReadLine();
             typeof(Address).GetProperty(attr.Name).SetValue(newObj, strValue, null);
         }
-        this.ValidateAddObject(newObj);
+        if (ValidateObject(newObj)) { Data.Add(newObj); }
     }
 
-    public void EditeObj()
+    public void EditeObj(int objId, string param, object value)
     {
-        Console.WriteLine("Enter id to edit: ");
-        int id = Int32.Parse(Console.ReadLine());
+        ValidParametr(param);
+        typeof(Address).GetProperty(param).SetValue(
+            this.Data.Find(obj => obj.Id == objId), 
+            value, null);
         
-        Console.WriteLine("Enter param to edit: ");
-        string param = Console.ReadLine();
-
-        if (!this.ValidParametr(param)) { Console.WriteLine("{0} is invalid.", param); } // FIXME exception}
-        else
-        {
-            Console.WriteLine("Enter value to change: ");
-            string value = Console.ReadLine();
-            
-            // FIXME видалити по id
-            //this.Data.IndexOf(obj=>obj.Id ==id);
-        }
+        // FIXME validation for edited object
     }
+
+    
     
 }
 

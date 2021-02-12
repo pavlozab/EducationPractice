@@ -9,22 +9,7 @@ public class Address
 {
     [JsonConstructor]
     public Address() { }
-
-    // FIXME написати конструктор без перелічення всіх атрибутів
-    public Address(int id, string addressLine, 
-        string postalCode, string country, 
-        string city, string faxNumber, 
-        string phoneNumber)
-    {
-        this.Id = id;
-        this.AddressLine = addressLine;
-        this.PostalCode = postalCode;
-        this.Country = country;
-        this.City = city;
-        this.FaxNumber = faxNumber;
-        this.PhoneNumber = phoneNumber;
-    }
-
+    
     public Address(int id) { this.Id = id; }
 
     public int Id { get; init; } 
