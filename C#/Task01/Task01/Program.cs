@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -51,7 +50,12 @@ namespace Task01
                 }
                 catch (ValidationException e)
                 {
-                    Console.WriteLine("\nValidation error:");
+                    Console.WriteLine("\nValidation error:\n");
+                    Console.WriteLine(e.Message);
+                }
+                catch (ArgumentException e)
+                {
+                    Console.WriteLine("\nArgument error:\n");
                     Console.WriteLine(e.Message);
                 }
                 catch (Exception e)
@@ -61,7 +65,8 @@ namespace Task01
                 }
             } while ( choice != "exit");
         }
-        
+
+        /// <summary>The function that returns help message.</summary>
         static void PrintHelp()
         {
             Console.WriteLine("\n* * * * * * * * * * * * * * * * * *");
@@ -80,9 +85,9 @@ namespace Task01
         static void Search(MyCollection collection)
         {
             Console.Write("Enter parameter which elements you want to find:  ");
-            string searchValue = Console.ReadLine();
+            var searchValue = Console.ReadLine();
             
-            List<Address> searchRes =  collection.Search(searchValue);
+            var searchRes =  collection.Search(searchValue);
             if (searchRes.Any())
             {
                 foreach (var obj in searchRes)
@@ -97,7 +102,8 @@ namespace Task01
             }
         }
 
-        static void WritePosibleProperty()
+        /// <summary>The function that returns string representation of possible address parameter.</summary>
+        static void WritePosibleParameter()
         {
             Console.Write("\nPOSSIBLE: ");
             foreach (var i in typeof(Address).GetProperties())
@@ -109,8 +115,8 @@ namespace Task01
         static void SortBy(MyCollection collection)
         {
             Console.Write("Enter field for which you want to sort:");
-            WritePosibleProperty();
-            string searchValue = Console.ReadLine();
+            WritePosibleParameter();
+            var searchValue = Console.ReadLine();
             
             collection.Sort(searchValue);
         }
@@ -118,7 +124,7 @@ namespace Task01
         static void Delete(MyCollection collection)
         {
             Console.WriteLine("Enter id to delete: ");
-            int id = Int32.Parse(Console.ReadLine());
+            var id = int.Parse(Console.ReadLine());
             collection.Delete(id);
             collection.WriteInFile();
         }
@@ -126,14 +132,14 @@ namespace Task01
         static void Edit(MyCollection collection)
         {
             Console.WriteLine("Enter id to edit: ");
-            int id = Int32.Parse(Console.ReadLine());
+            var id = int.Parse(Console.ReadLine());
         
             Console.Write("Enter param to edit: ");
-            WritePosibleProperty();
-            string param = Console.ReadLine();
+            WritePosibleParameter();
+            var param = Console.ReadLine();
             
             Console.WriteLine("Enter value to change: ");
-            string value = Console.ReadLine();
+            var value = Console.ReadLine();
             
             collection.EditObject(id, param, value);
             collection.WriteInFile();

@@ -2,20 +2,11 @@
   {
     "Id": 22,
     "AddressLine": "Coventry Court",
-    "PostalCode": "02242",
+    "PostalCode": "02241",
     "Country": "LA",
     "City": "Baton Rouge",
     "FaxNumber": "+380979028261",
     "PhoneNumber": "+380949088261"
-  },
-  {
-    "Id": 389,
-    "AddressLine": "Mount Street",
-    "PostalCode": "78334",
-    "Country": "OH",
-    "City": "Irondale",
-    "FaxNumber": "+380979028261",
-    "PhoneNumber": "+380994088261"
   },
   {
     "Id": 31,
@@ -25,6 +16,15 @@
     "City": "Riverside",
     "FaxNumber": "+380979088222",
     "PhoneNumber": "+380999088234"
+  },
+  {
+    "Id": 389,
+    "AddressLine": "Mount Street",
+    "PostalCode": "78334",
+    "Country": "OH",
+    "City": "Irondale",
+    "FaxNumber": "+380979028261",
+    "PhoneNumber": "+380994088261"
   },
   {
     "Id": 390,

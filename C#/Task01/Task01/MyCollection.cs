@@ -11,23 +11,21 @@ namespace Task01
     /// Class for Collection on list representation.
     /// Contain all method for performing some list functions.
     /// </summary>
-    /// <remarks>
-    /// This class can read-write json, search, sort, delete add edit object
-    /// </remarks>
+    /// <remarks>This class can read-write json, search, sort, delete, add, edit object.</remarks>
     public class MyCollection
     {
-        private List<Address> Data;
+        private List<Address> _data;
 
         /// <summary>Initializes a new "MyCollection" object.</summary>
         public MyCollection()
         {
-            this.Data = new List<Address>();
+            this._data = new List<Address>();
         }
 
         /// <summary> Returns a String which represents the object instance.</summary>
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(Data, Formatting.Indented);
+            return JsonConvert.SerializeObject(_data, Formatting.Indented);
         }
 
         /// <summary>Validate Address object.</summary>
@@ -38,50 +36,49 @@ namespace Task01
         /// </exception>
         static bool ValidateObject(Address newJsonAddress)
         {
-            var singleStringErrorMessage = "";
             var results = new List<ValidationResult>();
             var context = new ValidationContext(newJsonAddress);
 
             if (!Validator.TryValidateObject(newJsonAddress, context, results, true))
             {
-                foreach (var error in results)
-                {
-                    singleStringErrorMessage += error.ErrorMessage + "\n";
-                }
-
-                throw new ValidationException(singleStringErrorMessage);
+                throw new ValidationException(results.Aggregate("",
+                    (current, error) => current + (error.ErrorMessage + "\n") +
+                                        "Your value: " +
+                                        typeof(Address).GetProperty(error.ErrorMessage.Split(' ')[0])
+                                            .GetValue(newJsonAddress, null).ToString())
+                );
             }
-            return true; 
+
+            return true;
         }
-        
+
         /// <summary>Read json file and added them to collection.</summary>
         /// <param name="filePath">String representation of file path.</param>
         public void ReadJson(string filePath = "resources/data.json") //[FileNameValidator] 
         {
-            this.Data = new List<Address>();
-            var neededPath = System.IO.Directory.GetCurrentDirectory().Replace("bin/Debug/net5.0", 
-                filePath);  // :(
+            this._data = new List<Address>();
+            var neededPath = Directory.GetCurrentDirectory().Replace("bin/Debug/net5.0", filePath); // :(
             using (var r = new StreamReader(neededPath))
             {
-                foreach (var i in JsonConvert.DeserializeObject<List<Address>>(r.ReadToEnd()))
+                foreach (var i in JsonConvert.DeserializeObject<List<Address>>(r.ReadToEnd()).Where(ValidateObject))
                 {
-                    if (ValidateObject(i)) { Data.Add(i); }
+                    _data.Add(i);
                 }
             }
         }
-        
+
         /// <summary>Write Address objects from collection to json file.</summary>
         /// <param name="filePath">String representation of file path.</param>
         public void WriteInFile(string filePath = "resources/data.json")
         {
-            var writePath = System.IO.Directory.GetCurrentDirectory().Replace("bin/Debug/net5.0", 
+            var writePath = Directory.GetCurrentDirectory().Replace("bin/Debug/net5.0",
                 filePath);
             using (StreamWriter sw = new StreamWriter(writePath, false, System.Text.Encoding.Default))
             {
                 sw.Write(this.ToString());
             }
         }
-    
+
         /// <summary> Search in collection of Address objects by string representation of specified value.</summary>
         /// <param name="searchValue">String representation of search value.</param>
         /// <returns>List of objects with the found value</returns>
@@ -89,15 +86,16 @@ namespace Task01
         {
             var searchResult = new List<Address>();
 
-            foreach (var obj in this.Data)
+            foreach (var obj in this._data)
             {
-                foreach (var attr in typeof(Address).GetProperties())
+                if (typeof(Address).GetProperties()
+                    .Select(attr => typeof(Address).GetProperty(attr.Name).GetValue(obj, null))
+                    .Any(temp => temp.ToString().ToLower().Contains(searchValue)))
                 {
-                    var temp = typeof(Address).GetProperty(attr.Name).GetValue(obj, null);
-                    if (temp.ToString().ToLower().Contains(searchValue)) { searchResult.Add(obj); break; }
+                    searchResult.Add(obj);
                 }
             }
-        
+
             return searchResult;
         }
 
@@ -105,10 +103,11 @@ namespace Task01
         /// <param name="property">String representation of Address property.</param>
         /// <returns>True if property is valid.</returns>
         /// <exception cref="ArgumentException"></exception>
-        private static bool CheckProperty(string property)
+        private static bool CheckProperty(string property, string[] hideParam = null)
         {
-            if (!typeof(Address).GetProperties().All(obj => property != obj.Name)) return true;
-            throw new ArgumentException($"{property} is invalid.");
+            if (!typeof(Address).GetProperties().All(obj => property != obj.Name) & 
+                (hideParam ?? Array.Empty<string>()).All(obj=>obj != property)) return true;
+            throw new ArgumentException($"\"{property}\" is invalid.");
         }
     
         /// <summary>Sort collection by string representation of address property.</summary>
@@ -117,9 +116,10 @@ namespace Task01
         {
             if (CheckProperty(sortBy))
             {
-                Data.Sort((address, address1) => string.Compare(
-                    typeof(Address).GetProperty(sortBy).GetValue(address, null).ToString().ToLower(),
-                    typeof(Address).GetProperty(sortBy).GetValue(address1, null).ToString().ToLower(),
+                var properties = typeof(Address).GetProperty(sortBy);
+                _data.Sort((address, address1) => string.Compare(
+                    properties.GetValue(address, null).ToString().ToLower(),
+                    properties.GetValue(address1, null).ToString().ToLower(),
                     StringComparison.Ordinal));
             }
         }
@@ -129,7 +129,7 @@ namespace Task01
         /// <exception cref="Exception"></exception>
         public void Delete(int id)
         {
-            if (!Data.Remove(this.Data.Find(obj => obj.Id == id)))
+            if (!_data.Remove(this._data.Find(obj => obj.Id == id)))
             {
                 throw new Exception("No address with such ID found");
             }
@@ -138,7 +138,7 @@ namespace Task01
         /// <summary>Add new Address object to collection.</summary>
         public void AddNewObj()
         {
-            var newObj = new Address(Data.Max(obj => obj.Id)+1);
+            var newObj = new Address(_data.Max(obj => obj.Id)+1);
         
             foreach (var attr in typeof(Address).GetProperties().Skip(1))
             {
@@ -146,7 +146,7 @@ namespace Task01
                 var strValue = Console.ReadLine();
                 typeof(Address).GetProperty(attr.Name).SetValue(newObj, strValue, null);
             }
-            if (ValidateObject(newObj)) { Data.Add(newObj); }
+            if (ValidateObject(newObj)) { _data.Add(newObj); }
         }
 
         /// <summary>Edit object.</summary>
@@ -154,24 +154,21 @@ namespace Task01
         /// <param name="param">Object property which must be edited.</param>
         /// <param name="value">New object value</param>
         /// <exception cref="ArgumentException"></exception>
-        public void EditObject(int objId, string param, object value)
+        public void EditObject(int objId, string param, string value)
         {
-            if (CheckProperty(param) & !Data.All(obj => obj.Id != objId))
+            var hiddenProperty = new[] {"Id"};
+            
+            if (CheckProperty(param, hiddenProperty) & !_data.All(obj => obj.Id != objId))
             {
-                var results = new List<ValidationResult>();
-                var context = new ValidationContext(typeof(Address).GetProperty(param));
-
-                var currentObj = Data.Find(obj => obj.Id == objId);
+                var currentObj = _data.Find(obj => obj.Id == objId);
                 var newObj = currentObj;
+                var properties = typeof(Address).GetProperty(param);
                 
-                typeof(Address).GetProperty(param).SetValue(newObj, value, null);
+                properties.SetValue(newObj, Convert.ChangeType(value, properties.PropertyType), null);
                 
-                if (ValidateObject(newObj)) { Data[Data.IndexOf(currentObj)] = newObj; }
+                if (ValidateObject(newObj)) { _data[_data.IndexOf(currentObj)] = newObj; }
             }
-            else
-            {
-                throw new ArgumentException("Invalid data!");
-            }
+            else { throw new ArgumentException("Invalid data!"); }
         }
     }
 }

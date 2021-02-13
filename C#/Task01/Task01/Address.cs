@@ -48,10 +48,7 @@ namespace Task01
         /// <summary> Returns a String which represents the object instance.</summary>
         public override string ToString()
         {
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true
-            };
+            var options = new JsonSerializerOptions { WriteIndented = true };
             return JsonSerializer.Serialize<Address>(this, options);
         }
     }
