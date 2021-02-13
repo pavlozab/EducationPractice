@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-
-// FIXME needed better structure, task6-7-8, needed try-catch 
 
 namespace Task01
 {
@@ -51,6 +49,11 @@ namespace Task01
                             break;
                     }
                 }
+                catch (ValidationException e)
+                {
+                    Console.WriteLine("\nValidation error:");
+                    Console.WriteLine(e.Message);
+                }
                 catch (Exception e)
                 {
                     Console.WriteLine("\nError:");
@@ -94,14 +97,19 @@ namespace Task01
             }
         }
 
-        static void SortBy(MyCollection collection)
+        static void WritePosibleProperty()
         {
-            Console.Write("Enter field for which you want to sort: \nPOSSIBLE: ");
+            Console.Write("\nPOSSIBLE: ");
             foreach (var i in typeof(Address).GetProperties())
             {
                 Console.Write("{0}, ", i.Name);
             }
             Console.WriteLine();
+        }
+        static void SortBy(MyCollection collection)
+        {
+            Console.Write("Enter field for which you want to sort:");
+            WritePosibleProperty();
             string searchValue = Console.ReadLine();
             
             collection.Sort(searchValue);
@@ -120,13 +128,14 @@ namespace Task01
             Console.WriteLine("Enter id to edit: ");
             int id = Int32.Parse(Console.ReadLine());
         
-            Console.WriteLine("Enter param to edit: ");
+            Console.Write("Enter param to edit: ");
+            WritePosibleProperty();
             string param = Console.ReadLine();
             
             Console.WriteLine("Enter value to change: ");
             string value = Console.ReadLine();
             
-            collection.EditeObj(id, param, value);
+            collection.EditObject(id, param, value);
             collection.WriteInFile();
         }
     }
