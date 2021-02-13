@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Text.Json;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
@@ -8,34 +10,83 @@ namespace Task01
     /// <summary> Class for Address representation. </summary>
     public class Address
     {
-        public int Id { get; init; } 
+        private int _id;
+        private string _addressLine;
+        private string _postalCode;
+        private string _country;
+        private string _city;
+        private string _faxNumber;
+        private string _phoneNumber;
         
-        [Required]
-        [RegularExpression(@"[a-zA-z,.\s]+", ErrorMessage = "{0} must contain only letters ")]
-        public string AddressLine { get; set; }
+        public int Id { get; init; }
 
-        [Required]
-        [StringLength(5, ErrorMessage = "{0} length must be {1}.", MinimumLength = 5)]
-        [RegularExpression(@"\d+", ErrorMessage = "{0} must contain only number")]
-        public string PostalCode { get; set; }
+        public string AddressLine
+        {
+            get => _addressLine;
+            set
+            {
+                if ()
+                {
+                    _addressLine = value;
+                }
+            }
+        }
+
+        public string PostalCode
+        {
+            get => _postalCode;
+            set
+            {
+                
+            }
+        }
         
-        [Required]
-        [RegularExpression(@"[a-zA-Z,.\s]+", ErrorMessage = "{0} must contain only letters")]
-        public string Country { get; set; }
+        public string Country 
+        {
+            get => _country;
+            set
+            {
+                
+            }
+        }
         
-        [Required]
-        [RegularExpression(@"[a-zA-Z,.\s]+", ErrorMessage = "{0} must contain only letters")]
-        public string City { get; set; }
-
-        [Phone]
-        [Required]
-        [StringLength(13, ErrorMessage = "{0} length must be {1}.", MinimumLength = 13)]
-        public string FaxNumber { get; set; }
-
-        [Phone] 
-        [Required]
-        [StringLength(13, ErrorMessage = "{0} length must be {1}.", MinimumLength = 13)]
-        public string PhoneNumber { get; set; }
+        public string City 
+        {
+            get => _city;
+            set
+            {
+                
+            }
+        }
+        public string FaxNumber 
+        {
+            get => _faxNumber;
+            set
+            {
+                
+            }
+        }
+        public string PhoneNumber 
+        {
+            get => _phoneNumber;
+            set
+            {
+                
+            }
+        }
+        public Address(int id, string addressLine, 
+            string postalCode, string country, 
+            string city, string faxNumber, 
+            string phoneNumber)
+        {
+            this._id = id;
+            this._addressLine = addressLine;
+            this._postalCode = postalCode;
+            this._country = country;
+            this._city = city;
+            this._faxNumber = faxNumber;
+            this._phoneNumber = phoneNumber;
+        }
         
         /// <summary> Constructor for json serializer. </summary>
         [JsonConstructor]
@@ -43,8 +94,8 @@ namespace Task01
     
         /// <summary>Initializes a new Address object.</summary>
         /// <param name="id">Id of new object.</param>
-        public Address(int id) { this.Id = id; }
-        
+        public Address(int id) { this._id = id; }
+
         /// <summary> Returns a String which represents the object instance.</summary>
         public override string ToString()
         {
