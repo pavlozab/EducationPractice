@@ -41,11 +41,11 @@ namespace Task01
         [JsonConstructor]
         public Address() { }
     
-        /// <summary>Initializes a new Address object.</summary>
+        /// <summary>Initializes a new Address object with one parameter id.</summary>
         /// <param name="id">Id of new object.</param>
         public Address(int id) { this.Id = id; }
 
-        /// <summary> Returns a String which represents the object instance.</summary>
+        /// <summary>Returns a String which represents the object instance.</summary>
         public override string ToString()
         {
             var options = new JsonSerializerOptions { WriteIndented = true };

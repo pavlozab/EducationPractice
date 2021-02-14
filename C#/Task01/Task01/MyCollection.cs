@@ -9,7 +9,7 @@ namespace Task01
 {
     /// <summary>
     /// Class for Collection on list representation.
-    /// Contain all method for performing some list functions.
+    /// Contain method for performing task.
     /// </summary>
     /// <remarks>This class can read-write json, search, sort, delete, add, edit object.</remarks>
     public class MyCollection
@@ -52,8 +52,8 @@ namespace Task01
             return true;
         }
 
-        /// <summary>Read json file and added them to collection.</summary>
-        /// <param name="filePath">String representation of file name which contained in "resources" folder.</param>
+        /// <summary>Read json file and added new object to collection.</summary>
+        /// <param name="fileName">String representation of file name which contained in "resources" folder.</param>
         public void ReadJson(string fileName = "data.json")
         {
             this._data = new List<Address>();
@@ -76,7 +76,7 @@ namespace Task01
         }
 
         /// <summary>Write Address objects from collection to json file.</summary>
-        /// <param name="filePath">String representation of file name which contained in "resources" folder.</param>
+        /// <param name="fileName">String representation of file name which contained in "resources" folder.</param>
         public void WriteInFile(string fileName = "data.json")
         {
             using (StreamWriter sw = new StreamWriter(@"../resources/" + fileName, 
@@ -86,7 +86,7 @@ namespace Task01
             }
         }
 
-        /// <summary> Search in collection of Address objects by string representation of specified value.</summary>
+        /// <summary>Search in collection of Address objects by string representation of specified value.</summary>
         /// <param name="searchValue">String representation of search value.</param>
         /// <returns>List of objects with the found value</returns>
         public List<Address> Search(string searchValue)
@@ -119,7 +119,7 @@ namespace Task01
             throw new ArgumentException($"\"{objId}\" id is invalid.");
         }
     
-        /// <summary>Sort collection by string representation of address property.</summary>
+        /// <summary>Sort collection by address property.</summary>
         /// <param name="sortBy">String representation of Address property. Sorted by this param.</param>
         public void Sort(string sortBy)
         {
@@ -135,12 +135,12 @@ namespace Task01
 
         /// <summary>Delete address object from collection by id.</summary>
         /// <param name="id">Id of address object which must be removed.</param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="ArgumentException">Invalid Id.</exception>
         public void Delete(int id)
         {
             if (!_data.Remove(this._data.Find(obj => obj.Id == id)))
             {
-                throw new Exception("No address with such ID found");
+                throw new ArgumentException("No address with such ID found");
             }
         }
     
@@ -163,8 +163,8 @@ namespace Task01
         /// <summary>Edit object.</summary>
         /// <param name="objId">Object id which must be edited.</param>
         /// <param name="param">Object property which must be edited.</param>
-        /// <param name="value">New object value</param>
-        /// <exception cref="ArgumentException"></exception>
+        /// <param name="value">New object value.</param>
+        /// <exception cref="ArgumentException">Invalid object id, parameter or new value</exception>
         public void EditObject(int objId, string param, string value)
         {
             var hiddenProperty = new[] {"Id"};
