@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Task01
@@ -19,7 +18,7 @@ namespace Task01
                     switch (choice)
                     {
                         case "1":
-                            collection.ReadJson("resources/data.json");
+                            collection.ReadJson();
                             break;
                         case "2":
                             Search(collection);
@@ -48,11 +47,6 @@ namespace Task01
                             break;
                     }
                 }
-                catch (ValidationException e)
-                {
-                    Console.WriteLine("\nValidation error:\n");
-                    Console.WriteLine(e.Message);
-                }
                 catch (ArgumentException e)
                 {
                     Console.WriteLine("\nArgument error:\n");
@@ -77,7 +71,7 @@ namespace Task01
             Console.WriteLine("* 4 - to delete.                  *");
             Console.WriteLine("* 5 - to add new.                 *");
             Console.WriteLine("* 6 - to edit element.            *");
-            Console.WriteLine("* 7 - to print colllection.       *");
+            Console.WriteLine("* 7 - to print collection.        *");
             Console.WriteLine("*  exit - to exit.                *");
             Console.WriteLine("* * * * * * * * * * * * * * * * * *\n");
         }
@@ -103,7 +97,7 @@ namespace Task01
         }
 
         /// <summary>The function that returns string representation of possible address parameter.</summary>
-        static void WritePosibleParameter()
+        static void WritePossibleParameter()
         {
             Console.Write("\nPOSSIBLE: ");
             foreach (var i in typeof(Address).GetProperties())
@@ -115,7 +109,7 @@ namespace Task01
         static void SortBy(MyCollection collection)
         {
             Console.Write("Enter field for which you want to sort:");
-            WritePosibleParameter();
+            WritePossibleParameter();
             var searchValue = Console.ReadLine();
             
             collection.Sort(searchValue);
@@ -135,7 +129,7 @@ namespace Task01
             var id = int.Parse(Console.ReadLine());
         
             Console.Write("Enter param to edit: ");
-            WritePosibleParameter();
+            WritePossibleParameter();
             var param = Console.ReadLine();
             
             Console.WriteLine("Enter value to change: ");

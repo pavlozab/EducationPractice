@@ -44,7 +44,7 @@ namespace Task01
         /// <summary>Initializes a new Address object.</summary>
         /// <param name="id">Id of new object.</param>
         public Address(int id) { this.Id = id; }
-        
+
         /// <summary> Returns a String which represents the object instance.</summary>
         public override string ToString()
         {

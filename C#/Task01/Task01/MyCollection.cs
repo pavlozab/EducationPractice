@@ -25,7 +25,7 @@ namespace Task01
         /// <summary> Returns a String which represents the object instance.</summary>
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(_data, Formatting.Indented);
+            return JsonConvert.SerializeObject(this._data, Formatting.Indented);
         }
 
         /// <summary>Validate Address object.</summary>
@@ -42,10 +42,10 @@ namespace Task01
             if (!Validator.TryValidateObject(newJsonAddress, context, results, true))
             {
                 throw new ValidationException(results.Aggregate("",
-                    (current, error) => current + (error.ErrorMessage + "\n") +
-                                        "Your value: " +
-                                        typeof(Address).GetProperty(error.ErrorMessage.Split(' ')[0])
-                                            .GetValue(newJsonAddress, null).ToString())
+                    (current, error) => current + (error.ErrorMessage) + 
+                                        "\nYour value: " + 
+                                        typeof(Address).GetProperty(error.ErrorMessage.Split(' ')[0]).
+                                            GetValue(newJsonAddress, null).ToString()+ "\n") 
                 );
             }
 
@@ -53,27 +53,34 @@ namespace Task01
         }
 
         /// <summary>Read json file and added them to collection.</summary>
-        /// <param name="filePath">String representation of file path.</param>
-        public void ReadJson(string filePath = "resources/data.json") //[FileNameValidator] 
+        /// <param name="filePath">String representation of file name which contained in "resources" folder.</param>
+        public void ReadJson(string fileName = "data.json")
         {
             this._data = new List<Address>();
-            var neededPath = Directory.GetCurrentDirectory().Replace("bin/Debug/net5.0", filePath); // :(
-            using (var r = new StreamReader(neededPath))
+
+            using (var r = new StreamReader(@"../resources/" + fileName))
             {
-                foreach (var i in JsonConvert.DeserializeObject<List<Address>>(r.ReadToEnd()).Where(ValidateObject))
+                foreach (var i in JsonConvert.DeserializeObject<List<Address>>(r.ReadToEnd()))
                 {
-                    _data.Add(i);
+                    try
+                    {
+                        if (ValidateObject(i)) this._data.Add(i);
+                    }
+                    catch (ValidationException e)
+                    {
+                        Console.WriteLine("\nValidation error:\n");
+                        Console.WriteLine(e.Message);
+                    }
                 }
             }
         }
 
         /// <summary>Write Address objects from collection to json file.</summary>
-        /// <param name="filePath">String representation of file path.</param>
-        public void WriteInFile(string filePath = "resources/data.json")
+        /// <param name="filePath">String representation of file name which contained in "resources" folder.</param>
+        public void WriteInFile(string fileName = "data.json")
         {
-            var writePath = Directory.GetCurrentDirectory().Replace("bin/Debug/net5.0",
-                filePath);
-            using (StreamWriter sw = new StreamWriter(writePath, false, System.Text.Encoding.Default))
+            using (StreamWriter sw = new StreamWriter(@"../resources/" + fileName, 
+                false, System.Text.Encoding.Default))
             {
                 sw.Write(this.ToString());
             }
@@ -84,44 +91,46 @@ namespace Task01
         /// <returns>List of objects with the found value</returns>
         public List<Address> Search(string searchValue)
         {
-            var searchResult = new List<Address>();
-
-            foreach (var obj in this._data)
-            {
-                if (typeof(Address).GetProperties()
+            return this._data.Where(obj => typeof(Address).GetProperties()
                     .Select(attr => typeof(Address).GetProperty(attr.Name).GetValue(obj, null))
                     .Any(temp => temp.ToString().ToLower().Contains(searchValue)))
-                {
-                    searchResult.Add(obj);
-                }
-            }
-
-            return searchResult;
+                .ToList();
         }
 
         /// <summary>Check property.</summary>
         /// <param name="property">String representation of Address property.</param>
+        /// <param name="hideParam">If property == one of this param, return false</param>
         /// <returns>True if property is valid.</returns>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException">Invalid parameter</exception>
         private static bool CheckProperty(string property, string[] hideParam = null)
         {
             if (!typeof(Address).GetProperties().All(obj => property != obj.Name) & 
                 (hideParam ?? Array.Empty<string>()).All(obj=>obj != property)) return true;
             throw new ArgumentException($"\"{property}\" is invalid.");
         }
+        
+        /// <summary>Check id.</summary>
+        /// <param name="objId">String representation of object id which should be checked.</param>
+        /// <returns>True if id is valid.</returns>
+        /// <exception cref="ArgumentException">Invalid id</exception>
+        private bool CheckId(int objId)
+        {
+            if (this._data.Any(obj => obj.Id == objId)) return true;
+            throw new ArgumentException($"\"{objId}\" id is invalid.");
+        }
     
         /// <summary>Sort collection by string representation of address property.</summary>
         /// <param name="sortBy">String representation of Address property. Sorted by this param.</param>
         public void Sort(string sortBy)
         {
-            if (CheckProperty(sortBy))
-            {
-                var properties = typeof(Address).GetProperty(sortBy);
-                _data.Sort((address, address1) => string.Compare(
-                    properties.GetValue(address, null).ToString().ToLower(),
-                    properties.GetValue(address1, null).ToString().ToLower(),
-                    StringComparison.Ordinal));
-            }
+            if (!CheckProperty(sortBy)) return;
+            
+            var properties = typeof(Address).GetProperty(sortBy);
+                
+            this._data.Sort((address, address1) => string.Compare(
+                properties.GetValue(address, null).ToString().ToLower(),
+                properties.GetValue(address1, null).ToString().ToLower(),
+                StringComparison.Ordinal));
         }
 
         /// <summary>Delete address object from collection by id.</summary>
@@ -144,7 +153,9 @@ namespace Task01
             {
                 Console.Write("Enter {0}: ", attr.Name);
                 var strValue = Console.ReadLine();
-                typeof(Address).GetProperty(attr.Name).SetValue(newObj, strValue, null);
+                var properties = typeof(Address).GetProperty(attr.Name);
+                
+                properties.SetValue(newObj, Convert.ChangeType(strValue, properties.PropertyType), null);
             }
             if (ValidateObject(newObj)) { _data.Add(newObj); }
         }
@@ -158,15 +169,23 @@ namespace Task01
         {
             var hiddenProperty = new[] {"Id"};
             
-            if (CheckProperty(param, hiddenProperty) & !_data.All(obj => obj.Id != objId))
+            if (CheckProperty(param, hiddenProperty) & CheckId(objId))
             {
-                var currentObj = _data.Find(obj => obj.Id == objId);
-                var newObj = currentObj;
                 var properties = typeof(Address).GetProperty(param);
+                var currentObj = this._data.Find(obj => obj.Id == objId);
+                var currentValue = properties.GetValue(currentObj);
                 
-                properties.SetValue(newObj, Convert.ChangeType(value, properties.PropertyType), null);
-                
-                if (ValidateObject(newObj)) { _data[_data.IndexOf(currentObj)] = newObj; }
+                properties.SetValue(currentObj, Convert.ChangeType(value, properties.PropertyType), null);
+                try
+                {
+                    ValidateObject(currentObj);
+                }
+                catch (ValidationException e)
+                {
+                    Console.WriteLine("\nValidation error:\n");
+                    Console.WriteLine(e.Message);
+                    properties.SetValue(currentObj, currentValue, null);
+                }
             }
             else { throw new ArgumentException("Invalid data!"); }
         }

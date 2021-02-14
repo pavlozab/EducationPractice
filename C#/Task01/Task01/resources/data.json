@@ -1,14 +1,5 @@
 [
   {
-    "Id": 22,
-    "AddressLine": "Coventry Court",
-    "PostalCode": "02241",
-    "Country": "LA",
-    "City": "Baton Rouge",
-    "FaxNumber": "+380979028261",
-    "PhoneNumber": "+380949088261"
-  },
-  {
     "Id": 31,
     "AddressLine": "Murphy Court",
     "PostalCode": "92501",
@@ -18,13 +9,13 @@
     "PhoneNumber": "+380999088234"
   },
   {
-    "Id": 389,
-    "AddressLine": "Mount Street",
-    "PostalCode": "78334",
-    "Country": "OH",
-    "City": "Irondale",
+    "Id": 22,
+    "AddressLine": "Coventry Court",
+    "PostalCode": "02241",
+    "Country": "LA",
+    "City": "Baton Rouge",
     "FaxNumber": "+380979028261",
-    "PhoneNumber": "+380994088261"
+    "PhoneNumber": "+380949088261"
   },
   {
     "Id": 390,
@@ -34,5 +25,14 @@
     "City": "Massachusetts",
     "FaxNumber": "+380978252678",
     "PhoneNumber": "+380978252671"
+  },
+  {
+    "Id": 389,
+    "AddressLine": "Mount Street",
+    "PostalCode": "67890",
+    "Country": "OH",
+    "City": "Irondale",
+    "FaxNumber": "+380979028261",
+    "PhoneNumber": "+380994088261"
   }
 ]

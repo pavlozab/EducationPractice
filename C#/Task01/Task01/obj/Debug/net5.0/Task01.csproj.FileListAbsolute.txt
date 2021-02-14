@@ -15,3 +15,17 @@
 /Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/obj/Debug/net5.0/Task01.genruntimeconfig.cache
 /Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/bin/Debug/net5.0/Newtonsoft.Json.dll
 /Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/obj/Debug/net5.0/Task01.csproj.CopyComplete
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/Task01/net5.0/Task01.deps.json
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/Task01/net5.0/Task01.runtimeconfig.json
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/Task01/net5.0/Task01.runtimeconfig.dev.json
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/Task01/net5.0/Task01.dll
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/Task01/net5.0/ref/Task01.dll
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/Task01/net5.0/Task01.pdb
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/Task01/net5.0/Newtonsoft.Json.dll
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/net5.0/Task01.deps.json
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/net5.0/Task01.runtimeconfig.json
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/net5.0/Task01.runtimeconfig.dev.json
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/net5.0/Task01.dll
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/net5.0/ref/Task01.dll
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/net5.0/Task01.pdb
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task01/Task01/net5.0/Newtonsoft.Json.dll
