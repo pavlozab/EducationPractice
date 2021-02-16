@@ -1,0 +1,17 @@
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/bin/Debug/net5.0/Task_01.deps.json
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/bin/Debug/net5.0/Task_01.runtimeconfig.json
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/bin/Debug/net5.0/Task_01.runtimeconfig.dev.json
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/bin/Debug/net5.0/Task_01.dll
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/bin/Debug/net5.0/ref/Task_01.dll
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/bin/Debug/net5.0/Task_01.pdb
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/bin/Debug/net5.0/Newtonsoft.Json.dll
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/obj/Debug/net5.0/Task_01.csprojAssemblyReference.cache
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/obj/Debug/net5.0/Task_01.GeneratedMSBuildEditorConfig.editorconfig
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/obj/Debug/net5.0/Task_01.AssemblyInfoInputs.cache
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/obj/Debug/net5.0/Task_01.AssemblyInfo.cs
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/obj/Debug/net5.0/Task_01.csproj.CoreCompileInputs.cache
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/obj/Debug/net5.0/Task_01.csproj.CopyComplete
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/obj/Debug/net5.0/Task_01.dll
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/obj/Debug/net5.0/ref/Task_01.dll
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/obj/Debug/net5.0/Task_01.pdb
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_01/Task_01/obj/Debug/net5.0/Task_01.genruntimeconfig.cache
