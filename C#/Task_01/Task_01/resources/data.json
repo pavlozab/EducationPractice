@@ -1,0 +1,38 @@
+[
+  {
+    "Id": 390,
+    "AddressLine": "Pearlman Avenue",
+    "PostalCode": "01731",
+    "Country": "MA",
+    "City": "Massachusetts",
+    "FaxNumber": "+380978252678",
+    "PhoneNumber": "+380978252671"
+  },
+  {
+    "Id": 22,
+    "AddressLine": "Coventry Court",
+    "PostalCode": "02241",
+    "Country": "LA",
+    "City": "Baton Rouge",
+    "FaxNumber": "+380979028261",
+    "PhoneNumber": "+380949088261"
+  },
+  {
+    "Id": 389,
+    "AddressLine": "Mount Street",
+    "PostalCode": "67890",
+    "Country": "OH",
+    "City": "Irondale",
+    "FaxNumber": "+380979028261",
+    "PhoneNumber": "+380994088261"
+  },
+  {
+    "Id": 31,
+    "AddressLine": "Murphy Court",
+    "PostalCode": "92501",
+    "Country": "CA",
+    "City": "Riverside",
+    "FaxNumber": "+380979088222",
+    "PhoneNumber": "+380999088234"
+  }
+]
