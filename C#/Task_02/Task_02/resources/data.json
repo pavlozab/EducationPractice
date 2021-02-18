@@ -1,0 +1,29 @@
+[
+  {
+    "AddressLine": "Coventry Court",
+    "PostalCode": "02241",
+    "Country": "LA",
+    "City": "Baton Rouge",
+    "FaxNumber": "+380979028261",
+    "PhoneNumber": "+380949088261",
+    "Id": "d2541da2-edae-4a33-8511-22ce5075fb39"
+  },
+  {
+    "AddressLine": "Mount Street",
+    "PostalCode": "67890",
+    "Country": "OH",
+    "City": "Irondale",
+    "FaxNumber": "+380979028261",
+    "PhoneNumber": "+380994088261",
+    "Id": "62d215e7-ee89-4ac3-b18e-39060046a798"
+  },
+  {
+    "AddressLine": "Murphy Court",
+    "PostalCode": "92501",
+    "Country": "CA",
+    "City": "Riverside",
+    "FaxNumber": "+380979088222",
+    "PhoneNumber": "+380999088234",
+    "Id": "81284887-c85d-41dd-bf67-4a7eaa5d096d"
+  }
+]
