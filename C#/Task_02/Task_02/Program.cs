@@ -18,33 +18,25 @@ namespace Task_02
                 {
                     switch (choice)
                     {
-                        case "1":
-                            ReadJson(collection);
+                        case "1": ReadJson(collection);
                             break;
-                        case "2":
-                            Search(collection);
+                        case "2": Search(collection);
                             break;
-                        case "3":
-                            SortBy(collection);
+                        case "3": SortBy(collection);
                             break;
-                        case "4":
-                            Delete(collection);
+                        case "4": Delete(collection);
                             break;
                         case "5":
                             collection.AddNewObj();
                             collection.WriteInFile();
                             break;
-                        case "6":
-                            Edit(collection);
+                        case "6": Edit(collection);
                             break;
-                        case "7":
-                            Console.WriteLine(collection.ToString());
+                        case "7": Console.WriteLine(collection.ToString());
                             break;
-                        case "exit":
-                            Console.WriteLine("Goodbye!");
+                        case "exit": Console.WriteLine("Goodbye!");
                             break;
-                        default:
-                            Console.WriteLine("Wrong input!");
+                        default: Console.WriteLine("Wrong input!");
                             break;
                     }
                 }
