@@ -19,15 +19,16 @@ namespace Task_02
         /// <summary>Initializes a new "MyCollection" object.</summary>
         public MyCollection()
         {
-            this._data = new List<T>();
+            _data = new List<T>();
         }
 
         /// <summary> Returns a String which represents the object instance.</summary>
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(this._data, Formatting.Indented);
+            return JsonConvert.SerializeObject(_data, Formatting.Indented);
         }
-
+        
+        #region Validate/Check
         /// <summary>Validate Address object.</summary>
         /// <param name="newJsonAddress">Address object</param>
         /// <returns>True if object is valid.</returns>
@@ -38,25 +39,51 @@ namespace Task_02
         {
             var results = new List<ValidationResult>();
             var context = new ValidationContext(newJsonAddress);
-
+            
             if (!Validator.TryValidateObject(newJsonAddress, context, results, true))
             {
                 throw new ValidationException(results.Aggregate("",
                     (current, error) => current + (error.ErrorMessage) + 
                                         "\nYour value: " + 
-                                        typeof(T).GetProperty(error.ErrorMessage.Split(' ')[0]).
-                                            GetValue(newJsonAddress, null).ToString()+ "\n") 
+                                        typeof(T).GetProperty(error.ErrorMessage.Split(' ')[0])
+                                            .GetValue(newJsonAddress, null).ToString()+ "\n") 
                 );
             }
 
             return true;
         }
+        
+        /// <summary>Check property.</summary>
+        /// <param name="property">String representation of Address property.</param>
+        /// <param name="hideParam">If property == one of this param, return false</param>
+        /// <returns>True if property is valid.</returns>
+        /// <exception cref="ArgumentException">Invalid parameter</exception>
+        private static bool CheckProperty(string property, string[] hideParam = null)
+        {
+            if (!typeof(T).GetProperties().All(obj => property != obj.Name) & 
+                (hideParam ?? Array.Empty<string>()).All(obj=>obj != property)) return true;
+            
+            throw new ArgumentException($"\"{property}\" is invalid.");
+        }
+        
+        /// <summary>Check id.</summary>
+        /// <param name="objId">String representation of object id which should be checked.</param>
+        /// <returns>True if id is valid.</returns>
+        /// <exception cref="ArgumentException">Invalid id</exception>
+        private bool CheckId(Guid objId)
+        {
+            if (_data.Any(obj => obj.Id == objId)) return true;
+            
+            throw new ArgumentException($"\"{objId}\" id is invalid.");
+        }
+        #endregion
 
+        #region Json
         /// <summary>Read json file and added new object to collection.</summary>
         /// <param name="fileName">String representation of file name which contained in "resources" folder.</param>
         public void ReadJson(string fileName = "data.json")
         {
-            this._data = new List<T>();
+            _data = new List<T>();
             
             using (var r = new StreamReader(@"../../../resources/" + fileName))
             {
@@ -64,7 +91,7 @@ namespace Task_02
                 {
                     try
                     {
-                        if (ValidateObject(i)) this._data.Add(i);
+                        if (ValidateObject(i)) _data.Add(i);
                     }
                     catch (ValidationException e)
                     {
@@ -85,40 +112,20 @@ namespace Task_02
                 sw.Write(this.ToString());
             }
         }
+        #endregion
 
+        #region Task method
         /// <summary>Search in collection of Address objects by string representation of specified value.</summary>
         /// <param name="searchValue">String representation of search value.</param>
         /// <returns>List of objects with the found value</returns>
         public List<T> Search(string searchValue)
         {
-            return this._data.Where(obj => typeof(T).GetProperties()
+            return _data.Where(obj => typeof(T).GetProperties()
                     .Select(attr => typeof(T).GetProperty(attr.Name).GetValue(obj, null))
                     .Any(temp => temp.ToString().ToLower().Contains(searchValue)))
                 .ToList();
         }
 
-        /// <summary>Check property.</summary>
-        /// <param name="property">String representation of Address property.</param>
-        /// <param name="hideParam">If property == one of this param, return false</param>
-        /// <returns>True if property is valid.</returns>
-        /// <exception cref="ArgumentException">Invalid parameter</exception>
-        private static bool CheckProperty(string property, string[] hideParam = null)
-        {
-            if (!typeof(T).GetProperties().All(obj => property != obj.Name) & 
-                (hideParam ?? Array.Empty<string>()).All(obj=>obj != property)) return true;
-            throw new ArgumentException($"\"{property}\" is invalid.");
-        }
-        
-        /// <summary>Check id.</summary>
-        /// <param name="objId">String representation of object id which should be checked.</param>
-        /// <returns>True if id is valid.</returns>
-        /// <exception cref="ArgumentException">Invalid id</exception>
-        private bool CheckId(Guid objId)
-        {
-            if (this._data.Any(obj => obj.Id == objId)) return true;
-            throw new ArgumentException($"\"{objId}\" id is invalid.");
-        }
-    
         /// <summary>Sort collection by address property.</summary>
         /// <param name="sortBy">String representation of Address property. Sorted by this param.</param>
         public void Sort(string sortBy)
@@ -127,10 +134,11 @@ namespace Task_02
             
             var properties = typeof(T).GetProperty(sortBy);
                 
-            this._data.Sort((address, address1) => string.Compare(
+            _data.Sort((address, address1) => string.Compare(
                 properties.GetValue(address, null).ToString().ToLower(),
                 properties.GetValue(address1, null).ToString().ToLower(),
-                StringComparison.Ordinal));
+                StringComparison.Ordinal)
+            );
         }
 
         /// <summary>Delete address object from collection by id.</summary>
@@ -138,7 +146,7 @@ namespace Task_02
         /// <exception cref="ArgumentException">Invalid Id.</exception>
         public void Delete(Guid objId)
         {
-            if (!_data.Remove(this._data.Find(obj => obj.Id == objId)))
+            if (!_data.Remove(_data.Find(obj => obj.Id == objId)))
             {
                 throw new ArgumentException("No address with such ID found");
             }
@@ -152,14 +160,13 @@ namespace Task_02
 
             foreach (var attr in typeof(T).GetProperties().Where(obj=>obj.Name != "Id"))
             {
-                
                 Console.Write("/nEnter {0}: ",attr.Name);
                 var strValue = Console.ReadLine();
                 var properties = typeof(T).GetProperty(attr.Name);
                 
                 properties.SetValue(newObj, Convert.ChangeType(strValue, properties.PropertyType), null);
             }
-            if (ValidateObject(newObj)) { _data.Add(newObj); }
+            if (ValidateObject(newObj)) _data.Add(newObj); 
         }
 
         /// <summary>Edit object.</summary>
@@ -174,7 +181,7 @@ namespace Task_02
             if (CheckProperty(param, hiddenProperty) & CheckId(objId))
             {
                 var properties = typeof(T).GetProperty(param);
-                var currentObj = this._data.Find(obj => obj.Id == objId);
+                var currentObj = _data.Find(obj => obj.Id == objId);
                 var currentValue = properties.GetValue(currentObj);
                 
                 properties.SetValue(currentObj, Convert.ChangeType(value, properties.PropertyType), null);
@@ -189,7 +196,8 @@ namespace Task_02
                     properties.SetValue(currentObj, currentValue, null);
                 }
             }
-            else { throw new ArgumentException("Invalid data!"); }
+            else throw new ArgumentException("Invalid data!"); 
         }
+        #endregion
     }
 }
