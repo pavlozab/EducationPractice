@@ -6,7 +6,7 @@
     "City": "Baton Rouge",
     "FaxNumber": "+380979028261",
     "PhoneNumber": "+380949088261",
-    "Id": "9ad4a25e-adf3-4a40-820d-2e3a0ef41f51"
+    "Id": "63d9fdbf-4e2a-4094-b4b9-a7fde7d0b6c4"
   },
   {
     "AddressLine": "Mount Street",
@@ -15,7 +15,7 @@
     "City": "Irondale",
     "FaxNumber": "+380979028261",
     "PhoneNumber": "+380994088261",
-    "Id": "18c86e1e-ccc2-4bb6-b3ee-1651ae6b8480"
+    "Id": "d1b487f0-ab44-43cb-a82b-f5d6232fd278"
   },
   {
     "AddressLine": "Murphy Court",
@@ -24,15 +24,15 @@
     "City": "Riverside",
     "FaxNumber": "+380979088222",
     "PhoneNumber": "+380999088234",
-    "Id": "630be6c7-a8fd-4c4e-bd02-4b5f4e4fb26a"
+    "Id": "e14e93d2-fd36-4099-829e-e83a700d682a"
   },
   {
-    "AddressLine": "new address45",
-    "PostalCode": "3264567",
-    "Country": "dfg",
-    "City": "wqe",
-    "FaxNumber": "+38097908826s7",
-    "PhoneNumber": "+380979088267",
-    "Id": "0c02c1b4-5dd9-4c44-b59a-c2466e01c06e"
+    "AddressLine": "Pearlman Avenue",
+    "PostalCode": "03421",
+    "Country": "MA",
+    "City": "Massachusetts",
+    "FaxNumber": "+380979088123",
+    "PhoneNumber": "+380979088000",
+    "Id": "0c4ab15e-c330-4d9b-9a27-bf14114ec026"
   }
 ]

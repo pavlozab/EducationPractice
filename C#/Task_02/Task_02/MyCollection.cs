@@ -29,8 +29,8 @@ namespace Task_02
         }
         
         #region Validate/Check
-        /// <summary>Validate Address object.</summary>
-        /// <param name="newJsonAddress">Address object</param>
+        /// <summary>Validate object.</summary>
+        /// <param name="newJsonAddress">New object</param>
         /// <returns>True if object is valid.</returns>
         /// <exception cref="ValidationException">
         /// Thrown string with all error message when one or more Address parameters is invalid. 
@@ -42,12 +42,11 @@ namespace Task_02
             
             if (!Validator.TryValidateObject(newJsonAddress, context, results, true))
             {
-                Console.Write("Emm\n");
                 throw new ValidationException(results.Aggregate("",
-                    (current, error) => current + (error.ErrorMessage) + 
-                                        "\nYour value: " + 
-                                        typeof(Address).GetProperty(error.ErrorMessage.Split(' ')[0]).
-                                            GetValue(newJsonAddress, null).ToString() + "\n") 
+                        (current, error) => current + (error.ErrorMessage) +
+                                            "\nYour value: " +
+                                            typeof(T).GetProperty(error.ErrorMessage?.Split(' ')[0])
+                                                ?.GetValue(newJsonAddress, null) + "\n")
                 );
             }
 
@@ -55,7 +54,7 @@ namespace Task_02
         }
         
         /// <summary>Check property.</summary>
-        /// <param name="property">String representation of Address property.</param>
+        /// <param name="property">String representation of T property.</param>
         /// <param name="hideParam">If property == one of this param, return false</param>
         /// <returns>True if property is valid.</returns>
         /// <exception cref="ArgumentException">Invalid parameter</exception>
@@ -93,10 +92,6 @@ namespace Task_02
                     try
                     {
                         if (ValidateObject(i)) _data.Add(i);
-                        else
-                        {
-                            Console.Write("Validation no OK");
-                        }
                     }
                     catch (ValidationException e)
                     {
@@ -107,7 +102,7 @@ namespace Task_02
             }
         }
 
-        /// <summary>Write Address objects from collection to json file.</summary>
+        /// <summary>Write new objects from collection to json file.</summary>
         /// <param name="fileName">String representation of file name which contained in "resources" folder.</param>
         public void WriteInFile(string fileName = "data.json")
         {
@@ -120,19 +115,19 @@ namespace Task_02
         #endregion
 
         #region Task method
-        /// <summary>Search in collection of Address objects by string representation of specified value.</summary>
+        /// <summary>Search in collection objects by string representation of specified value.</summary>
         /// <param name="searchValue">String representation of search value.</param>
         /// <returns>List of objects with the found value</returns>
         public List<T> Search(string searchValue)
         {
             return _data.Where(obj => typeof(T).GetProperties()
                     .Select(attr => typeof(T).GetProperty(attr.Name).GetValue(obj, null))
-                    .Any(temp => temp.ToString().ToLower().Contains(searchValue)))
+                    .Any(temp => temp.ToString().ToLower().Contains(searchValue.ToLower())))
                 .ToList();
         }
 
         /// <summary>Sort collection by address property.</summary>
-        /// <param name="sortBy">String representation of Address property. Sorted by this param.</param>
+        /// <param name="sortBy">String representation of T property. Sorted by this param.</param>
         public void Sort(string sortBy)
         {
             if (!CheckProperty(sortBy)) return;
@@ -157,11 +152,10 @@ namespace Task_02
             }
         }
     
-        /// <summary>Add new Address object to collection.</summary>
+        /// <summary>Add new object to collection.</summary>
         public void AddNewObj()
         {
-            var newObj = new T();//T(this._data.Max(obj => obj.Id) + 1); //{Id = this._data.Max(obj => obj.Id)+1};
-            //newObj.Id = this._data.Max(obj => obj.Id) + 1;
+            var newObj = new T();
 
             foreach (var attr in typeof(T).GetProperties().Where(obj=>obj.Name != "Id"))
             {
@@ -171,7 +165,7 @@ namespace Task_02
                 
                 properties.SetValue(newObj, Convert.ChangeType(strValue, properties.PropertyType), null);
             }
-            if (ValidateObject(newObj)) Console.Write(newObj.ToString()); _data.Add(newObj); 
+            if (ValidateObject(newObj)) _data.Add(newObj); 
         }
 
         /// <summary>Edit object.</summary>
