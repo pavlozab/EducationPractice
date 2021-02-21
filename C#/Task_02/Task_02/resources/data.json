@@ -6,7 +6,7 @@
     "City": "Baton Rouge",
     "FaxNumber": "+380979028261",
     "PhoneNumber": "+380949088261",
-    "Id": "d2541da2-edae-4a33-8511-22ce5075fb39"
+    "Id": "9ad4a25e-adf3-4a40-820d-2e3a0ef41f51"
   },
   {
     "AddressLine": "Mount Street",
@@ -15,7 +15,7 @@
     "City": "Irondale",
     "FaxNumber": "+380979028261",
     "PhoneNumber": "+380994088261",
-    "Id": "62d215e7-ee89-4ac3-b18e-39060046a798"
+    "Id": "18c86e1e-ccc2-4bb6-b3ee-1651ae6b8480"
   },
   {
     "AddressLine": "Murphy Court",
@@ -24,6 +24,15 @@
     "City": "Riverside",
     "FaxNumber": "+380979088222",
     "PhoneNumber": "+380999088234",
-    "Id": "81284887-c85d-41dd-bf67-4a7eaa5d096d"
+    "Id": "630be6c7-a8fd-4c4e-bd02-4b5f4e4fb26a"
+  },
+  {
+    "AddressLine": "new address45",
+    "PostalCode": "3264567",
+    "Country": "dfg",
+    "City": "wqe",
+    "FaxNumber": "+38097908826s7",
+    "PhoneNumber": "+380979088267",
+    "Id": "0c02c1b4-5dd9-4c44-b59a-c2466e01c06e"
   }
-] 
+]

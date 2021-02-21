@@ -14,5 +14,11 @@ namespace Task_02
         {
             Id = Guid.NewGuid();
         }
+        
+        /// <summary>Returns a String which represents the object instance.</summary>
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
     }
 }

@@ -1,6 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Task_02
 {
@@ -27,12 +25,5 @@ namespace Task_02
         [Phone]
         [StringLength(13, ErrorMessage = "{0} length must be {1}.", MinimumLength = 13)]
         public string PhoneNumber { get; set; }
-
-        /// <summary>Returns a String which represents the object instance.</summary>
-        public override string ToString()
-        {
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            return JsonSerializer.Serialize<Address>(this, options);
-        }
     }
 }

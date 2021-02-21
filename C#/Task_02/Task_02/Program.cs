@@ -53,7 +53,7 @@ namespace Task_02
             } while ( choice != "exit");
         }
             
-        #region Hide
+        #region MenuFunc
         /// <summary>The function that returns help message.</summary>
         static void PrintHelp()
         {

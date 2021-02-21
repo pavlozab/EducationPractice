@@ -42,11 +42,12 @@ namespace Task_02
             
             if (!Validator.TryValidateObject(newJsonAddress, context, results, true))
             {
+                Console.Write("Emm\n");
                 throw new ValidationException(results.Aggregate("",
                     (current, error) => current + (error.ErrorMessage) + 
                                         "\nYour value: " + 
-                                        typeof(T).GetProperty(error.ErrorMessage.Split(' ')[0])
-                                            .GetValue(newJsonAddress, null).ToString()+ "\n") 
+                                        typeof(Address).GetProperty(error.ErrorMessage.Split(' ')[0]).
+                                            GetValue(newJsonAddress, null).ToString() + "\n") 
                 );
             }
 
@@ -77,7 +78,7 @@ namespace Task_02
             throw new ArgumentException($"\"{objId}\" id is invalid.");
         }
         #endregion
-
+        
         #region Json
         /// <summary>Read json file and added new object to collection.</summary>
         /// <param name="fileName">String representation of file name which contained in "resources" folder.</param>
@@ -92,6 +93,10 @@ namespace Task_02
                     try
                     {
                         if (ValidateObject(i)) _data.Add(i);
+                        else
+                        {
+                            Console.Write("Validation no OK");
+                        }
                     }
                     catch (ValidationException e)
                     {
@@ -160,13 +165,13 @@ namespace Task_02
 
             foreach (var attr in typeof(T).GetProperties().Where(obj=>obj.Name != "Id"))
             {
-                Console.Write("/nEnter {0}: ",attr.Name);
+                Console.Write("Enter {0}: ",attr.Name);
                 var strValue = Console.ReadLine();
                 var properties = typeof(T).GetProperty(attr.Name);
                 
                 properties.SetValue(newObj, Convert.ChangeType(strValue, properties.PropertyType), null);
             }
-            if (ValidateObject(newObj)) _data.Add(newObj); 
+            if (ValidateObject(newObj)) Console.Write(newObj.ToString()); _data.Add(newObj); 
         }
 
         /// <summary>Edit object.</summary>
