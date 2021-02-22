@@ -8,7 +8,7 @@ namespace Task_02
     {
         static void Main(string[] args)
         {
-            string choice;
+            string choice, fileName = "data.json";
             var collection = new MyCollection<Address>();
             do
             {
@@ -18,21 +18,23 @@ namespace Task_02
                 {
                     switch (choice)
                     {
-                        case "1": ReadJson(collection);
+                        case "1": collection.ReadJson(fileName);
                             break;
-                        case "2": Search(collection);
+                        case "2": Search<Address>(collection);
                             break;
-                        case "3": SortBy(collection);
+                        case "3": SortBy<Address>(collection, fileName);
                             break;
-                        case "4": Delete(collection);
+                        case "4": Delete<Address>(collection, fileName);
                             break;
                         case "5":
                             collection.AddNewObj();
-                            collection.WriteInFile();
+                            collection.WriteInFile(fileName);
                             break;
-                        case "6": Edit(collection);
+                        case "6": Edit<Address>(collection, fileName);
                             break;
                         case "7": Console.WriteLine(collection.ToString());
+                            break;
+                        case "8": fileName = FileName();
                             break;
                         case "exit": Console.WriteLine("Goodbye!");
                             break;
@@ -66,30 +68,31 @@ namespace Task_02
             Console.WriteLine("| 5 - to add new.                 |");
             Console.WriteLine("| 6 - to edit element.            |");
             Console.WriteLine("| 7 - to print collection.        |");
+            Console.WriteLine("| 8 - change file name.           |");
             Console.WriteLine("|  exit - to exit.                |");
             Console.WriteLine("- - - - - - - - - - - - - - - - - -\n");
         }
         
         /// <summary>The function that returns string representation of possible address parameter.</summary>
-        static void WritePossibleParameter()
+        static void WritePossibleParameter<T>()
         {
             Console.Write("\nPOSSIBLE: ");
             
-            foreach (var i in typeof(Address).GetProperties())
+            foreach (var i in typeof(T).GetProperties())
             {
                 Console.Write("{0}, ", i.Name);
             }
             Console.WriteLine();
         }
-        
-        static void ReadJson(MyCollection<Address> collection)
+
+        static string FileName()
         {
-            Console.WriteLine("File name: ");
+            Console.WriteLine("Enter file name: ");
             var fileName = Console.ReadLine();
-            collection.ReadJson(fileName);
+            return fileName;
         }
-        
-        static void Search(MyCollection<Address> collection)
+
+        static void Search<T>(MyCollection<T> collection) where T : BaseProduct, new()
         {
             Console.Write("Enter parameter which elements you want to find:  ");
             var searchValue = Console.ReadLine();
@@ -104,36 +107,37 @@ namespace Task_02
             }
         }
 
-        static void SortBy(MyCollection<Address> collection)
+        static void SortBy<T>(MyCollection<T> collection, string fileName) where T : BaseProduct, new()
         {
             Console.Write("Enter field for which you want to sort:");
-            WritePossibleParameter();
+            WritePossibleParameter<T>();
             var searchValue = Console.ReadLine();
             collection.Sort(searchValue);
+            collection.WriteInFile(fileName);
         }
 
-        static void Delete(MyCollection<Address> collection)
+        static void Delete<T>(MyCollection<T> collection, string fileName) where T : BaseProduct, new()
         {
             Console.WriteLine("Enter id to delete: ");
             var id = Guid.Parse(Console.ReadLine() ?? string.Empty);
             collection.Delete(id);
-            collection.WriteInFile();
+            collection.WriteInFile(fileName);
         }
         
-        static void Edit(MyCollection<Address> collection)
+        static void Edit<T>(MyCollection<T> collection, string fileName) where T : BaseProduct, new()
         {
             Console.WriteLine("Enter id to edit: ");
             var id = Guid.Parse(Console.ReadLine() ?? string.Empty);
         
             Console.Write("Enter param to edit: ");
-            WritePossibleParameter();
+            WritePossibleParameter<T>();
             var param = Console.ReadLine();
             
             Console.WriteLine("Enter value to change: ");
             var value = Console.ReadLine();
             
             collection.EditObject(id, param, value);
-            collection.WriteInFile();
+            collection.WriteInFile(fileName);
         }
         #endregion
     }
