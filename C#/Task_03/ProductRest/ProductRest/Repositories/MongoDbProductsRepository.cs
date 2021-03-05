@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using ProductRest.Dtos;
+using ProductRest.Filters;
 
 namespace ProductRest.Repositories
 {
@@ -26,9 +27,11 @@ namespace ProductRest.Repositories
             return await productsCollection.Find(filter).SingleOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<ProductDto>> GetProductsAsync()
+        public async Task<IEnumerable<ProductDto>> GetProductsAsync(PaginationFilter filter)
         {
-            return await productsCollection.Find(new BsonDocument()).ToListAsync();
+            return await productsCollection.Find(new BsonDocument())
+                .Skip((filter.PageNumber - 1) * filter.PageSize)
+                .Limit(filter.PageSize).ToListAsync();
         }
 
         public async Task CreateProductAsync(ProductDto item)

@@ -6,7 +6,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProductRest.Dtos;
+using ProductRest.Filters;
 using ProductRest.Repositories;
+using ProductRest.Responses;
 
 namespace ProductRest.Controllers
 {
@@ -27,14 +29,16 @@ namespace ProductRest.Controllers
         
         // GET /products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery] PaginationFilter filter)
         {
             try
             {
-                var products = await _repository.GetProductsAsync();
+                var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+                
+                var products = await _repository.GetProductsAsync(validFilter);
 
                 _logger.LogInformation("Returned all products.");
-                return Ok(products);
+                return Ok( new PagedResponse<ProductDto>(products, validFilter.PageNumber, validFilter.PageSize));
             }
             catch (Exception e)
             {
