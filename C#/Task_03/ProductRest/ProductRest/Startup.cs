@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -43,6 +44,13 @@ namespace ProductRest
             {
                 return new MongoClient(mongoDbSettings.ConnectionString);
             });
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            services.AddSingleton(mappingConfig.CreateMapper());
 
             services.AddSingleton<IProductsRepository, MongoDbProductsRepository>();
             

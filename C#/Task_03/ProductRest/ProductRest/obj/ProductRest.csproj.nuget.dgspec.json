@@ -45,6 +45,10 @@
               "target": "Package",
               "version": "[5.0.1, )"
             },
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[10.1.1, )"
+            },
             "MongoDB.Driver": {
               "target": "Package",
               "version": "[2.12.0, )"
