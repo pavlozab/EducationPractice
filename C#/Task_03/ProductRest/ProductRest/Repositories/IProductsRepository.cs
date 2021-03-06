@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ProductRest.Dtos;
-using ProductRest.Filters;
+using ProductRest.Models;
 
 namespace ProductRest.Repositories
 {
@@ -10,12 +10,14 @@ namespace ProductRest.Repositories
     {
         Task<ProductDto> GetProductAsync(Guid id);    
         
-        Task<IEnumerable<ProductDto>> GetProductsAsync(PaginationFilter filter);
+        Task<IEnumerable<ProductDto>> GetProductsAsync(PaginationModel filter);
 
         Task CreateProductAsync(ProductDto item);
 
         Task UpdateProductAsync(ProductDto item);
 
         Task DeleteProductAsync(Guid id);
+        
+        Task<long> Count();
     }
 }

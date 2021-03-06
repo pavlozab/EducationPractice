@@ -6,20 +6,20 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProductRest.Dtos;
-using ProductRest.Filters;
+using ProductRest.Models;
 using ProductRest.Repositories;
 using ProductRest.Responses;
 
 namespace ProductRest.Controllers
 {
     [ApiController]
-    [Route("products")]
+    [Route("api/v1/products")]
     public class ProductController : ControllerBase
     {
         private readonly IProductsRepository _repository;
         private readonly ILogger<ProductController> _logger;
         private readonly IMapper _mapper;
-        
+
         public ProductController(IProductsRepository repository, ILogger<ProductController> logger, IMapper mapper)
         {
             _repository = repository;
@@ -29,16 +29,16 @@ namespace ProductRest.Controllers
         
         // GET /products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery] PaginationFilter filter)
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery] PaginationModel filter)
         {
             try
             {
-                var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
-                
+                var validFilter = new PaginationModel(filter.Offset, filter.Limit);
                 var products = await _repository.GetProductsAsync(validFilter);
-
+                var count = await _repository.Count();
                 _logger.LogInformation("Returned all products.");
-                return Ok( new PagedResponse<ProductDto>(products, validFilter.PageNumber, validFilter.PageSize));
+                
+                return Ok( new PagedResponse<ProductDto>(products, validFilter.Offset, validFilter.Limit, count));
             }
             catch (Exception e)
             {
