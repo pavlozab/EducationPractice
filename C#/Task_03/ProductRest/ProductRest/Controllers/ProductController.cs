@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -29,16 +28,17 @@ namespace ProductRest.Controllers
         
         // GET /products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery] PaginationModel filter)
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery]QueryParametersModel filter)
         {
             try
             {
-                var validFilter = new PaginationModel(filter.Offset, filter.Limit);
+                var validFilter = new QueryParametersModel(filter.SortBy, filter.SortType, filter.Offset, filter.Limit);
                 var products = await _repository.GetProductsAsync(validFilter);
+                
                 var count = await _repository.Count();
                 _logger.LogInformation("Returned all products.");
                 
-                return Ok( new PagedResponse<ProductDto>(products, validFilter.Offset, validFilter.Limit, count));
+                return Ok( new PagedResponse<ProductDto>(products, validFilter, count));
             }
             catch (Exception e)
             {

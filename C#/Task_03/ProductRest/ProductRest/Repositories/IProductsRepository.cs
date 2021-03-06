@@ -10,7 +10,7 @@ namespace ProductRest.Repositories
     {
         Task<ProductDto> GetProductAsync(Guid id);    
         
-        Task<IEnumerable<ProductDto>> GetProductsAsync(PaginationModel filter);
+        Task<IEnumerable<ProductDto>> GetProductsAsync(QueryParametersModel filter);
 
         Task CreateProductAsync(ProductDto item);
 

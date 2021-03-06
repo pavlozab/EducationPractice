@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ProductRest.Dtos;
+using ProductRest.Models;
 
 namespace ProductRest.Responses
 {
@@ -10,11 +11,15 @@ namespace ProductRest.Responses
         public int Offset { get; set; }
         public int Limit { get; set; }
         public long Count { get; set; }
+        public string SortBy { get; set; }
+        public string SortType { get; set; }
 
-        public PagedResponse(IEnumerable<T> data, int offset, int limit, long count)
+        public PagedResponse(IEnumerable<T> data, QueryParametersModel parameters, long count)
         {
-            Offset = offset;
-            Limit = limit;
+            Offset = parameters.Offset;
+            Limit = parameters.Limit;
+            SortBy = parameters.SortBy;
+            SortType = parameters.SortType;
             Data = data;
             Count = count;
             Message = null;

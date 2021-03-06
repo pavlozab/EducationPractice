@@ -27,10 +27,14 @@ namespace ProductRest.Repositories
             return await productsCollection.Find(filter).SingleOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<ProductDto>> GetProductsAsync(PaginationModel filter)
+        public async Task<IEnumerable<ProductDto>> GetProductsAsync(QueryParametersModel filter)
         {
+            var sort = filter.SortType == "asc"
+                ? Builders<ProductDto>.Sort.Ascending(filter.SortBy)
+                : Builders<ProductDto>.Sort.Descending(filter.SortBy);
+
             return await productsCollection.Find(new BsonDocument())
-                .Skip((filter.Offset - 1) * filter.Limit)
+                .Sort(sort).Skip((filter.Offset - 1) * filter.Limit)
                 .Limit(filter.Limit).ToListAsync();
         }
 
@@ -53,7 +57,7 @@ namespace ProductRest.Repositories
 
         public async Task<long> Count()
         {
-            return await productsCollection.CountAsync(new BsonDocument());
+            return await productsCollection.CountDocumentsAsync(new BsonDocument());
         }
     }
 }
