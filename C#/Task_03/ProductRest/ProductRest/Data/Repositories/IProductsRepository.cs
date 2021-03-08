@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using ProductRest.Dtos;
 using ProductRest.Models;
 
-namespace ProductRest.Repositories
+namespace ProductRest.Data.Repositories
 {
     public interface IProductsRepository
     {

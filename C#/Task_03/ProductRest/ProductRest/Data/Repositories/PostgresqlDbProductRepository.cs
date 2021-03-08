@@ -2,33 +2,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using ProductRest.Data.Context;
 using ProductRest.Dtos;
 using ProductRest.Models;
 
-namespace ProductRest.Repositories
+namespace ProductRest.Data.Repositories
 {
-    public class PostgresqlDbProductRepository //: IProductsRepository
+    public class PostgresqlDbProductRepository : IProductsRepository
     {
         private ProductContext ProductContext { get; set; }
+        public DbSet<ProductDto> Products { get; }
 
         public PostgresqlDbProductRepository(ProductContext context)
         {
             ProductContext = context;
+            Products = ProductContext.Set<ProductDto>();
         }
 
         public async Task<ProductDto> GetProductAsync(Guid id)
         {
-            return await ProductContext.Set<ProductDto>()
-                .Where(obj => obj.Id.Equals(id))
-                .FirstOrDefaultAsync();
-
+            return await Products.Where(obj => obj.Id.Equals(id))
+            .FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<ProductDto>> GetProductsAsync(QueryParametersModel filter)
         {
-            return await ProductContext.Set<ProductDto>().AsNoTracking()
+            return await Products.AsNoTracking()
                 .OrderBy(obj => obj.AddressLine)
                 .ToListAsync();
         }
@@ -39,18 +39,21 @@ namespace ProductRest.Repositories
                 .AddAsync(item);
         }
 
-        public void UpdateProductAsync(ProductDto item)
+        public async Task UpdateProductAsync(ProductDto item)
         {
-            //var filter = _filterDefinitionBuilder.Eq(existingItem => existingItem.Id, item.Id);
-            ProductContext.Set<ProductDto>().Update(item);
+            Products.Update(item);
+            await ProductContext.SaveChangesAsync();
         }
 
-        public void DeleteProductAsync(ProductDto obj)
+        public async Task DeleteProductAsync(Guid id)
         {
-            ProductContext.Set<ProductDto>().Remove(obj);
+            var product = await Products.Where(obj => obj.Id.Equals(id))
+                .FirstOrDefaultAsync();
+            Products.Update(product);
+            await ProductContext.SaveChangesAsync();
         }
 
-        public async Task<int> Count()
+        public async Task<long> Count()
         {
             return await ProductContext.Set<ProductDto>().CountAsync();
         }

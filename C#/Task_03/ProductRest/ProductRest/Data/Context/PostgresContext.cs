@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProductRest.Dtos;
 
-namespace ProductRest.Repositories
+namespace ProductRest.Data.Context
 {
     public class ProductContext : DbContext
     {

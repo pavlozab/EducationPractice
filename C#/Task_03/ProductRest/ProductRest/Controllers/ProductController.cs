@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ProductRest.Data.Repositories;
 using ProductRest.Dtos;
 using ProductRest.Models;
-using ProductRest.Repositories;
 using ProductRest.Responses;
 
 namespace ProductRest.Controllers
@@ -78,7 +78,6 @@ namespace ProductRest.Controllers
         {
             try
             {
-                Console.Write("ad");
                 var product = _mapper.Map<ProductDto>(productDto);
 
                 await _repository.CreateProductAsync(product);
@@ -107,18 +106,9 @@ namespace ProductRest.Controllers
                     _logger.LogInformation("Product with id: {0}, hasn't been found.", id);
                     return NotFound();
                 }
+                _mapper.Map(productDto, existingProduct);
 
-                ProductDto updatedProduct = existingProduct with
-                {
-                    AddressLine = productDto.AddressLine,
-                    PostalCode = productDto.PostalCode,
-                    Country = productDto.Country,
-                    City = productDto.City,
-                    FaxNumber = productDto.FaxNumber,
-                    PhoneNumber = productDto.PhoneNumber
-                };
-                
-                _repository.UpdateProductAsync(updatedProduct);
+                await _repository.UpdateProductAsync(existingProduct);
 
                 _logger.LogInformation("Updated product with id: {0}", id);
                 return NoContent();
@@ -144,10 +134,8 @@ namespace ProductRest.Controllers
                     _logger.LogInformation("Product with id: {0}, hasn't been found.", id);
                     return NotFound();
                 }
-
-                var product = await _repository.GetProductAsync(id);
                 
-                _repository.DeleteProductAsync(product);
+                await _repository.DeleteProductAsync(id);
                 
                 _logger.LogInformation("Deleted product with id: {0}", id);
                 return NoContent();
