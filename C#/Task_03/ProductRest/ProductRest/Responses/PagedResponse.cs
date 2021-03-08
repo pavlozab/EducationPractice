@@ -13,6 +13,7 @@ namespace ProductRest.Responses
         public long Count { get; set; }
         public string SortBy { get; set; }
         public string SortType { get; set; }
+        public string Search { get; set; }
 
         public PagedResponse(IEnumerable<T> data, QueryParametersModel parameters, long count)
         {
@@ -20,6 +21,7 @@ namespace ProductRest.Responses
             Limit = parameters.Limit;
             SortBy = parameters.SortBy;
             SortType = parameters.SortType;
+            Search = parameters.Search;
             Data = data;
             Count = count;
             Message = null;

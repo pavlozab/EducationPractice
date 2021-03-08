@@ -32,7 +32,8 @@ namespace ProductRest.Controllers
         {
             try
             {
-                var validFilter = new QueryParametersModel(filter.SortBy, filter.SortType, filter.Offset, filter.Limit);
+                //var validFilter = new QueryParametersModel(filter.SortBy, filter.SortType, filter.Offset, filter.Limit, filter.Search);
+                var validFilter = new QueryParametersModel(filter);
                 var products = await _repository.GetProductsAsync(validFilter);
                 
                 var count = await _repository.Count();
