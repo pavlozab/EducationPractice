@@ -106,17 +106,9 @@ namespace ProductRest.Controllers
                     return NotFound();
                 }
 
-                ProductDto updatedProduct = existingProduct with
-                {
-                    AddressLine = productDto.AddressLine,
-                    PostalCode = productDto.PostalCode,
-                    Country = productDto.Country,
-                    City = productDto.City,
-                    FaxNumber = productDto.FaxNumber,
-                    PhoneNumber = productDto.PhoneNumber
-                };
-            
-                await _repository.UpdateProductAsync(updatedProduct);
+                _mapper.Map(productDto, existingProduct);
+                
+                await _repository.UpdateProductAsync(existingProduct);
 
                 _logger.LogInformation("Updated product with id: {0}", id);
                 return NoContent();

@@ -8,16 +8,11 @@ namespace ProductRest.Repositories
 {
     public interface IProductsRepository
     {
-        Task<ProductDto> GetProductAsync(Guid id);    
-        
+        Task<ProductDto> GetProductAsync(Guid id);
         Task<IEnumerable<ProductDto>> GetProductsAsync(QueryParametersModel filter);
-
         Task CreateProductAsync(ProductDto item);
-
         Task UpdateProductAsync(ProductDto item);
-
         Task DeleteProductAsync(Guid id);
-        
         Task<long> Count();
     }
 }

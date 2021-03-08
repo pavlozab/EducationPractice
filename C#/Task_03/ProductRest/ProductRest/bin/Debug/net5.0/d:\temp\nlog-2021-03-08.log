@@ -1,0 +1,23 @@
+2021-03-08 12:08:29.6317 | ERROR | Health check mongodb completed after 3014.7746ms with status Unhealthy and description '(null)' | System.OperationCanceledException: The operation was canceled.
+   at System.Threading.CancellationToken.ThrowOperationCanceledException()
+   at System.Threading.CancellationToken.ThrowIfCancellationRequested()
+   at MongoDB.Driver.Core.Clusters.Cluster.WaitForDescriptionChangedHelper.HandleCompletedTask(Task completedTask)
+   at MongoDB.Driver.Core.Clusters.Cluster.WaitForDescriptionChangedAsync(IServerSelector selector, ClusterDescription description, Task descriptionChangedTask, TimeSpan timeout, CancellationToken cancellationToken)
+   at MongoDB.Driver.Core.Clusters.Cluster.SelectServerAsync(IServerSelector selector, CancellationToken cancellationToken)
+   at MongoDB.Driver.MongoClient.AreSessionsSupportedAfterSeverSelctionAsync(CancellationToken cancellationToken)
+   at MongoDB.Driver.MongoClient.AreSessionsSupportedAsync(CancellationToken cancellationToken)
+   at MongoDB.Driver.MongoClient.StartImplicitSessionAsync(CancellationToken cancellationToken)
+   at MongoDB.Driver.MongoClient.UsingImplicitSessionAsync[TResult](Func`2 funcAsync, CancellationToken cancellationToken)
+   at HealthChecks.MongoDb.MongoDbHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken) | Microsoft.Extensions.Diagnostics.HealthChecks.DefaultHealthCheckService | url: https://localhost/health/ready | action: 
+2021-03-08 12:09:16.2332 | ERROR | Health check mongodb completed after 3013.3701ms with status Unhealthy and description '(null)' | System.OperationCanceledException: The operation was canceled.
+   at System.Threading.CancellationToken.ThrowOperationCanceledException()
+   at System.Threading.CancellationToken.ThrowIfCancellationRequested()
+   at MongoDB.Driver.Core.Clusters.Cluster.WaitForDescriptionChangedHelper.HandleCompletedTask(Task completedTask)
+   at MongoDB.Driver.Core.Clusters.Cluster.WaitForDescriptionChangedAsync(IServerSelector selector, ClusterDescription description, Task descriptionChangedTask, TimeSpan timeout, CancellationToken cancellationToken)
+   at MongoDB.Driver.Core.Clusters.Cluster.SelectServerAsync(IServerSelector selector, CancellationToken cancellationToken)
+   at MongoDB.Driver.MongoClient.AreSessionsSupportedAfterSeverSelctionAsync(CancellationToken cancellationToken)
+   at MongoDB.Driver.MongoClient.AreSessionsSupportedAsync(CancellationToken cancellationToken)
+   at MongoDB.Driver.MongoClient.StartImplicitSessionAsync(CancellationToken cancellationToken)
+   at MongoDB.Driver.MongoClient.UsingImplicitSessionAsync[TResult](Func`2 funcAsync, CancellationToken cancellationToken)
+   at HealthChecks.MongoDb.MongoDbHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken) | Microsoft.Extensions.Diagnostics.HealthChecks.DefaultHealthCheckService | url: https://localhost/health/ready | action: 
+2021-03-08 12:15:58.8362 | ERROR | Something went wrong inside GetProducts action: JSON reader was expecting a value but found 'a'. |  | ProductRest.Controllers.ProductController | url: https://localhost/api/v1/products | action: GetProducts
