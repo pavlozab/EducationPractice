@@ -42,7 +42,7 @@
 /Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_03/ProductRest/ProductRest/obj/Debug/net5.0/ProductRest.pdb
 /Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_03/ProductRest/ProductRest/obj/Debug/net5.0/ProductRest.genruntimeconfig.cache
 /Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_03/ProductRest/ProductRest/bin/Debug/net5.0/AutoMapper.dll
-/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_03/ProductRest/ProductRest/bin/Debug/net5.0/nlog.config
 /Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_03/ProductRest/ProductRest/bin/Debug/net5.0/NLog.dll
 /Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_03/ProductRest/ProductRest/bin/Debug/net5.0/NLog.Extensions.Logging.dll
 /Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_03/ProductRest/ProductRest/bin/Debug/net5.0/NLog.Web.AspNetCore.dll
+/Users/pasha/Documents/GitHub/PythonGit/PythonProgramming/C#/Task_03/ProductRest/ProductRest/bin/Debug/net5.0/logs/nlog.config

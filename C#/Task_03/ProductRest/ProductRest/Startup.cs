@@ -20,7 +20,9 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
-using ProductRest.Repositories;
+using ProductRest.Data.Contracts;
+using ProductRest.Data.Repositories;
+using ProductRest.Data.Settings;
 
 namespace ProductRest
 {

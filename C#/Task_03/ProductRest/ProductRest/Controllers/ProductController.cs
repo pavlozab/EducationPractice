@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ProductRest.Data.Contracts;
 using ProductRest.Dtos;
 using ProductRest.Models;
-using ProductRest.Repositories;
 using ProductRest.Responses;
 
 namespace ProductRest.Controllers
@@ -32,13 +32,11 @@ namespace ProductRest.Controllers
         {
             try
             {
-                //var validFilter = new QueryParametersModel(filter.SortBy, filter.SortType, filter.Offset, filter.Limit, filter.Search);
                 var validFilter = new QueryParametersModel(filter);
                 var products = await _repository.GetProductsAsync(validFilter);
-                
                 var count = await _repository.Count();
-                _logger.LogInformation("Returned all products.");
                 
+                _logger.LogInformation("Returned all products.");
                 return Ok( new PagedResponse<ProductDto>(products, validFilter, count));
             }
             catch (Exception e)
@@ -79,7 +77,6 @@ namespace ProductRest.Controllers
             try
             {
                 var product = _mapper.Map<ProductDto>(productDto);
-
                 await _repository.CreateProductAsync(product);
 
                 _logger.LogInformation("Created product.");

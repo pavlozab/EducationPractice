@@ -1,77 +1,86 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using ProductRest.Data.Contracts;
 using ProductRest.Dtos;
 using ProductRest.Models;
 
-namespace ProductRest.Repositories
+namespace ProductRest.Data.Repositories
 {
     public class MongoDbProductsRepository : IProductsRepository
     {
         private const string databaseName = "catalog";
         private const string collectionName = "products";
-        private readonly IMongoCollection<ProductDto> productsCollection;
+        private readonly IMongoCollection<ProductDto> _productsCollection;
         private readonly FilterDefinitionBuilder<ProductDto> _filterDefinitionBuilder = Builders<ProductDto>.Filter;
         
         public MongoDbProductsRepository(IMongoClient mongoClient)
         {
             IMongoDatabase database = mongoClient.GetDatabase(databaseName);
-            productsCollection = database.GetCollection<ProductDto>(collectionName); 
+            _productsCollection = database.GetCollection<ProductDto>(collectionName); 
         }
         
         public async Task<ProductDto> GetProductAsync(Guid id)
         {
             var filter = _filterDefinitionBuilder.Eq(item => item.Id, id);
-            return await productsCollection.Find(filter).SingleOrDefaultAsync();
+            return await _productsCollection.Find(filter).SingleOrDefaultAsync();
         }
         
         public async Task<IEnumerable<ProductDto>> GetProductsAsync(QueryParametersModel filter)
         {
+            var search2 = filter.Search is null 
+                ? new BsonDocument()
+                : _filterDefinitionBuilder.Where(obj => typeof(ProductDto).GetProperties()
+                    .Select(attr => typeof(ProductDto).GetProperty(attr.Name).GetValue(obj, null))
+                    .Any(temp => temp.ToString().ToLower().Contains(filter.Search.ToLower()))
+                );
+            // FIXME Search. Unsupported filter: Any(...) - search2
+            
             var search = filter.Search is null 
                 ? new BsonDocument()
                 : _filterDefinitionBuilder.Where(obj
                     => obj.AddressLine.Contains(filter.Search)
-                    || obj.PostalCode.Contains(filter.Search)
-                    || obj.Country.Contains(filter.Search)
-                    || obj.City.Contains(filter.Search)
-                    || obj.FaxNumber.Contains(filter.Search)
-                    || obj.PhoneNumber.Contains(filter.Search)
+                       || obj.PostalCode.Contains(filter.Search)
+                       || obj.Country.Contains(filter.Search)
+                       || obj.City.Contains(filter.Search)
+                       || obj.FaxNumber.Contains(filter.Search)
+                       || obj.PhoneNumber.Contains(filter.Search)
                 );
-            // FIXME Search 
             
 
             var sort = filter.SortType == "asc"
                 ? Builders<ProductDto>.Sort.Ascending(filter.SortBy)
                 : Builders<ProductDto>.Sort.Descending(filter.SortBy);
 
-            return await productsCollection.Find(search)
+            return await _productsCollection.Find(search)
                 .Sort(sort).Skip((filter.Offset - 1) * filter.Limit)
                 .Limit(filter.Limit).ToListAsync();
         }
 
         public async Task CreateProductAsync(ProductDto item)
         {
-            await productsCollection.InsertOneAsync(item);
+            await _productsCollection.InsertOneAsync(item);
         }
 
         public async Task UpdateProductAsync(ProductDto item)
         {
             var filter = _filterDefinitionBuilder.Eq(existingItem => existingItem.Id, item.Id);
-            await productsCollection.ReplaceOneAsync(filter, item);
+            await _productsCollection.ReplaceOneAsync(filter, item);
         }
 
         public async Task DeleteProductAsync(Guid id)
         {
             var filter = _filterDefinitionBuilder.Eq(item => item.Id, id);
-            await productsCollection.DeleteOneAsync(filter);
+            await _productsCollection.DeleteOneAsync(filter);
         }
 
         public async Task<long> Count()
         {
-            return await productsCollection.CountDocumentsAsync(new BsonDocument());
+            return await _productsCollection.CountDocumentsAsync(new BsonDocument());
         }
     }
 }

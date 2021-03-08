@@ -1,4 +1,4 @@
-namespace ProductRest
+namespace ProductRest.Data.Settings
 {
     public class MongoDbSettings
     {
