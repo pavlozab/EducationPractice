@@ -121,7 +121,12 @@ namespace ProductRest.Controllers
             
         }
 
-        // PUT /products/{id}
+        /// <summary>
+        /// Update a apecifing
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="productDto"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateProduct(Guid id, CreateProductDto productDto)
         {
@@ -150,7 +155,14 @@ namespace ProductRest.Controllers
             
         }
 
-        // DELETE /products/{id}
+        /// <summary>
+        /// Deletes a specific Product.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="204"></response>
+        /// <response code="400">One or more validation errors occurred.</response>  
+        /// <response code="404"></response>  
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteProduct(Guid id)
         {
