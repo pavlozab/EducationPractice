@@ -11,6 +11,7 @@ using ProductRest.Responses;
 
 namespace ProductRest.Controllers
 {
+    [Produces("application/json")]
     [ApiController]
     [Route("api/v1/products")]
     public class ProductController : ControllerBase
@@ -26,7 +27,11 @@ namespace ProductRest.Controllers
             _mapper = mapper;
         }
         
-        // GET /products
+        /// <summary>
+        /// Get Products.
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery]QueryParametersModel filter)
         {
@@ -46,7 +51,11 @@ namespace ProductRest.Controllers
             }
         }
 
-        // GET /products/{id}
+        /// <summary>
+        /// Get a specific Product.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDto>> GetProduct(Guid id)
         {
@@ -70,8 +79,30 @@ namespace ProductRest.Controllers
             }
         }
 
-        // POST /products
+        /// <summary>
+        /// Create a Product.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /products
+        ///     {
+        ///        "addressLine": "new address",
+        ///        "postalCode": "12345",
+        ///        "country": "new country",
+        ///        "city": "new city",
+        ///        "faxNumber": "+380111111111"
+        ///        "phoneNumber": "+380222222222"
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="productDto"></param>
+        /// <returns>A newly created Product</returns>
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">One or more validation errors occurred.</response>    
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
         public async Task<ActionResult<ProductDto>> CreateProduct(CreateProductDto productDto)
         {
             try
@@ -79,7 +110,7 @@ namespace ProductRest.Controllers
                 var product = _mapper.Map<ProductDto>(productDto);
                 await _repository.CreateProductAsync(product);
 
-                _logger.LogInformation("Created product.");
+                _logger.LogInformation("Create a Product.");
                 return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product); 
             }
             catch (Exception e)

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mime;
+using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -48,7 +50,7 @@ namespace ProductRest
                 return new MongoClient(mongoDbSettings.ConnectionString);
             });
             
-            // MNapping
+            // Mapping
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
@@ -62,9 +64,19 @@ namespace ProductRest
             // 
             services.AddControllers();
             
+            // Swagger
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "ProductRest", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "ProductRest",
+                });
+                
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
             
             // Health check
@@ -82,7 +94,10 @@ namespace ProductRest
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
+                app.UseSwagger(c =>
+                {
+                    c.SerializeAsV2 = true;
+                });
                 app.UseSwaggerUI(c => 
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProductRest v1"));
             }
