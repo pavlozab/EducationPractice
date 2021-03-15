@@ -30,9 +30,9 @@ namespace ProductRest.Controllers
         /// <summary>
         /// Get Products.
         /// </summary>
-        /// <param name="filter"></param>
-        /// <returns></returns>
+        /// <response code="200">Returns Product List</response>
         [HttpGet]
+        [ProducesResponseType(200)]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery]QueryParametersModel filter)
         {
             try
@@ -43,6 +43,7 @@ namespace ProductRest.Controllers
                 
                 _logger.LogInformation("Returned all products.");
                 return Ok( new PagedResponse<ProductDto>(products, validFilter, count));
+                
             }
             catch (Exception e)
             {
@@ -54,9 +55,12 @@ namespace ProductRest.Controllers
         /// <summary>
         /// Get a specific Product.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">The id of the item to be retrieved</param>
+        /// <response code="200">Returns a specific Product</response>
+        /// <response code="404">Product hasn't been found.</response>
         [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<ProductDto>> GetProduct(Guid id)
         {
             try
@@ -96,8 +100,6 @@ namespace ProductRest.Controllers
         ///     }
         ///
         /// </remarks>
-        /// <param name="productDto"></param>
-        /// <returns>A newly created Product</returns>
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">One or more validation errors occurred.</response>    
         [HttpPost]
@@ -124,10 +126,12 @@ namespace ProductRest.Controllers
         /// <summary>
         /// Update a apecifing
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="productDto"></param>
-        /// <returns></returns>
+        /// <param name="id">The id of the item to be retrieved</param>
+        /// <response code="204">Updated product</response>
+        /// <response code="404">Product hasn't been found.</response>
         [HttpPut("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult> UpdateProduct(Guid id, CreateProductDto productDto)
         {
             try
@@ -158,12 +162,12 @@ namespace ProductRest.Controllers
         /// <summary>
         /// Deletes a specific Product.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        /// <response code="204"></response>
-        /// <response code="400">One or more validation errors occurred.</response>  
-        /// <response code="404"></response>  
+        /// <param name="id">The id of the item to be deleted</param>
+        /// <response code="204">Deleted product</response>
+        /// <response code="404">Product hasn't been found.</response>
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult> DeleteProduct(Guid id)
         {
             try

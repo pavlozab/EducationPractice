@@ -8,15 +8,15 @@
             <summary>
             Get Products.
             </summary>
-            <param name="filter"></param>
-            <returns></returns>
+            <response code="200">Returns Product List</response>
         </member>
         <member name="M:ProductRest.Controllers.ProductController.GetProduct(System.Guid)">
             <summary>
             Get a specific Product.
             </summary>
-            <param name="id"></param>
-            <returns></returns>
+            <param name="id">The id of the item to be retrieved</param>
+            <response code="200">Returns a specific Product</response>
+            <response code="404">Product hasn't been found.</response>
         </member>
         <member name="M:ProductRest.Controllers.ProductController.CreateProduct(ProductRest.Dtos.CreateProductDto)">
              <summary>
@@ -37,9 +37,24 @@
             
              </remarks>
              <param name="productDto"></param>
-             <returns>A newly created Product</returns>
              <response code="201">Returns the newly created item</response>
-             <response code="400">If the item is null</response>    
+             <response code="400">One or more validation errors occurred.</response>    
+        </member>
+        <member name="M:ProductRest.Controllers.ProductController.UpdateProduct(System.Guid,ProductRest.Dtos.CreateProductDto)">
+            <summary>
+            Update a apecifing
+            </summary>
+            <param name="id">The id of the item to be retrieved</param>
+            <response code="204">Updated product</response>
+            <response code="404">Product hasn't been found.</response>
+        </member>
+        <member name="M:ProductRest.Controllers.ProductController.DeleteProduct(System.Guid)">
+            <summary>
+            Deletes a specific Product.
+            </summary>
+            <param name="id">The id of the item to be deleted</param>
+            <response code="204">Deleted product</response>
+            <response code="404">Product hasn't been found.</response>
         </member>
     </members>
 </doc>

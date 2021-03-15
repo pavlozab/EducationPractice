@@ -61,7 +61,7 @@ namespace ProductRest
             // Repository
             services.AddSingleton<IProductsRepository, MongoDbProductsRepository>();
             
-            // 
+            // Controller
             services.AddControllers();
             
             // Swagger

@@ -24,9 +24,6 @@ namespace ProductRest.Responses
             Search = parameters.Search;
             Data = data;
             Count = count;
-            Message = null;
-            Succeeded = true;
-            Errors = null;
         }
     }
 }

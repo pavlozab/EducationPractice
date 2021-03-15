@@ -57,7 +57,7 @@ namespace ProductRest.Data.Repositories
                 : Builders<ProductDto>.Sort.Descending(filter.SortBy);
 
             return await _productsCollection.Find(search)
-                .Sort(sort).Skip((filter.Offset - 1) * filter.Limit)
+                .Sort(sort).Skip((filter.Offset) * filter.Limit)
                 .Limit(filter.Limit).ToListAsync();
         }
 
