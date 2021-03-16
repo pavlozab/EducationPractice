@@ -41,9 +41,10 @@
         </member>
         <member name="M:ProductRest.Controllers.ProductController.UpdateProduct(System.Guid,ProductRest.Dtos.CreateProductDto)">
             <summary>
-            Update a apecifing
+            Update a specific Product.
             </summary>
             <param name="id">The id of the item to be retrieved</param>
+            <param name="productDto">New product</param>
             <response code="204">Updated product</response>
             <response code="404">Product hasn't been found.</response>
         </member>

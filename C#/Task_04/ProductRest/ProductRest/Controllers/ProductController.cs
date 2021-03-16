@@ -35,21 +35,12 @@ namespace ProductRest.Controllers
         [ProducesResponseType(200)]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery]QueryParametersModel filter)
         {
-            try
-            {
-                var validFilter = new QueryParametersModel(filter);
-                var products = await _repository.GetProductsAsync(validFilter);
-                var count = await _repository.Count();
+            var validFilter = new QueryParametersModel(filter);
+            var products = await _repository.GetProductsAsync(validFilter);
+            var count = await _repository.Count();
                 
-                _logger.LogInformation("Returned all products.");
-                return Ok( new PagedResponse<ProductDto>(products, validFilter, count));
-                
-            }
-            catch (Exception e)
-            {
-                _logger.LogError("Something went wrong inside GetProducts action: {0}", e.Message);
-                return StatusCode(500, "Internal server error.");
-            }
+            _logger.LogInformation("Returned all products.");
+            return Ok(new PagedResponse<ProductDto>(products, validFilter, count));
         }
 
         /// <summary>
@@ -63,24 +54,16 @@ namespace ProductRest.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<ProductDto>> GetProduct(Guid id)
         {
-            try
-            {
-                var product = await _repository.GetProductAsync(id);
+            var product = await _repository.GetProductAsync(id);
 
-                if (product is null)
-                {
-                    _logger.LogInformation("Product with id: {0}, hasn't been found.", id);
-                    return NotFound();
-                }
-                
-                _logger .LogInformation("Returned product with id: {0}", id);
-                return Ok(product);
-            }
-            catch (Exception e)
+            if (product is null)
             {
-                _logger.LogError("Something went wrong inside GetProduct action: {0}", e.Message); 
-                return StatusCode(500, "Internal server error"); 
+                _logger.LogInformation("Product with id: {0}, hasn't been found.", id);
+                return NotFound();
             }
+                
+            _logger .LogInformation("Returned product with id: {0}", id);
+            return Ok(product);
         }
 
         /// <summary>
@@ -107,26 +90,18 @@ namespace ProductRest.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult<ProductDto>> CreateProduct(CreateProductDto productDto)
         {
-            try
-            {
-                var product = _mapper.Map<ProductDto>(productDto);
-                await _repository.CreateProductAsync(product);
+            var product = _mapper.Map<ProductDto>(productDto);
+            await _repository.CreateProductAsync(product);
 
-                _logger.LogInformation("Create a Product.");
-                return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product); 
-            }
-            catch (Exception e)
-            {
-                _logger.LogError("Something went wrong inside CreateProduct action: {0}", e.Message); 
-                return StatusCode(500, "Internal server error"); 
-            }
-            
+            _logger.LogInformation("Create a Product.");
+            return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
         }
 
         /// <summary>
-        /// Update a apecifing
+        /// Update a specific Product.
         /// </summary>
         /// <param name="id">The id of the item to be retrieved</param>
+        /// <param name="productDto">New product</param>
         /// <response code="204">Updated product</response>
         /// <response code="404">Product hasn't been found.</response>
         [HttpPut("{id}")]
@@ -134,29 +109,20 @@ namespace ProductRest.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult> UpdateProduct(Guid id, CreateProductDto productDto)
         {
-            try
+            var existingProduct = await  _repository.GetProductAsync(id);
+
+            if (existingProduct is null)
             {
-                var existingProduct = await  _repository.GetProductAsync(id);
+                _logger.LogInformation("Product with id: {0}, hasn't been found.", id);
+                return NotFound();
+            }
 
-                if (existingProduct is null)
-                {
-                    _logger.LogInformation("Product with id: {0}, hasn't been found.", id);
-                    return NotFound();
-                }
-
-                _mapper.Map(productDto, existingProduct);
+            _mapper.Map(productDto, existingProduct);
                 
-                await _repository.UpdateProductAsync(existingProduct);
+            await _repository.UpdateProductAsync(existingProduct);
 
-                _logger.LogInformation("Updated product with id: {0}", id);
-                return NoContent();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError("Something went wrong inside CreateProduct action: {0}", e.Message); 
-                return StatusCode(500, "Internal server error"); 
-            }
-            
+            _logger.LogInformation("Updated product with id: {0}", id);
+            return NoContent();
         }
 
         /// <summary>
@@ -170,27 +136,18 @@ namespace ProductRest.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult> DeleteProduct(Guid id)
         {
-            try
+            var existingProduct = await _repository.GetProductAsync(id);
+
+            if (existingProduct is null)
             {
-                var existingProduct = await _repository.GetProductAsync(id);
+                _logger.LogInformation("Product with id: {0}, hasn't been found.", id);
+                return NotFound();
+            }
 
-                if (existingProduct is null)
-                {
-                    _logger.LogInformation("Product with id: {0}, hasn't been found.", id);
-                    return NotFound();
-                }
-
-                await _repository.DeleteProductAsync(id);
+            await _repository.DeleteProductAsync(id);
                 
-                _logger.LogInformation("Deleted product with id: {0}", id);
-                return NoContent();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError("Something went wrong inside CreateProduct action: {0}", e.Message); 
-                return StatusCode(500, "Internal server error"); 
-            }
-            
+            _logger.LogInformation("Deleted product with id: {0}", id);
+            return NoContent();
         }
     }
 }

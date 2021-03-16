@@ -3,7 +3,7 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=447a5d16_002Deb89_002D4288_002Db752_002Da037eea4c564/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;ProductRest&amp;gt; #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Project Location="/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_04/ProductRest/ProductRest" Presentation="&amp;lt;ProductRest&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6b944caa_002Dbe88_002D4352_002D84a2_002Dfb0145515540/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetProductAsync_WithUnexistingProduct_ReturnsExpectedProduct" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6b944caa_002Dbe88_002D4352_002D84a2_002Dfb0145515540/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProductAsync_WithUnexistingProduct_ReturnsExpectedProduct" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
@@ -16,11 +16,8 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=92c42439_002D04b3_002D436a_002Dabcc_002D9618b0e2773b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;ProductRest&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Project Location="/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_04/ProductRest/ProductRest" Presentation="&amp;lt;ProductRest&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ce38ee80_002D3051_002D4300_002Db850_002D964b4267d1cc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ProductControllerTests #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ce38ee80_002D3051_002D4300_002Db850_002D964b4267d1cc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ProductControllerTests #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.GetProductAsync_WithUnexistingProduct_ReturnsNotFound&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.GetProductAsync_WithUnexistingProduct_ReturnsExpectedProduct&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.GetProductsAsync_WithUnexistingProduct_ReturnsAllProducts&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.CreateProductAsync_WithProductToCreate_ReturnsCreatedProduct&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

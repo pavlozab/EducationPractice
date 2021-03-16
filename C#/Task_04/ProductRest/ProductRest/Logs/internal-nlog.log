@@ -372,3 +372,47 @@ File name: 'NLog.Targets.Sentry, Culture=neutral, PublicKeyToken=null'
    --- End of inner exception stack trace ---
 2021-03-16 13:12:59.9717 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'Sentry' not found for logging rule: *.
 2021-03-16 13:13:00.1011 Info Validating config: TargetNames=ColorConsole, LogFile, ConfigItems=37, FilePath=/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_04/ProductRest/ProductRest/bin/Debug/net5.0/logs/nlog.config
+2021-03-16 16:14:58.7720 Info Message Template Auto Format enabled
+2021-03-16 16:14:58.7960 Info Loading assembly: NLog.Web.AspNetCore
+2021-03-16 16:14:58.7971 Info Loading assembly: NLog.Targets.Sentry
+2021-03-16 16:14:58.8015 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Error loading extensions: NLog.Targets.Sentry
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'NLog.Targets.Sentry, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+
+File name: 'NLog.Targets.Sentry, Culture=neutral, PublicKeyToken=null'
+   at System.Reflection.RuntimeAssembly.InternalLoad(ObjectHandleOnStack assemblyName, ObjectHandleOnStack requestingAssembly, StackCrawlMarkHandle stackMark, Boolean throwOnFileNotFound, ObjectHandleOnStack assemblyLoadContext, ObjectHandleOnStack retAssembly)
+   at System.Reflection.RuntimeAssembly.InternalLoad(AssemblyName assemblyName, RuntimeAssembly requestingAssembly, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, AssemblyLoadContext assemblyLoadContext)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at NLog.Internal.AssemblyHelpers.LoadFromName(String assemblyName)
+   at NLog.Config.LoggingConfigurationParser.ParseExtensionWithAssembly(String assemblyName, String prefix)
+   --- End of inner exception stack trace ---
+2021-03-16 16:14:58.9063 Info Adding target AsyncTargetWrapper(Name=LogFile)
+2021-03-16 16:14:58.9177 Info Adding target AsyncTargetWrapper(Name=ColorConsole)
+2021-03-16 16:14:58.9177 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Failed to create target type: Sentry
+ ---> System.ArgumentException: Target cannot be found: 'Sentry'
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Config.LoggingConfigurationParser.CreateTargetType(String targetTypeName)
+   --- End of inner exception stack trace ---
+2021-03-16 16:14:58.9402 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'Sentry' not found for logging rule: *.
+2021-03-16 16:14:59.1546 Info Validating config: TargetNames=ColorConsole, LogFile, ConfigItems=37, FilePath=/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_04/ProductRest/ProductRest/bin/Debug/net5.0/logs/nlog.config
+2021-03-16 16:19:13.6108 Info Message Template Auto Format enabled
+2021-03-16 16:19:13.6660 Info Loading assembly: NLog.Web.AspNetCore
+2021-03-16 16:19:13.6672 Info Loading assembly: NLog.Targets.Sentry
+2021-03-16 16:19:13.6733 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Error loading extensions: NLog.Targets.Sentry
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'NLog.Targets.Sentry, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+
+File name: 'NLog.Targets.Sentry, Culture=neutral, PublicKeyToken=null'
+   at System.Reflection.RuntimeAssembly.InternalLoad(ObjectHandleOnStack assemblyName, ObjectHandleOnStack requestingAssembly, StackCrawlMarkHandle stackMark, Boolean throwOnFileNotFound, ObjectHandleOnStack assemblyLoadContext, ObjectHandleOnStack retAssembly)
+   at System.Reflection.RuntimeAssembly.InternalLoad(AssemblyName assemblyName, RuntimeAssembly requestingAssembly, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, AssemblyLoadContext assemblyLoadContext)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at NLog.Internal.AssemblyHelpers.LoadFromName(String assemblyName)
+   at NLog.Config.LoggingConfigurationParser.ParseExtensionWithAssembly(String assemblyName, String prefix)
+   --- End of inner exception stack trace ---
+2021-03-16 16:19:13.8466 Info Adding target AsyncTargetWrapper(Name=LogFile)
+2021-03-16 16:19:13.8660 Info Adding target AsyncTargetWrapper(Name=ColorConsole)
+2021-03-16 16:19:13.8660 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Failed to create target type: Sentry
+ ---> System.ArgumentException: Target cannot be found: 'Sentry'
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Config.LoggingConfigurationParser.CreateTargetType(String targetTypeName)
+   --- End of inner exception stack trace ---
+2021-03-16 16:19:13.8799 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'Sentry' not found for logging rule: *.
+2021-03-16 16:19:14.7333 Info Validating config: TargetNames=ColorConsole, LogFile, ConfigItems=37, FilePath=/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_04/ProductRest/ProductRest/bin/Debug/net5.0/logs/nlog.config
