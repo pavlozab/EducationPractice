@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
-using FluentAssertions.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -87,7 +86,7 @@ namespace Product.UnitTests
         }
         
         [Fact]
-        public async Task UpdateProductAsync_WithExistingProduct_ReturnsNoContent() 
+        public async Task UpdateProductAsync_WithProductToUpdate_ReturnsNoContent() 
         {
             // Arrange
             var existingProduct = TestProductDto();
@@ -159,7 +158,7 @@ namespace Product.UnitTests
         }
 
         [Fact]
-        public async Task GetProductsAsync_WithUnexistingProduct_ReturnsAllProducts() 
+        public async Task GetProductsAsync_WithExistingProduct_ReturnsAllProducts() 
         {
             // Arrange 
             var expectedProducts = new List<ProductDto>() {TestProductDto(), TestProductDto(), TestProductDto()};

@@ -8,3 +8,5 @@
    at MongoDB.Driver.MongoClient.StartImplicitSessionAsync(CancellationToken cancellationToken)
    at MongoDB.Driver.MongoClient.UsingImplicitSessionAsync[TResult](Func`2 funcAsync, CancellationToken cancellationToken)
    at HealthChecks.MongoDb.MongoDbHealthCheck.CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken) | Microsoft.Extensions.Diagnostics.HealthChecks.DefaultHealthCheckService | url: https://localhost/health/ready | action: 
+2021-03-22 19:35:27.9368 | WARN | As of "00:00:01.6854650", the heartbeat has been running for "00:00:01" which is longer than "03/22/2021 17:35:19 +00:00". This could be caused by thread pool starvation. |  | Microsoft.AspNetCore.Server.Kestrel | url:  | action: 
+2021-03-22 19:36:00.5685 | WARN | As of "00:00:01.4623290", the heartbeat has been running for "00:00:01" which is longer than "03/22/2021 17:35:57 +00:00". This could be caused by thread pool starvation. |  | Microsoft.AspNetCore.Server.Kestrel | url:  | action: 
