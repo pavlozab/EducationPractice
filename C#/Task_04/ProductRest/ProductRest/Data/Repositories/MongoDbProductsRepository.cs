@@ -20,7 +20,7 @@ namespace ProductRest.Data.Repositories
         
         public MongoDbProductsRepository(IMongoClient mongoClient)
         {
-            IMongoDatabase database = mongoClient.GetDatabase(databaseName);
+            var database = mongoClient.GetDatabase(databaseName);
             _productsCollection = database.GetCollection<ProductDto>(collectionName); 
         }
         
@@ -29,7 +29,7 @@ namespace ProductRest.Data.Repositories
             var filter = _filterDefinitionBuilder.Eq(item => item.Id, id);
             return await _productsCollection.Find(filter).SingleOrDefaultAsync();
         }
-        
+
         public async Task<IEnumerable<ProductDto>> GetProductsAsync(QueryParametersModel filter)
         {
             var search2 = filter.Search is null 

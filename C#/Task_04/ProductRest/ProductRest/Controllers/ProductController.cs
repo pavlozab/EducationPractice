@@ -33,13 +33,13 @@ namespace ProductRest.Controllers
         /// <response code="200">Returns Product List</response>
         [HttpGet]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery]QueryParametersModel filter)
+        public async Task<ActionResult<PagedResponse<ProductDto>>> GetProducts([FromQuery]QueryParametersModel filter)
         {
             var validFilter = new QueryParametersModel(filter);
             var products = await _repository.GetProductsAsync(validFilter);
             var count = await _repository.Count();
                 
-            _logger.LogInformation("Returned all products.");
+            _logger.LogInformation("Returned all products");
             return Ok(new PagedResponse<ProductDto>(products, validFilter, count));
         }
 
@@ -90,10 +90,19 @@ namespace ProductRest.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult<ProductDto>> CreateProduct(CreateProductDto productDto)
         {
-            var product = _mapper.Map<ProductDto>(productDto);
+            ProductDto product = new()
+            {
+                Id = Guid.NewGuid(),
+                AddressLine = productDto.AddressLine,
+                PostalCode = productDto.PostalCode,
+                Country = productDto.Country,
+                City = productDto.City,
+                FaxNumber = productDto.FaxNumber,
+                PhoneNumber = productDto.PhoneNumber
+            };
             await _repository.CreateProductAsync(product);
 
-            _logger.LogInformation("Create a Product.");
+            _logger.LogInformation("Create a Product");
             return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
         }
 

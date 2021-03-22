@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
+using FluentAssertions.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -9,11 +11,12 @@ using ProductRest.Controllers;
 using ProductRest.Data.Contracts;
 using ProductRest.Dtos;
 using ProductRest.Models;
+using ProductRest.Responses;
 using Xunit;
 
 namespace Product.UnitTests
 {
-    public class ProductControllerTests // FIXME
+    public class ProductControllerTests 
     {
         private readonly Mock<IProductsRepository> _repositoryStub = new();
         private readonly Mock<ILogger<ProductController>> _loggerStub = new();
@@ -36,10 +39,10 @@ namespace Product.UnitTests
         }
 
         [Fact]
-        public async Task GetProductAsync_WithUnexistingProduct_ReturnsExpectedProduct()
+        public async Task GetProductAsync_WithExistingProduct_ReturnsExpectedProduct()
         {
             // Arrange
-            var expectedProduct = CreatedProductDto();
+            var expectedProduct = TestProductDto();
             
             _repositoryStub.Setup(repo => repo.GetProductAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(expectedProduct);
@@ -47,92 +50,53 @@ namespace Product.UnitTests
             var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
 
             // Act
-            var result = await controller.GetProduct(expectedProduct.Id);
+            var actionResult = await controller.GetProduct(expectedProduct.Id);
             
             // Assert
-            result.Result.Should().BeOfType<OkObjectResult>();
+            actionResult.Result.Should().BeOfType<OkObjectResult>();
             
-            // result.Value.Should().BeEquivalentTo(
-            //     expectedProduct,
-            // option => option.ComparingByMembers<ProductDto>()
-            // );
-        }
-
-        [Fact]
-        public async Task GetProductsAsync_WithUnexistingProduct_ReturnsAllProducts() 
-        {
-            // Arrange 
-            var expectedProducts = new[] {CreatedProductDto(), CreatedProductDto(), CreatedProductDto()};
+            var result = actionResult.Result as OkObjectResult;
             
-            var filter = new QueryParametersModel();
-            
-            _repositoryStub.Setup(repo => repo.GetProductsAsync(filter))
-                .ReturnsAsync(expectedProducts);
-            
-            var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
-
-            // Act
-            var actualProducts = await controller.GetProducts(filter);
-
-            // Assert
-            actualProducts.Result.Should().BeOfType<OkObjectResult>();
-            
-            // actualProducts.Should().BeEquivalentTo(
-            //     expectedProducts,
-            //     options => options.ComparingByMembers<ProductDto>()
-            //     );
+            result.Value.Should().BeEquivalentTo(
+                expectedProduct,
+            option => option.ComparingByMembers<ProductDto>()
+            );
         }
         
         [Fact]
         public async Task CreateProductAsync_WithProductToCreate_ReturnsCreatedProduct() 
         {
             // Arrange
-            var productToCreate = new CreateProductDto() // FIXME
-            {
-                AddressLine = "new address",
-                PostalCode = "12345",
-                Country = "Country",
-                City = "City",
-                FaxNumber = "+380991111111",
-                PhoneNumber = "+380990000000"
-            };
-            
+            var productToCreate = TestCreateProductDto();
             var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
             
             // Act
             var result = await controller.CreateProduct(productToCreate);
             
             // Assert
-            //var createdProduct = (result.Result as CreatedAtActionResult).Value as ProductDto;
+            var createdProduct = (result.Result as CreatedAtActionResult).Value as ProductDto;
+
+            result.Result.Should().BeOfType<CreatedAtActionResult>();
+
+            productToCreate.Should().BeEquivalentTo(
+                createdProduct,
+                options => options.ComparingByMembers<ProductDto>().ExcludingMissingMembers()
+            );
             
-            result.Result.Should().BeOfType<ObjectResult>();
-            
-            // productToCreate.Should().BeEquivalentTo(
-            //     createdProduct,
-            //     options => options.ComparingByMembers<ProductDto>().ExcludingMissingMembers()
-            //     );
-            //createdProduct.Id.Should().NotBeEmpty();
+            createdProduct.Id.Should().NotBeEmpty();
         }
         
         [Fact]
         public async Task UpdateProductAsync_WithExistingProduct_ReturnsNoContent() 
         {
             // Arrange
-            var existingProduct = CreatedProductDto();
+            var existingProduct = TestProductDto();
             
             _repositoryStub.Setup(repo => repo.GetProductAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(existingProduct);
 
             var productId = existingProduct.Id;
-            var productToUpdate = new CreateProductDto() // FIXME
-            {
-                AddressLine = "new address",
-                PostalCode = "12345",
-                Country = "Country",
-                City = "City",
-                FaxNumber = "+380991111111",
-                PhoneNumber = "+380990000000"
-            };
+            var productToUpdate = TestCreateProductDto();
             
             var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
             
@@ -143,26 +107,128 @@ namespace Product.UnitTests
             // Assert
             result.Should().BeOfType<NoContentResult>();
         }
+        
+        [Fact]
+        public async Task UpdateProductAsync_WithUnexistingProduct_ReturnsNotFound() 
+        {
+            // Arrange
+            _repositoryStub.Setup(repo => repo.GetProductAsync(It.IsAny<Guid>()))
+                .ReturnsAsync((ProductDto)null);
+
+            var productToUpdate = TestCreateProductDto();
+            
+            var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
+            
+            // Act
+            var result = await controller.UpdateProduct(Guid.NewGuid(), productToUpdate);
+
+            // Assert
+            result.Should().BeOfType<NotFoundResult>();
+        }
 
         [Fact]
         public async Task DeleteProductAsync_WithExistingProduct_ReturnsNoContent()
         {
             // Arrange
-            var existingProduct = CreatedProductDto();
+            var existingProduct = TestProductDto();
             _repositoryStub.Setup(repo => repo.GetProductAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(existingProduct);
 
             var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
-            
-            
+
             // Act
             var result = await controller.DeleteProduct(existingProduct.Id);
 
             // Assert
             result.Should().BeOfType<NoContentResult>();
         }
+        
+        [Fact]
+        public async Task DeleteProductAsync_WithUnexistingProductId_ReturnsNotFound()
+        {
+            // Arrange
+            _repositoryStub.Setup(repo => repo.GetProductAsync(It.IsAny<Guid>()))
+                .ReturnsAsync((ProductDto)null);
 
-        private ProductDto CreatedProductDto() // FIXME Random obj 
+            var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
+
+            // Act
+            var result = await controller.DeleteProduct(Guid.NewGuid());
+
+            // Assert
+            result.Should().BeOfType<NotFoundResult>();
+        }
+
+        [Fact]
+        public async Task GetProductsAsync_WithUnexistingProduct_ReturnsOkObjectResult() 
+        {
+            // Arrange 
+            var expectedProducts = new List<ProductDto>() {TestProductDto(), TestProductDto(), TestProductDto()};
+            var filter = new QueryParametersModel();
+            
+            _repositoryStub.Setup(repo => repo.GetProductsAsync(filter))
+                .ReturnsAsync(expectedProducts);
+            
+            _repositoryStub.Setup(repo => repo.Count())
+                .ReturnsAsync(expectedProducts.Count);
+            
+            var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
+            
+            // Act
+            var actualProducts = await controller.GetProducts(filter);
+
+            // Assert
+            actualProducts.Result.Should().BeOfType<OkObjectResult>();
+        }
+        
+        [Fact]
+        public async Task GetProducts_WithUnexistingProduct_ReturnsProductWithSearchValue() 
+        {
+            // Arrange 
+            var expectedProducts = new List<ProductDto>() {TestProductDto(), TestProductDto()};
+            var filter = new QueryParametersModel {Search = "123"};
+
+            _repositoryStub.Setup(repo => repo.GetProductsAsync(filter))
+                .ReturnsAsync(expectedProducts);
+            
+            _repositoryStub.Setup(repo => repo.Count())
+                .ReturnsAsync(expectedProducts.Count);
+            
+            var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
+
+            var resultResponse = new PagedResponse<ProductDto>(expectedProducts, filter, expectedProducts.Count);
+            
+            // Act
+            var actualProducts = await controller.GetProducts(filter);
+
+            // Assert
+            actualProducts.Result.Should().BeOfType<OkObjectResult>();
+
+            var products = ((actualProducts.Result as OkObjectResult).Value 
+                as PagedResponse<ProductDto>).Data 
+                as List<ProductDto>;
+            
+
+            var result = actualProducts.Result as OkObjectResult;
+
+            // result.Value.Should().BeEquivalentTo(
+            //     resultResponse,
+            //     options => options.ComparingByMembers<PagedResponse<ProductDto>>()
+            //     );
+            
+            // var createdProduct = (result.Result as CreatedAtActionResult).Value as ProductDto;
+            //
+            // result.Result.Should().BeOfType<CreatedAtActionResult>();
+            //
+            // productToCreate.Should().BeEquivalentTo(
+            //     createdProduct,
+            //     options => options.ComparingByMembers<ProductDto>().ExcludingMissingMembers()
+            // );
+            //
+            // createdProduct.Id.Should().NotBeEmpty();
+        }
+        
+        private ProductDto TestProductDto()
         {
             return new()
             {
@@ -171,8 +237,21 @@ namespace Product.UnitTests
                 PostalCode = "12345",
                 Country = "Country",
                 City = "City",
-                FaxNumber = "+380991111111",
-                PhoneNumber = "+380990000000"
+                FaxNumber = "+380994081678",
+                PhoneNumber = "+380999088267"
+            };
+        }
+        
+        private CreateProductDto TestCreateProductDto() 
+        {
+            return new()
+            {
+                AddressLine = "new address",
+                PostalCode = "12345",
+                Country = "Country",
+                City = "City",
+                FaxNumber = "+380994081678",
+                PhoneNumber = "+380999088267"
             };
         }
     }
