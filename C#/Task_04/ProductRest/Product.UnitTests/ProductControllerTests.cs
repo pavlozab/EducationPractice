@@ -99,8 +99,7 @@ namespace Product.UnitTests
             var productToUpdate = TestCreateProductDto();
             
             var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
-            
-            
+
             // Act
             var result = await controller.UpdateProduct(productId, productToUpdate);
 
@@ -160,72 +159,32 @@ namespace Product.UnitTests
         }
 
         [Fact]
-        public async Task GetProductsAsync_WithUnexistingProduct_ReturnsOkObjectResult() 
+        public async Task GetProductsAsync_WithUnexistingProduct_ReturnsAllProducts() 
         {
             // Arrange 
             var expectedProducts = new List<ProductDto>() {TestProductDto(), TestProductDto(), TestProductDto()};
             var filter = new QueryParametersModel();
             
-            _repositoryStub.Setup(repo => repo.GetProductsAsync(filter))
+            _repositoryStub.Setup(repo => repo.GetProductsAsync(It.IsAny<QueryParametersModel>()))
                 .ReturnsAsync(expectedProducts);
             
             _repositoryStub.Setup(repo => repo.Count())
                 .ReturnsAsync(expectedProducts.Count);
             
             var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
-            
-            // Act
-            var actualProducts = await controller.GetProducts(filter);
-
-            // Assert
-            actualProducts.Result.Should().BeOfType<OkObjectResult>();
-        }
-        
-        [Fact]
-        public async Task GetProducts_WithUnexistingProduct_ReturnsProductWithSearchValue() 
-        {
-            // Arrange 
-            var expectedProducts = new List<ProductDto>() {TestProductDto(), TestProductDto()};
-            var filter = new QueryParametersModel {Search = "123"};
-
-            _repositoryStub.Setup(repo => repo.GetProductsAsync(filter))
-                .ReturnsAsync(expectedProducts);
-            
-            _repositoryStub.Setup(repo => repo.Count())
-                .ReturnsAsync(expectedProducts.Count);
-            
-            var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
-
             var resultResponse = new PagedResponse<ProductDto>(expectedProducts, filter, expectedProducts.Count);
-            
+
             // Act
             var actualProducts = await controller.GetProducts(filter);
 
             // Assert
             actualProducts.Result.Should().BeOfType<OkObjectResult>();
-
-            var products = ((actualProducts.Result as OkObjectResult).Value 
-                as PagedResponse<ProductDto>).Data 
-                as List<ProductDto>;
-            
-
             var result = actualProducts.Result as OkObjectResult;
 
-            // result.Value.Should().BeEquivalentTo(
-            //     resultResponse,
-            //     options => options.ComparingByMembers<PagedResponse<ProductDto>>()
-            //     );
-            
-            // var createdProduct = (result.Result as CreatedAtActionResult).Value as ProductDto;
-            //
-            // result.Result.Should().BeOfType<CreatedAtActionResult>();
-            //
-            // productToCreate.Should().BeEquivalentTo(
-            //     createdProduct,
-            //     options => options.ComparingByMembers<ProductDto>().ExcludingMissingMembers()
-            // );
-            //
-            // createdProduct.Id.Should().NotBeEmpty();
+            result.Value.Should().BeEquivalentTo(
+                resultResponse,
+                options => options.ComparingByMembers<PagedResponse<ProductDto>>()
+            );
         }
         
         private ProductDto TestProductDto()
