@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ProductRest.Dto;
+using ProductRest.Dto.Product;
 using ProductRest.Entities;
 using ProductRest.Models;
 using ProductRest.Responses;
@@ -29,7 +30,7 @@ namespace ProductRest.Controllers
         /// <summary>
         /// Get Products.
         /// </summary>
-        /// <response code="200">Returns Product List</response>
+        /// <response code="200">Returns Product List.</response>
         [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(200)]
@@ -42,8 +43,8 @@ namespace ProductRest.Controllers
         /// <summary>
         /// Get a specific Product.
         /// </summary>
-        /// <param name="id">The id of the item to be retrieved</param>
-        /// <response code="200">Returns a specific Product</response>
+        /// <param name="id">The id of the item to be retrieved.</param>
+        /// <response code="200">Returns a specific Product.</response>
         /// <response code="404">Product hasn't been found.</response>
         [AllowAnonymous]
         [HttpGet("{id}")]
@@ -54,7 +55,7 @@ namespace ProductRest.Controllers
             var product = await _service.GetProduct(id);
 
             if (product is null)
-                return NotFound();
+                return NotFound("Product hasn't been found.");
 
             _logger .LogInformation("Returned product with id: {0}", id);
             return Ok(product);
@@ -78,25 +79,48 @@ namespace ProductRest.Controllers
         ///     }
         ///
         /// </remarks>
-        /// <response code="201">Returns the newly created item</response>
-        /// <response code="405">Method is not allowed</response>    
+        /// <response code="201">Returns the newly created item.</response>
+        /// <response code="400">Product is not created.</response>  
         [HttpPost]
         [Authorize(Roles = nameof(Role.Admin))]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         public async Task<ActionResult<Product>> CreateProduct(CreateProductDto productDto)
         {
-            var product = await _service.CreateProduct(productDto);
-            _logger.LogInformation("Create a Product");
-            return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
+            try
+            {
+                var product = await _service.CreateProduct(productDto);
+                
+                _logger.LogInformation("Create a Product");
+                return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return BadRequest();
+            }
         }
 
         /// <summary>
         /// Update a specific Product.
         /// </summary>
-        /// <param name="id">The id of the item to be retrieved</param>
-        /// <param name="productDto">New product</param>
-        /// <response code="204">Updated product</response>
+        /// <remarks>
+        ///  Sample request:
+        ///
+        ///     PUT /products
+        ///     {
+        ///        "addressLine": "new address",
+        ///        "postalCode": "12345",
+        ///        "country": "new country",
+        ///        "city": "new city",
+        ///        "faxNumber": "+380111111111",
+        ///        "phoneNumber": "+380222222222",
+        ///        "amount": 4
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="id">The id of the item to be updated.</param>
+        /// <param name="productDto">Updated product.</param>
+        /// <response code="204">Updated product.</response>
         /// <response code="404">Product hasn't been found.</response>
         [HttpPut("{id}")]
         [Authorize(Roles = nameof(Role.Admin))]
@@ -104,11 +128,17 @@ namespace ProductRest.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult> UpdateProduct(Guid id, UpdateProductDto productDto)
         {
-            if ((await  _service.UpdateProduct(id, productDto)) is null)
-                return NotFound();
+            try
+            {
+                await _service.UpdateProduct(id, productDto);
 
-            _logger.LogInformation("Updated product with id: {0}", id);
-            return NoContent();
+                _logger.LogInformation("Updated product with id: {0}", id);
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return NotFound("Product hasn't been found.");
+            }
         }
 
         /// <summary>
@@ -123,13 +153,17 @@ namespace ProductRest.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult> DeleteProduct(Guid id)
         {
-            if ((await _service.DeleteProduct(id)) is null)
+            try
             {
-                return NotFound();
+                await _service.DeleteProduct(id);
+
+                _logger.LogInformation("Deleted product with id: {0}", id);
+                return NoContent();
             }
-                
-            _logger.LogInformation("Deleted product with id: {0}", id);
-            return NoContent();
+            catch (Exception e)
+            {
+                return NotFound("Product hasn't been found.");
+            }
         }
     }
 }

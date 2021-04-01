@@ -1,7 +1,5 @@
-using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ProductRest.Dto;
 using ProductRest.Dto.Auth;
 using ProductRest.Entities;
 using ProductRest.Infrastructure.Contracts;
@@ -51,7 +49,7 @@ namespace ProductRest.Services
         {
             var isDuplicateEmail = await _userService.GetUserByEmail(registrationDto.Email);
             if (!(isDuplicateEmail is null))
-                return null; //throw new RestException(HttpStatusCode.Unauthorized);
+                return null;
             
             var user = await _userService.CreateUser(registrationDto);
             return GetAccessToken(user);

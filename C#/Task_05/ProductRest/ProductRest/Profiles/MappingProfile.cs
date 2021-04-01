@@ -1,5 +1,6 @@
 using AutoMapper;
 using ProductRest.Dto;
+using ProductRest.Dto.Product;
 using ProductRest.Entities;
 
 namespace ProductRest.Profiles

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using ProductRest.Dto.Order;
 using ProductRest.Entities;
 using ProductRest.Repositories.Contracts;
@@ -24,23 +25,30 @@ namespace ProductRest.Services
             return await _orderRepository.GetAllOrders(userId);
         }
 
-        public async Task<Order> GetOrder(Guid id, Guid UserId)
+        public async Task<Order> GetOrder(Guid id, Guid userId)
         {
-            // check user 
+            var order = await _orderRepository.GetOrder(id);
+            
+            if (order is null)
+                throw new KeyNotFoundException("No order found.");
+            
+            if (order.Id != userId)
+                return null;
+            
             
             return await _orderRepository.GetOrder(id);
         }
 
-        public async Task<Order> CreateOrder(CreateOrderDto newOrder, Guid userId)
+        public async Task<Order> CreateOrder(CreateOrderDto newOrder, Guid userId) // Transaction ?
         {
             var currentProduct = await _productsRepository.GetProductAsync(newOrder.ProductId);
+            
             if (currentProduct is null)
-                throw new Exception("Nema takogo"); //FIXME 
+                throw new KeyNotFoundException("No order found.");
 
             if (currentProduct.Amount < newOrder.Amount)
-                throw new Exception("Mnogo ?"); //FIXME 
-
-            Console.WriteLine("2");
+                return null; 
+            
             Order order = new()
             {
                 Id = new Guid(),
@@ -52,7 +60,6 @@ namespace ProductRest.Services
 
             currentProduct.Amount -= order.Amount;
             await _productsRepository.UpdateProductAsync(currentProduct);
-            Console.WriteLine("3");
             await _orderRepository.CreateOrder(order);
             return order;
         }

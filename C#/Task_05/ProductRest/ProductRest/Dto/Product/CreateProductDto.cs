@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ProductRest.Dto
+namespace ProductRest.Dto.Product
 {
     public record CreateProductDto
     {
@@ -33,6 +33,6 @@ namespace ProductRest.Dto
         
         [Required]
         [Range(1, int.MaxValue, ErrorMessage = "Only positive number allowed")]
-        public int Amount { get; set; }
+        public int Amount { get; init; }
     }
 }

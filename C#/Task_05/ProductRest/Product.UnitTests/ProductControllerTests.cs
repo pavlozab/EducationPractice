@@ -9,27 +9,29 @@
 // using ProductRest.Controllers;
 // using ProductRest.Data.Contracts;
 // using ProductRest.Dto;
+// using ProductRest.Dto.Product;
 // using ProductRest.Entities;
 // using ProductRest.Models;
+// using ProductRest.Repositories.Contracts;
 // using ProductRest.Responses;
+// using ProductRest.Services.Contracts;
 // using Xunit;
 //
 // namespace Product.UnitTests
 // {
 //     public class ProductControllerTests 
 //     {
-//         private readonly Mock<IProductsRepository> _repositoryStub = new();
+//         private readonly Mock<IProductService> _productService = new();
 //         private readonly Mock<ILogger<ProductController>> _loggerStub = new();
-//         private readonly Mock<IMapper> _mappingStub = new();
-//         
+//
 //         [Fact]
 //         public async Task GetProductAsync_WithUnexistingProduct_ReturnsNotFound()
 //         {
 //             // Arrange
-//             _repositoryStub.Setup(repo => repo.GetProductAsync(It.IsAny<Guid>()))
+//             _productService.Setup(serv => serv.GetProduct(It.IsAny<Guid>()))
 //                 .ReturnsAsync((ProductRest.Entities.Product) null);
 //
-//             var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
+//             var controller = new ProductController(_productService.Object, _loggerStub.Object);
 //
 //             // Act
 //             var result = await controller.GetProduct(Guid.NewGuid());
@@ -44,23 +46,16 @@
 //             // Arrange
 //             var expectedProduct = TestProductDto();
 //             
-//             _repositoryStub.Setup(repo => repo.GetProductAsync(It.IsAny<Guid>()))
+//             _productService.Setup(serv => serv.GetProduct(It.IsAny<Guid>()))
 //                 .ReturnsAsync(expectedProduct);
 //             
-//             var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
+//             var controller = new ProductController(_productService.Object, _loggerStub.Object);
 //
 //             // Act
 //             var actionResult = await controller.GetProduct(expectedProduct.Id);
 //             
 //             // Assert
 //             actionResult.Result.Should().BeOfType<OkObjectResult>();
-//             
-//             var result = actionResult.Result as OkObjectResult;
-//             
-//             result.Value.Should().BeEquivalentTo(
-//                 expectedProduct,
-//             option => option.ComparingByMembers<ProductRest.Entities.Product>()
-//             );
 //         }
 //         
 //         [Fact]
@@ -68,14 +63,12 @@
 //         {
 //             // Arrange
 //             var productToCreate = TestCreateProductDto();
-//             var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
+//             var controller = new ProductController(_productService.Object, _loggerStub.Object);
 //             
 //             // Act
 //             var result = await controller.CreateProduct(productToCreate);
 //             
 //             // Assert
-//             var createdProduct = (result.Result as CreatedAtActionResult).Value as ProductRest.Entities.Product;
-//
 //             result.Result.Should().BeOfType<CreatedAtActionResult>();
 //
 //             productToCreate.Should().BeEquivalentTo(
@@ -92,13 +85,13 @@
 //             // Arrange
 //             var existingProduct = TestProductDto();
 //             
-//             _repositoryStub.Setup(repo => repo.GetProductAsync(It.IsAny<Guid>()))
+//             _productService.Setup(serv => serv.GetProduct(It.IsAny<Guid>()))
 //                 .ReturnsAsync(existingProduct);
 //
 //             var productId = existingProduct.Id;
 //             var productToUpdate = TestCreateProductDto();
 //             
-//             var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
+//             var controller = new ProductController(_productService.Object, _loggerStub.Object);
 //
 //             // Act
 //             var result = await controller.UpdateProduct(productId, productToUpdate);
@@ -111,12 +104,12 @@
 //         public async Task UpdateProductAsync_WithUnexistingProduct_ReturnsNotFound() 
 //         {
 //             // Arrange
-//             _repositoryStub.Setup(repo => repo.GetProductAsync(It.IsAny<Guid>()))
+//             _productService.Setup(serv => serv.GetProductAsync(It.IsAny<Guid>()))
 //                 .ReturnsAsync((ProductRest.Entities.Product)null);
 //
 //             var productToUpdate = TestCreateProductDto();
 //             
-//             var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
+//             var controller = new ProductController(_productService.Object, _loggerStub.Object, _mappingStub.Object);
 //             
 //             // Act
 //             var result = await controller.UpdateProduct(Guid.NewGuid(), productToUpdate);
@@ -130,10 +123,10 @@
 //         {
 //             // Arrange
 //             var existingProduct = TestProductDto();
-//             _repositoryStub.Setup(repo => repo.GetProductAsync(It.IsAny<Guid>()))
+//             _productService.Setup(serv => serv.GetProductAsync(It.IsAny<Guid>()))
 //                 .ReturnsAsync(existingProduct);
 //
-//             var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
+//             var controller = new ProductController(_productService.Object, _loggerStub.Object, _mappingStub.Object);
 //
 //             // Act
 //             var result = await controller.DeleteProduct(existingProduct.Id);
@@ -146,10 +139,10 @@
 //         public async Task DeleteProductAsync_WithUnexistingProductId_ReturnsNotFound()
 //         {
 //             // Arrange
-//             _repositoryStub.Setup(repo => repo.GetProductAsync(It.IsAny<Guid>()))
+//             _productService.Setup(serv => serv.GetProductAsync(It.IsAny<Guid>()))
 //                 .ReturnsAsync((ProductRest.Entities.Product)null);
 //
-//             var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
+//             var controller = new ProductController(_productService.Object, _loggerStub.Object, _mappingStub.Object);
 //
 //             // Act
 //             var result = await controller.DeleteProduct(Guid.NewGuid());
@@ -165,13 +158,13 @@
 //             var expectedProducts = new List<ProductRest.Entities.Product>() {TestProductDto(), TestProductDto(), TestProductDto()};
 //             var filter = new QueryParametersModel();
 //             
-//             _repositoryStub.Setup(repo => repo.GetProductsAsync(It.IsAny<QueryParametersModel>()))
+//             _productService.Setup(serv => serv.GetProductsAsync(It.IsAny<QueryParametersModel>()))
 //                 .ReturnsAsync(expectedProducts);
 //             
-//             _repositoryStub.Setup(repo => repo.Count())
+//             _productService.Setup(serv => serv.Count())
 //                 .ReturnsAsync(expectedProducts.Count);
 //             
-//             var controller = new ProductController(_repositoryStub.Object, _loggerStub.Object, _mappingStub.Object);
+//             var controller = new ProductController(_productService.Object, _loggerStub.Object, _mappingStub.Object);
 //             var resultResponse = new PagedResponse<ProductRest.Entities.Product>(expectedProducts, filter, expectedProducts.Count);
 //
 //             // Act

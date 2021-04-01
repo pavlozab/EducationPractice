@@ -1,7 +1,7 @@
 using System;
 using ProductRest.Entities;
 
-namespace ProductRest.Dto
+namespace ProductRest.Dto.User
 {
     public class UserResultDto
     {

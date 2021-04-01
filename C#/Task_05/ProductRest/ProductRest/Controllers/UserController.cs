@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ProductRest.Dto;
+using ProductRest.Dto.User;
 using ProductRest.Entities;
-using ProductRest.Infrastructure.Contracts;
 using ProductRest.Services.Contracts;
 
 namespace ProductRest.Controllers
@@ -26,31 +26,70 @@ namespace ProductRest.Controllers
             _userService = userService;
         }
         
+        /// <summary>
+        /// Get all Users. Only for Admin User.
+        /// </summary>
+        /// <returns>List of User's.</returns>
+        /// <response code="200">Returns User's List.</response>
         [HttpGet]
         [Authorize(Roles = nameof(Role.Admin))]
-        public async Task<ActionResult<IEnumerable<User>>> GetProducts()
+        [ProducesResponseType(200)]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            _logger.LogInformation("Returned all products");
+            _logger.LogInformation("Returned all Users");
             return Ok(await _userService.GetAllUsers());
         }
         
+        /// <summary>
+        /// Update Role of User. Only for Admin User.
+        /// </summary>
+        /// <param name="id">The id of the user which Role to be updated.</param>
+        /// <param name="newRole">New Role</param>
+        /// <returns>User with updated Role's.</returns>
+        /// <response code="200">Updated user</response>
         [HttpPut("{id}")]
         [Authorize(Roles = nameof(Role.Admin))]
+        [ProducesResponseType(200)]
         public async Task<ActionResult<UserResultDto>> UpdateRoleOfUser(Guid id, Role newRole)
         {
-            return Ok(await _userService.UpdateRoleOfUser(id, newRole));
+            try
+            {
+                var user = await _userService.UpdateRoleOfUser(id, newRole);
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return NotFound(e);
+            }
         }
         
+        /// <summary>
+        /// Delete User. Only for Admin User.
+        /// </summary>
+        /// <param name="id">The id of the user to be deleted.</param>
+
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteProduct(Guid id)
+        [Authorize(Roles = nameof(Role.Admin))]
+        public async Task<ActionResult> DeleteUser(Guid id)
         {
-            if ((await _userService.DeleteUser(id)) is null)
+            try
             {
-                return NotFound();
-            }
+                await _userService.DeleteUser(id);
                 
-            _logger.LogInformation("Deleted product with id: {0}", id);
-            return NoContent();
+                _logger.LogInformation("Deleted user with id: {0}", id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e);
+            }
+        }
+        
+        private string GetCurrentUserId()
+        {
+            return ControllerContext.HttpContext.User.Claims.Where(obj => 
+                    obj.Type == "UserId")
+                .Select(obj => obj.Value).SingleOrDefault();
         }
     }
 }

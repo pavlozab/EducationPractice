@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using ProductRest.Dto;
+using ProductRest.Dto.Product;
 using ProductRest.Entities;
 using ProductRest.Models;
 using ProductRest.Repositories.Contracts;
@@ -26,12 +28,17 @@ namespace ProductRest.Services
             var validFilter = new QueryParametersModel(filter);
             var products = await _repository.GetProductsAsync(validFilter);
             var count = await _repository.Count();
-            return new PagedResponse<Product>(products, validFilter, count);
+            return new PagedResponse<Product>(products, count);
         }
 
         public async Task<Product> GetProduct(Guid id)
         {
-            return await _repository.GetProductAsync(id);
+            var product = await  _repository.GetProductAsync(id);
+            
+            if (product is null)
+                throw new KeyNotFoundException("Product hasn't been found");
+            
+            return product;
         }
 
         public async Task<Product> CreateProduct(CreateProductDto productDto)
@@ -51,28 +58,26 @@ namespace ProductRest.Services
             return product;
         }
 
-        public async Task<Product> UpdateProduct(Guid id, UpdateProductDto productDto)
+        public async Task UpdateProduct(Guid id, UpdateProductDto productDto)
         {
             var existingProduct = await  _repository.GetProductAsync(id);
 
             if (existingProduct is null)
-                return null;
+                throw new KeyNotFoundException("Product hasn't been found");
             
             _mapper.Map(productDto, existingProduct);
 
             await _repository.UpdateProductAsync(existingProduct);
-            return existingProduct;
         }
 
-        public async Task<Product> DeleteProduct(Guid id)
+        public async Task DeleteProduct(Guid id)
         {
             var existingProduct = await _repository.GetProductAsync(id);
 
             if (existingProduct is null)
-                return null;
+                throw new KeyNotFoundException("Product hasn't been found");
 
             await _repository.DeleteProductAsync(id);
-            return existingProduct;
         }
     }
 }

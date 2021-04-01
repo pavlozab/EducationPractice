@@ -64,7 +64,6 @@ namespace ProductRest
             services.AddSingleton<IProductsRepository, MongoDbProductsRepository>();
             services.AddSingleton<IProductService, ProductService>();
             
-            
             services.AddSingleton<IUserRepository, MongoDbUserRepository>(); 
             services.AddScoped<IAuthService, AuthService>();
             services.AddSingleton<IUserService, UserService>();

@@ -1,11 +1,8 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ProductRest.Dto;
 using ProductRest.Dto.Auth;
-using ProductRest.Infrastructure.Contracts;
 using ProductRest.Services.Contracts;
 
 
@@ -38,22 +35,23 @@ namespace ProductRest.Controllers
         ///
         /// </remarks>
         /// <param name="loginDto">Login dto</param>
-        /// <response code="202">Returns the newly created item</response>
-        /// <response code="400">One or more validation errors occurred.</response>    
+        /// <response code="200">Token is successfully created</response> 
+        /// <response code="401">Password or email is invalid</response>
         [AllowAnonymous]
         [HttpPost("login")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
         public async Task<ActionResult<string>> Login(LoginDto loginDto)
         {
             if (!await _authService.ValidateUser(loginDto))
-                return Unauthorized();
-
+                return Unauthorized("Password or email is invalid");
+            
+            _logger.LogInformation("Token is successfully created");
             return Ok(await _authService.Login(loginDto));
         }
 
 
-        /// <summary>
-        /// Registration.
-        /// </summary>
+        /// <summary> Registration. </summary>
         /// <remarks>
         /// Sample request:
         ///
@@ -63,21 +61,22 @@ namespace ProductRest.Controllers
         ///         lastname: ‘Doe’,
         ///         email: ‘test@email.com’,
         ///         password: ‘12345’
-        ///         passwordconfirm
         ///     }
         ///
         /// </remarks>
-        /// <response code="201">Returns the newly created item</response>
-        /// <response code="400">One or more validation errors occurred.</response>
+        /// <response code="200">User is successfully created</response>
+        /// <response code="401">Email is already exist</response>
         [AllowAnonymous]
         [HttpPost("registration")]
-        //[ProducesResponseType(201)]
-        //[ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
         public async Task<ActionResult<JwtResult>> Registration(RegistrationDto registrationDto)
         {
             var jwtResult = await _authService.Registration(registrationDto);
             if (jwtResult is null)
-                return Unauthorized();
+                return Unauthorized("Email is already exist");
+            
+            _logger.LogInformation("User is successfully created");
             return Ok(jwtResult);
         }
     }

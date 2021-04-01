@@ -1,13 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Authentication;
 using System.Threading.Tasks;
-using AutoMapper;
-using DevOne.Security.Cryptography.BCrypt;
-using Microsoft.Extensions.Logging;
-using ProductRest.Controllers;
-using ProductRest.Dto;
 using ProductRest.Dto.Auth;
+using ProductRest.Dto.User;
 using ProductRest.Entities;
 using ProductRest.Repositories.Contracts;
 using ProductRest.Services.Contracts;
@@ -33,20 +28,13 @@ namespace ProductRest.Services
             return await _repository.GetAllUsers();
         }
 
-        public async Task<UserResultDto> DeleteUser(Guid id)
+        public async Task DeleteUser(Guid id)
         {
             var existingUser = await _repository.GetUserAsync(id);
             if (existingUser is null)
-                return null;
+                throw new KeyNotFoundException("User hasn't been found");
 
             await _repository.DeleteUser(id);
-
-            return new UserResultDto
-            {
-                Id = id,
-                Email = existingUser.Email,
-                Roles = existingUser.Roles
-            };
         }
 
         public async Task<User> CreateUser(RegistrationDto registrationDto)
@@ -68,7 +56,8 @@ namespace ProductRest.Services
         {
             var existingUser = await _repository.GetUserAsync(id);
             if (existingUser is null)
-                return null;
+                throw new KeyNotFoundException("User hasn't been found");
+            
             existingUser.Roles = newRole;
 
             await _repository.UpdateUser(id, existingUser);
