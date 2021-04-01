@@ -1,6 +1,6 @@
-namespace ProductRest.Data.Settings
+namespace ProductRest.Config
 {
-    public class MongoDbSettings
+    public class MongoDbConfig
     {
         public string Host { get; set; }
         public int Port { get; set; }

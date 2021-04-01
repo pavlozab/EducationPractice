@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ProductRest.Dtos
+namespace ProductRest.Dto.Auth
 {
     public class RegistrationDto
     {
@@ -21,11 +21,5 @@ namespace ProductRest.Dtos
         [Display(Name = "Password")]
         [StringLength(40, ErrorMessage = "Password is too short (minimum is 8 characters).", MinimumLength =8)]
         public string Password { get; set; }
-
-        [Required]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "Confirm your password")]
-        [DataType(DataType.Password)]
-        public string PasswordConfirm { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace ProductRest.Entities
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        private Role[] Roles { get; set; }
+        public Role Roles { get; set; }
     }
 
     public enum Role

@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using ProductRest.Data.Contracts;
-using ProductRest.Dtos;
 using ProductRest.Entities;
 using ProductRest.Models;
+using ProductRest.Repositories.Contracts;
 
-namespace ProductRest.Data.Repositories
+namespace ProductRest.Repositories
 {
     public class MongoDbProductsRepository : IProductsRepository
     {

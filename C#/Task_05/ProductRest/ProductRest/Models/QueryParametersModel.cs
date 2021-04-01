@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using ProductRest.Dtos;
 using ProductRest.Entities;
 
 namespace ProductRest.Models

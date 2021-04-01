@@ -4,6 +4,42 @@
         <name>ProductRest</name>
     </assembly>
     <members>
+        <member name="M:ProductRest.Controllers.AuthController.Login(ProductRest.Dto.Auth.LoginDto)">
+             <summary> Login. </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /login
+                 {
+                     email: ‘test@email.com’,
+                     password: ‘12345’
+                 }
+            
+             </remarks>
+             <param name="loginDto">Login dto</param>
+             <response code="202">Returns the newly created item</response>
+             <response code="400">One or more validation errors occurred.</response>    
+        </member>
+        <member name="M:ProductRest.Controllers.AuthController.Registration(ProductRest.Dto.Auth.RegistrationDto)">
+             <summary>
+             Registration.
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /registration
+                 {
+                     firstname: ‘John’,
+                     lastname: ‘Doe’,
+                     email: ‘test@email.com’,
+                     password: ‘12345’
+                     passwordconfirm
+                 }
+            
+             </remarks>
+             <response code="201">Returns the newly created item</response>
+             <response code="400">One or more validation errors occurred.</response>
+        </member>
         <member name="M:ProductRest.Controllers.ProductController.GetProducts(ProductRest.Models.QueryParametersModel)">
             <summary>
             Get Products.
@@ -18,7 +54,7 @@
             <response code="200">Returns a specific Product</response>
             <response code="404">Product hasn't been found.</response>
         </member>
-        <member name="M:ProductRest.Controllers.ProductController.CreateProduct(ProductRest.Dtos.CreateProductDto)">
+        <member name="M:ProductRest.Controllers.ProductController.CreateProduct(ProductRest.Dto.CreateProductDto)">
              <summary>
              Create a Product.
              </summary>
@@ -31,15 +67,16 @@
                     "postalCode": "12345",
                     "country": "new country",
                     "city": "new city",
-                    "faxNumber": "+380111111111"
-                    "phoneNumber": "+380222222222"
+                    "faxNumber": "+380111111111",
+                    "phoneNumber": "+380222222222",
+                    "amount": 4
                  }
             
              </remarks>
              <response code="201">Returns the newly created item</response>
-             <response code="400">One or more validation errors occurred.</response>    
+             <response code="405">Method is not allowed</response>    
         </member>
-        <member name="M:ProductRest.Controllers.ProductController.UpdateProduct(System.Guid,ProductRest.Dtos.CreateProductDto)">
+        <member name="M:ProductRest.Controllers.ProductController.UpdateProduct(System.Guid,ProductRest.Dto.UpdateProductDto)">
             <summary>
             Update a specific Product.
             </summary>

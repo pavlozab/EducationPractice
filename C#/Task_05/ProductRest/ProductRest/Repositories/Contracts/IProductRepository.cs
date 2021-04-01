@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ProductRest.Dtos;
 using ProductRest.Entities;
 using ProductRest.Models;
 
-namespace ProductRest.Data.Contracts
+namespace ProductRest.Repositories.Contracts
 {
     public interface IProductsRepository
     {

@@ -11,5 +11,6 @@ namespace ProductRest.Entities
         public string City { get; init; }
         public string FaxNumber { get; init; }
         public string PhoneNumber { get; init; }
+        public int Amount { get; set; }
     }
 }

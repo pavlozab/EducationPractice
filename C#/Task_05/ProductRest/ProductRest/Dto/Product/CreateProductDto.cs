@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ProductRest.Dtos
+namespace ProductRest.Dto
 {
     public record CreateProductDto
     {
@@ -30,5 +30,9 @@ namespace ProductRest.Dtos
         [Phone]
         [StringLength(13, ErrorMessage = "{0} length must be {1}.", MinimumLength = 13)]
         public string PhoneNumber { get; init; }
+        
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Only positive number allowed")]
+        public int Amount { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ProductRest.Dtos
+namespace ProductRest.Dto.Auth
 {
     public class LoginDto
     {

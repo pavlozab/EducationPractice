@@ -3,8 +3,11 @@ using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Reflection;
+using System.Text;
 using System.Text.Json;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -12,15 +15,20 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
-using ProductRest.Data.Contracts;
-using ProductRest.Data.Repositories;
-using ProductRest.Data.Settings;
-using ProductRest.Dtos;
+using ProductRest.Config;
+using ProductRest.Infrastructure;
+using ProductRest.Infrastructure.Contracts;
+using ProductRest.Profiles;
+using ProductRest.Repositories;
+using ProductRest.Repositories.Contracts;
+using ProductRest.Services;
+using ProductRest.Services.Contracts;
 
 namespace ProductRest
 {
@@ -38,11 +46,11 @@ namespace ProductRest
         {
             // Database
             BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
-            var mongoDbSettings = Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
+            var mongoDbConfig = Configuration.GetSection(nameof(MongoDbConfig)).Get<MongoDbConfig>();
             
             services.AddSingleton<IMongoClient>(ServiceProvider =>
             {
-                return new MongoClient(mongoDbSettings.ConnectionString);
+                return new MongoClient(mongoDbConfig.ConnectionString);
             });
             
             // Mapping
@@ -50,16 +58,53 @@ namespace ProductRest
             {
                 mc.AddProfile(new MappingProfile());
             });
-            
             services.AddSingleton(mappingConfig.CreateMapper());
             
-            // Repository
+            // 
             services.AddSingleton<IProductsRepository, MongoDbProductsRepository>();
-            services.AddSingleton<IUserRepository, MongoDbUserRepository>(); // ?
+            services.AddSingleton<IProductService, ProductService>();
+            
+            
+            services.AddSingleton<IUserRepository, MongoDbUserRepository>(); 
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IJwtAuthManager, JwtAuthManager>();
+
+            services.AddSingleton<IOrderRepository, MongoDbOrderRepository>();
+            services.AddSingleton<IOrderService, OrderService>();
+            
+            // JWT
+            var jwtTokenConfig = Configuration.GetSection(nameof(JwtTokenConfig)).Get<JwtTokenConfig>();
+            services.AddSingleton(jwtTokenConfig);
+            services.AddAuthentication(obj =>
+            {
+                obj.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                obj.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(obj =>
+            {
+                obj.RequireHttpsMetadata = true;
+                obj.SaveToken = true;
+                obj.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = jwtTokenConfig.Issuer,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtTokenConfig.Secret)),
+                    ValidAudience = jwtTokenConfig.Audience,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromMinutes(1)
+                };
+            });
+            
+            // services.AddSingleton<JwtAuthManager>(ServiceProvider =>
+            // {
+            //     return new JwtAuthManager(jwtTokenConfig);
+            // });
             
             // Controller
             services.AddControllers();
-            
+
             // Swagger
             services.AddSwaggerGen(c =>
             {
@@ -75,13 +120,13 @@ namespace ProductRest
                 c.IncludeXmlComments(xmlPath);
             });
             
-            // Health check
-            services.AddHealthChecks()
-                .AddMongoDb(
-                    mongoDbSettings.ConnectionString, 
-                    name: "mongodb", 
-                    timeout: TimeSpan.FromSeconds(3),
-                    tags: new []{ "ready" });
+            // //Health check
+            // services.AddHealthChecks()
+            //     .AddMongoDb(
+            //         mongoDbSettings.ConnectionString, 
+            //         name: "mongodb", 
+            //         timeout: TimeSpan.FromSeconds(3),
+            //         tags: new []{ "ready" });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,40 +146,42 @@ namespace ProductRest
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                
-                endpoints.MapHealthChecks("/health/ready", new HealthCheckOptions
-                {
-                    Predicate = (check) => check.Tags.Contains("ready"),
-                    ResponseWriter = async(context, report) =>
-                    {
-                        var result = JsonSerializer.Serialize(
-                            new
-                            {
-                                status = report.Status.ToString(),
-                                checks = report.Entries.Select(entry => new
-                                {
-                                    name = entry.Key,
-                                    status = entry.Value.Status.ToString(),
-                                    exception = entry.Value.Exception != null ? entry.Value.Exception.Message : "none",
-                                    duration = entry.Value.Duration.ToString()
-                                })
-                            });
 
-                        context.Response.ContentType = MediaTypeNames.Application.Json;
-                        await context.Response.WriteAsync(result);
-                    }
-                });
-                
-                endpoints.MapHealthChecks("/health/live", new HealthCheckOptions
-                {
-                    Predicate = (_) => false
-                });
+                //     endpoints.MapHealthChecks("/health/ready", new HealthCheckOptions
+                //     {
+                //         Predicate = (check) => check.Tags.Contains("ready"),
+                //         ResponseWriter = async(context, report) =>
+                //         {
+                //             var result = JsonSerializer.Serialize(
+                //                 new
+                //                 {
+                //                     status = report.Status.ToString(),
+                //                     checks = report.Entries.Select(entry => new
+                //                     {
+                //                         name = entry.Key,
+                //                         status = entry.Value.Status.ToString(),
+                //                         exception = entry.Value.Exception != null ? entry.Value.Exception.Message : "none",
+                //                         duration = entry.Value.Duration.ToString()
+                //                     })
+                //                 });
+                //     
+                //             context.Response.ContentType = MediaTypeNames.Application.Json;
+                //             await context.Response.WriteAsync(result);
+                //         }
+                //     });
+                //     
+                //     endpoints.MapHealthChecks("/health/live", new HealthCheckOptions
+                //     {
+                //         Predicate = (_) => false
+                //     });
             });
         }
     }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProductRest.Dtos;
 using ProductRest.Models;
 
 namespace ProductRest.Responses
