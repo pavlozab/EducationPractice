@@ -23,17 +23,16 @@ namespace ProductRest.Services
             _mapper = mapper;
         }
 
-        public async Task<PagedResponse<Product>> GetProducts(QueryParametersModel filter)
+        public async Task<IEnumerable<Product>> GetAll(QueryParametersModel filter)
         {
             var validFilter = new QueryParametersModel(filter);
-            var products = await _repository.GetProductsAsync(validFilter);
-            var count = await _repository.Count();
-            return new PagedResponse<Product>(products, count);
+            var products = await _repository.GetAll(validFilter);
+            return products;
         }
 
-        public async Task<Product> GetProduct(Guid id)
+        public async Task<Product> GetOne(Guid id)
         {
-            var product = await  _repository.GetProductAsync(id);
+            var product = await  _repository.Get(id);
             
             if (product is null)
                 throw new KeyNotFoundException("Product hasn't been found");
@@ -41,7 +40,7 @@ namespace ProductRest.Services
             return product;
         }
 
-        public async Task<Product> CreateProduct(CreateProductDto productDto)
+        public async Task<Product> Create(CreateProductDto productDto)
         {
             Product product = new()
             {
@@ -54,30 +53,35 @@ namespace ProductRest.Services
                 PhoneNumber = productDto.PhoneNumber,
                 Amount = productDto.Amount
             };
-            await _repository.CreateProductAsync(product);
+            await _repository.Create(product);
             return product;
         }
 
-        public async Task UpdateProduct(Guid id, UpdateProductDto productDto)
+        public async Task Update(Guid id, UpdateProductDto productDto)
         {
-            var existingProduct = await  _repository.GetProductAsync(id);
+            var existingProduct = await  _repository.Get(id);
 
             if (existingProduct is null)
                 throw new KeyNotFoundException("Product hasn't been found");
             
             _mapper.Map(productDto, existingProduct);
 
-            await _repository.UpdateProductAsync(existingProduct);
+            await _repository.Update(existingProduct);
         }
 
-        public async Task DeleteProduct(Guid id)
+        public async Task Delete(Guid id)
         {
-            var existingProduct = await _repository.GetProductAsync(id);
+            var existingProduct = await _repository.Get(id);
 
             if (existingProduct is null)
                 throw new KeyNotFoundException("Product hasn't been found");
 
-            await _repository.DeleteProductAsync(id);
+            await _repository.Delete(id);
+        }
+
+        public async Task<long> Count()
+        {
+            return await _repository.Count();
         }
     }
 }

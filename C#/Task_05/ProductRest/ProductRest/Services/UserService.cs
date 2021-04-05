@@ -20,24 +20,24 @@ namespace ProductRest.Services
         
         public async Task<User> GetUserByEmail(string email)
         {
-            return await _repository.GetUserByEmailAsync(email);
+            return await _repository.GetUserByEmail(email);
         }
 
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public async Task<IEnumerable<User>> GetAll()
         {
-            return await _repository.GetAllUsers();
+            return await _repository.GetAll();
         }
 
-        public async Task DeleteUser(Guid id)
+        public async Task Delete(Guid id)
         {
-            var existingUser = await _repository.GetUserAsync(id);
+            var existingUser = await _repository.Get(id);
             if (existingUser is null)
                 throw new KeyNotFoundException("User hasn't been found");
 
-            await _repository.DeleteUser(id);
+            await _repository.Delete(id);
         }
 
-        public async Task<User> CreateUser(RegistrationDto registrationDto)
+        public async Task<User> Create(RegistrationDto registrationDto)
         {
             User user = new()
             {
@@ -48,19 +48,19 @@ namespace ProductRest.Services
                 Password = BCrypt.Net.BCrypt.HashPassword(registrationDto.Password)
             };
 
-            await _repository.CreateUserAsync(user);
+            await _repository.Create(user);
             return user;
         }
 
         public async Task<UserResultDto> UpdateRoleOfUser(Guid id, Role newRole)
         {
-            var existingUser = await _repository.GetUserAsync(id);
+            var existingUser = await _repository.Get(id);
             if (existingUser is null)
                 throw new KeyNotFoundException("User hasn't been found");
             
             existingUser.Roles = newRole;
 
-            await _repository.UpdateUser(id, existingUser);
+            await _repository.Update(id, existingUser);
 
             return new UserResultDto
             {

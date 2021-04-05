@@ -1,12 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "LiJXSjBtF9KRGcUgSBTsadS2aE7fOMM4hD/r+dzpg5zVul/iDbEwCkm4Hyj2Sjh2miOUSwK0zJyBSGrPuyRBQw==",
+  "dgSpecHash": "uSiKZe930LJBqfcrYDbuj9gyLuw7aMAlGrllhWGlKoKRgp7wqt2uodCewlUmV8U7UzIlWsBnyzj10AshtP67Xg==",
   "success": true,
   "projectFilePath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/Product.UnitTests.csproj",
   "expectedPackageFiles": [
-    "/Users/pasha/.nuget/packages/aspnetcore.healthchecks.mongodb/5.0.1/aspnetcore.healthchecks.mongodb.5.0.1.nupkg.sha512",
     "/Users/pasha/.nuget/packages/automapper/10.1.1/automapper.10.1.1.nupkg.sha512",
-    "/Users/pasha/.nuget/packages/bcrypt/1.0.0/bcrypt.1.0.0.nupkg.sha512",
     "/Users/pasha/.nuget/packages/bcrypt.net/0.1.0/bcrypt.net.0.1.0.nupkg.sha512",
     "/Users/pasha/.nuget/packages/castle.core/4.4.0/castle.core.4.4.0.nupkg.sha512",
     "/Users/pasha/.nuget/packages/coverlet.collector/1.3.0/coverlet.collector.1.3.0.nupkg.sha512",
@@ -19,10 +17,6 @@
     "/Users/pasha/.nuget/packages/microsoft.extensions.configuration.abstractions/5.0.0/microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512",
     "/Users/pasha/.nuget/packages/microsoft.extensions.dependencyinjection/5.0.0/microsoft.extensions.dependencyinjection.5.0.0.nupkg.sha512",
     "/Users/pasha/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/5.0.0/microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
-    "/Users/pasha/.nuget/packages/microsoft.extensions.diagnostics.healthchecks/5.0.1/microsoft.extensions.diagnostics.healthchecks.5.0.1.nupkg.sha512",
-    "/Users/pasha/.nuget/packages/microsoft.extensions.diagnostics.healthchecks.abstractions/5.0.1/microsoft.extensions.diagnostics.healthchecks.abstractions.5.0.1.nupkg.sha512",
-    "/Users/pasha/.nuget/packages/microsoft.extensions.fileproviders.abstractions/5.0.0/microsoft.extensions.fileproviders.abstractions.5.0.0.nupkg.sha512",
-    "/Users/pasha/.nuget/packages/microsoft.extensions.hosting.abstractions/5.0.0/microsoft.extensions.hosting.abstractions.5.0.0.nupkg.sha512",
     "/Users/pasha/.nuget/packages/microsoft.extensions.logging/5.0.0/microsoft.extensions.logging.5.0.0.nupkg.sha512",
     "/Users/pasha/.nuget/packages/microsoft.extensions.logging.abstractions/5.0.0/microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
     "/Users/pasha/.nuget/packages/microsoft.extensions.options/5.0.0/microsoft.extensions.options.5.0.0.nupkg.sha512",
@@ -148,16 +142,6 @@
     "/Users/pasha/.nuget/packages/xunit.runner.visualstudio/2.4.3/xunit.runner.visualstudio.2.4.3.nupkg.sha512"
   ],
   "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'BCrypt 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
-      "libraryId": "BCrypt",
-      "targetGraphs": [
-        "net5.0"
-      ]
-    },
     {
       "code": "NU1701",
       "level": "Warning",

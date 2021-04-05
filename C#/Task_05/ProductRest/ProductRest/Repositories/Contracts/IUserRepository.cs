@@ -5,13 +5,11 @@ using ProductRest.Entities;
 
 namespace ProductRest.Repositories.Contracts
 {
-    public interface IUserRepository
+    public interface IUserRepository: IBaseRepository<User>
     {
-        Task<IEnumerable<User>> GetAllUsers();
-        Task<User> GetUserAsync(Guid id);
-        Task<User> GetUserByEmailAsync(string email);
-        Task CreateUserAsync(User user);
-        Task UpdateUser(Guid id, User user);
-        Task DeleteUser(Guid id);
+        Task<IEnumerable<User>> GetAll();
+        Task<User> GetUserByEmail(string email);
+        Task Update(Guid id, User user);
+        Task Delete(Guid id);
     }
 }

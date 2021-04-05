@@ -125,17 +125,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "AspNetCore.HealthChecks.MongoDb": {
-              "target": "Package",
-              "version": "[5.0.1, )"
-            },
             "AutoMapper": {
               "target": "Package",
               "version": "[10.1.1, )"
-            },
-            "BCrypt": {
-              "target": "Package",
-              "version": "[1.0.0, )"
             },
             "BCrypt.Net": {
               "target": "Package",

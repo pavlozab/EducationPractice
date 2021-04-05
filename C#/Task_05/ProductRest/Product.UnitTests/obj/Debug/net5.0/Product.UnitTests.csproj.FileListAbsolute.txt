@@ -268,3 +268,10 @@
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/obj/Debug/net5.0/ref/Product.UnitTests.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/obj/Debug/net5.0/Product.UnitTests.pdb
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/obj/Debug/net5.0/Product.UnitTests.genruntimeconfig.cache
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/Microsoft.IdentityModel.Logging.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/Microsoft.IdentityModel.Protocols.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/Microsoft.IdentityModel.Tokens.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/System.IdentityModel.Tokens.Jwt.dll

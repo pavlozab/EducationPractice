@@ -37,7 +37,9 @@ namespace ProductRest.Controllers
         public async Task<ActionResult<PagedResponse<Product>>> GetProducts([FromQuery]QueryParametersModel filter)
         {
             _logger.LogInformation("Returned all products");
-            return Ok(await _service.GetProducts(filter));
+            var products = await _service.GetAll(filter);
+            var count = await _service.Count();
+            return Ok(new PagedResponse<Product>(products, count));
         }
 
         /// <summary>
@@ -52,10 +54,10 @@ namespace ProductRest.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<Product>> GetProduct(Guid id)
         {
-            var product = await _service.GetProduct(id);
+            var product = await _service.GetOne(id);
 
             if (product is null)
-                return NotFound("Product hasn't been found.");
+                return NotFound(new ErrorResponse(404, "Product hasn't been found."));
 
             _logger .LogInformation("Returned product with id: {0}", id);
             return Ok(product);
@@ -87,17 +89,10 @@ namespace ProductRest.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult<Product>> CreateProduct(CreateProductDto productDto)
         {
-            try
-            {
-                var product = await _service.CreateProduct(productDto);
+            var product = await _service.Create(productDto);
                 
-                _logger.LogInformation("Create a Product");
-                return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
-            }
-            catch (KeyNotFoundException e)
-            {
-                return BadRequest();
-            }
+            _logger.LogInformation("Create a Product");
+            return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
         }
 
         /// <summary>
@@ -130,14 +125,14 @@ namespace ProductRest.Controllers
         {
             try
             {
-                await _service.UpdateProduct(id, productDto);
+                await _service.Update(id, productDto);
 
                 _logger.LogInformation("Updated product with id: {0}", id);
                 return NoContent();
             }
-            catch (Exception e)
+            catch (KeyNotFoundException e)
             {
-                return NotFound("Product hasn't been found.");
+                return NotFound(new ErrorResponse(404, e.Message));
             }
         }
 
@@ -155,14 +150,14 @@ namespace ProductRest.Controllers
         {
             try
             {
-                await _service.DeleteProduct(id);
+                await _service.Delete(id);
 
                 _logger.LogInformation("Deleted product with id: {0}", id);
                 return NoContent();
             }
-            catch (Exception e)
+            catch (KeyNotFoundException e)
             {
-                return NotFound("Product hasn't been found.");
+                return NotFound(new ErrorResponse(401, e.Message));
             }
         }
     }

@@ -1,17 +1,11 @@
 using System;
 using System.IO;
-using System.Linq;
-using System.Net.Mime;
 using System.Reflection;
 using System.Text;
-using System.Text.Json;
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,8 +16,8 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using ProductRest.Config;
-using ProductRest.Infrastructure;
-using ProductRest.Infrastructure.Contracts;
+using ProductRest.JwtAuth;
+using ProductRest.JwtAuth.Contracts;
 using ProductRest.Profiles;
 using ProductRest.Repositories;
 using ProductRest.Repositories.Contracts;
@@ -95,12 +89,7 @@ namespace ProductRest
                     ClockSkew = TimeSpan.FromMinutes(1)
                 };
             });
-            
-            // services.AddSingleton<JwtAuthManager>(ServiceProvider =>
-            // {
-            //     return new JwtAuthManager(jwtTokenConfig);
-            // });
-            
+
             // Controller
             services.AddControllers();
 
@@ -112,20 +101,31 @@ namespace ProductRest
                     Version = "v1",
                     Title = "ProductRest",
                 });
-                
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
+                    In = ParameterLocation.Header, 
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey 
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    { 
+                        new OpenApiSecurityScheme 
+                        { 
+                            Reference = new OpenApiReference 
+                            { 
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer" 
+                            } 
+                        },
+                        new string[] { } 
+                    } 
+                });
+
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
-            
-            // //Health check
-            // services.AddHealthChecks()
-            //     .AddMongoDb(
-            //         mongoDbSettings.ConnectionString, 
-            //         name: "mongodb", 
-            //         timeout: TimeSpan.FromSeconds(3),
-            //         tags: new []{ "ready" });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -153,34 +153,6 @@ namespace ProductRest
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-
-                //     endpoints.MapHealthChecks("/health/ready", new HealthCheckOptions
-                //     {
-                //         Predicate = (check) => check.Tags.Contains("ready"),
-                //         ResponseWriter = async(context, report) =>
-                //         {
-                //             var result = JsonSerializer.Serialize(
-                //                 new
-                //                 {
-                //                     status = report.Status.ToString(),
-                //                     checks = report.Entries.Select(entry => new
-                //                     {
-                //                         name = entry.Key,
-                //                         status = entry.Value.Status.ToString(),
-                //                         exception = entry.Value.Exception != null ? entry.Value.Exception.Message : "none",
-                //                         duration = entry.Value.Duration.ToString()
-                //                     })
-                //                 });
-                //     
-                //             context.Response.ContentType = MediaTypeNames.Application.Json;
-                //             await context.Response.WriteAsync(result);
-                //         }
-                //     });
-                //     
-                //     endpoints.MapHealthChecks("/health/live", new HealthCheckOptions
-                //     {
-                //         Predicate = (_) => false
-                //     });
             });
         }
     }

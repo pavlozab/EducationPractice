@@ -7,7 +7,7 @@ namespace ProductRest.Dto.Auth
         [Required] 
         [Display(Name = "First name")]
         [RegularExpression(@"[a-zA-z,.\s]+", ErrorMessage = "{0} must contain only letters ")]
-        public string FirstName { get; init; }
+        public string FirstName { get; set; }
         
         [Required] 
         [Display(Name = "Last name")]

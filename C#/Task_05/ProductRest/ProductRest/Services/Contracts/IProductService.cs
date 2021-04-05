@@ -1,19 +1,19 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using ProductRest.Dto;
 using ProductRest.Dto.Product;
 using ProductRest.Entities;
 using ProductRest.Models;
-using ProductRest.Responses;
 
 namespace ProductRest.Services.Contracts
 {
     public interface IProductService
     {
-        Task<PagedResponse<Product>> GetProducts(QueryParametersModel filter);
-        Task<Product> GetProduct(Guid id);
-        Task<Product> CreateProduct(CreateProductDto productDto);
-        Task UpdateProduct(Guid id, UpdateProductDto productDto);
-        Task DeleteProduct(Guid id);
+        Task<IEnumerable<Product>> GetAll(QueryParametersModel filter);
+        Task<Product> GetOne(Guid id);
+        Task<Product> Create(CreateProductDto productDto);
+        Task Update(Guid id, UpdateProductDto productDto);
+        Task Delete(Guid id);
+        Task<long> Count();
     }
 }

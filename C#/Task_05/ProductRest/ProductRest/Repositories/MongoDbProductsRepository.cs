@@ -12,24 +12,24 @@ namespace ProductRest.Repositories
 {
     public class MongoDbProductsRepository : IProductsRepository
     {
-        private const string databaseName = "catalog";
-        private const string collectionName = "products";
+        private const string DatabaseName = "catalog";
+        private const string CollectionName = "products";
         private readonly IMongoCollection<Product> _productsCollection;
         private readonly FilterDefinitionBuilder<Product> _filterDefinitionBuilder = Builders<Product>.Filter;
         
         public MongoDbProductsRepository(IMongoClient mongoClient)
         {
-            var database = mongoClient.GetDatabase(databaseName);
-            _productsCollection = database.GetCollection<Product>(collectionName); 
+            var database = mongoClient.GetDatabase(DatabaseName);
+            _productsCollection = database.GetCollection<Product>(CollectionName); 
         }
         
-        public async Task<Product> GetProductAsync(Guid id)
+        public async Task<Product> Get(Guid id)
         {
             var filter = _filterDefinitionBuilder.Eq(item => item.Id, id);
             return await _productsCollection.Find(filter).SingleOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync(QueryParametersModel filter)
+        public async Task<IEnumerable<Product>> GetAll(QueryParametersModel filter)
         {
             var search2 = filter.Search is null 
                 ? new BsonDocument()
@@ -60,18 +60,18 @@ namespace ProductRest.Repositories
                 .Limit(filter.Limit).ToListAsync();
         }
 
-        public async Task CreateProductAsync(Product item)
+        public async Task Create(Product item)
         {
             await _productsCollection.InsertOneAsync(item);
         }
 
-        public async Task UpdateProductAsync(Product item)
+        public async Task Update(Product item)
         {
             var filter = _filterDefinitionBuilder.Eq(existingItem => existingItem.Id, item.Id);
             await _productsCollection.ReplaceOneAsync(filter, item);
         }
 
-        public async Task DeleteProductAsync(Guid id)
+        public async Task Delete(Guid id)
         {
             var filter = _filterDefinitionBuilder.Eq(item => item.Id, id);
             await _productsCollection.DeleteOneAsync(filter);

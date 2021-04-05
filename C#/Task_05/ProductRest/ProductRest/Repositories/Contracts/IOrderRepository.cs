@@ -5,10 +5,8 @@ using ProductRest.Entities;
 
 namespace ProductRest.Repositories.Contracts
 {
-    public interface IOrderRepository
+    public interface IOrderRepository: IBaseRepository<Order>
     {
-        Task<IEnumerable<Order>> GetAllOrders(Guid userId);
-        Task<Order> GetOrder(Guid id);
-        Task CreateOrder(Order order);
+        Task<IEnumerable<Order>> GetAll(Guid userId);
     }
 }

@@ -6,13 +6,11 @@ using ProductRest.Models;
 
 namespace ProductRest.Repositories.Contracts
 {
-    public interface IProductsRepository
+    public interface IProductsRepository: IBaseRepository<Product>
     {
-        Task<Product> GetProductAsync(Guid id);
-        Task<IEnumerable<Product>> GetProductsAsync(QueryParametersModel filter);
-        Task CreateProductAsync(Product item);
-        Task UpdateProductAsync(Product item);
-        Task DeleteProductAsync(Guid id);
+        Task<IEnumerable<Product>> GetAll(QueryParametersModel filter);
+        Task Update(Product item);
+        Task Delete(Guid id);
         Task<long> Count();
     }
 }

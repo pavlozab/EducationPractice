@@ -8,8 +8,8 @@ namespace ProductRest.Services.Contracts
 {
     public interface IOrderService
     {
-        Task<IEnumerable<Order>> GetAllOrders(Guid userId);
-        Task<Order> GetOrder(Guid orderId, Guid userId);
-        Task<Order> CreateOrder(CreateOrderDto newOrder, Guid userId);
+        Task<IEnumerable<Order>> GetAll(Guid userId);
+        Task<Order> GetOne(Guid orderId, Guid userId);
+        Task<Order> Create(CreateOrderDto newOrder, Guid userId);
     }
 }

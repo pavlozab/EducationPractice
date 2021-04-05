@@ -1,24 +1,17 @@
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Immutable;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json.Serialization;
 using Microsoft.IdentityModel.Tokens;
 using ProductRest.Config;
-using ProductRest.Dto;
 using ProductRest.Dto.Auth;
-using ProductRest.Infrastructure.Contracts;
+using ProductRest.JwtAuth.Contracts;
 
-namespace ProductRest.Infrastructure
+namespace ProductRest.JwtAuth
 {
     public class JwtAuthManager: IJwtAuthManager
     {
-        //private readonly ConcurrentDictionary<string, RefreshToken> _usersRefreshTokens; // can store in a database or a distributed cache
-
         private readonly JwtTokenConfig _jwtTokenConfig;
         private readonly byte[] _secret;
 
@@ -28,7 +21,7 @@ namespace ProductRest.Infrastructure
             _secret = Encoding.ASCII.GetBytes(jwtTokenConfig.Secret);
         }
         
-        public JwtResult GenerateTokens(string email, Claim[] claims)
+        public string GenerateTokens(string email, Claim[] claims)
         {
             var now = DateTime.Now;
             Console.WriteLine(now);
@@ -44,11 +37,7 @@ namespace ProductRest.Infrastructure
                     SecurityAlgorithms.HmacSha256Signature));
 
             var accessToken = new JwtSecurityTokenHandler().WriteToken(jwtToken);
-            return new JwtResult
-            {
-                Email = email,
-                AccessToken = accessToken
-            };
+            return accessToken;
         }
     }
 }

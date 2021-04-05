@@ -1,8 +1,9 @@
+using System.Security.Authentication;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ProductRest.Dto.Auth;
 using ProductRest.Entities;
-using ProductRest.Infrastructure.Contracts;
+using ProductRest.JwtAuth.Contracts;
 using ProductRest.Services.Contracts;
 
 namespace ProductRest.Services
@@ -18,7 +19,7 @@ namespace ProductRest.Services
             _jwtAuthManager = jwtAuthManager;
         }
 
-        private JwtResult GetAccessToken(User user)
+        private string GetAccessToken(User user)
         {
             var claims = new[]
             {
@@ -39,19 +40,19 @@ namespace ProductRest.Services
             return user is not null && BCrypt.Net.BCrypt.Verify(loginDto.Password, user.Password);
         }
 
-        public async Task<JwtResult> Login(LoginDto loginDto)
+        public async Task<string> Login(LoginDto loginDto)
         {
             var user = await _userService.GetUserByEmail(loginDto.Email);
             return GetAccessToken(user);
         }
 
-        public async Task<JwtResult> Registration(RegistrationDto registrationDto)
+        public async Task<string> Registration(RegistrationDto registrationDto)
         {
             var isDuplicateEmail = await _userService.GetUserByEmail(registrationDto.Email);
             if (!(isDuplicateEmail is null))
-                return null;
+                throw new AuthenticationException("There is already a user with this email address. Please log in.");
             
-            var user = await _userService.CreateUser(registrationDto);
+            var user = await _userService.Create(registrationDto);
             return GetAccessToken(user);
         }
     }

@@ -1,8 +1,10 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProductRest.Entities
 {
-    public record Product 
+    public class Product 
     {
         public Guid Id { get; init; }
         public string AddressLine { get; init; }

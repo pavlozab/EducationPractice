@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using ProductRest.Dto.Order;
 using ProductRest.Entities;
+using ProductRest.Responses;
 using ProductRest.Services.Contracts;
 
 namespace ProductRest.Controllers
@@ -37,12 +39,17 @@ namespace ProductRest.Controllers
         [ProducesResponseType(401)]
         public async Task<ActionResult<IEnumerable<Order>>> GetAllOrders()
         {
-            var userId = GetCurrentUserId();
-            if (userId is null)
-                return Unauthorized("Invalid token");
-            
-            _logger.LogInformation("Orders is successfully returned");
-            return Ok(await _orderService.GetAllOrders(new Guid(userId)));
+            try
+            {
+                var userId = GetCurrentUserId();
+
+                _logger.LogInformation("Orders is successfully returned");
+                return Ok(await _orderService.GetAll(new Guid(userId)));
+            }
+            catch (SecurityTokenValidationException e)
+            {
+                return Unauthorized(new ErrorResponse(401, e.Message));
+            }
         }
 
         /// <summary>
@@ -59,18 +66,20 @@ namespace ProductRest.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<Order>> GetOrder(Guid id)
         {
-            var userId = GetCurrentUserId();
             try
             {
-                if (userId is null)
-                    return Unauthorized("Invalid token");
-                
+                var userId = GetCurrentUserId();
+
                 _logger.LogInformation("Order is successfully returned");
-                return Ok(await _orderService.GetOrder(id, new Guid(userId)));
+                return Ok(await _orderService.GetOne(id, new Guid(userId)));
+            }
+            catch (SecurityTokenValidationException e)
+            {
+                return Unauthorized(new ErrorResponse(401, e.Message));
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound(e.Message);
+                return NotFound(new ErrorResponse(404, e.Message));
             }
         }
         
@@ -98,30 +107,36 @@ namespace ProductRest.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult> CreateOrder(CreateOrderDto newOrder)
         {
-            var userId = GetCurrentUserId();
-            if (userId is null)
-                return Unauthorized("Invalid token");
-
             try
             {
-                var order = await _orderService.CreateOrder(newOrder, new Guid(userId));
-                if (order is null)
-                    return StatusCode(403);
+                var userId = GetCurrentUserId();
+                var order = await _orderService.Create(newOrder, new Guid(userId));
 
                 _logger.LogInformation("Order is successfully created");
-                return CreatedAtAction(nameof(GetOrder), order); 
+                return CreatedAtAction("GetOrder", new { id = order.Id }, order);
+            }
+            catch (SecurityTokenValidationException e)
+            {
+                return Unauthorized(new ErrorResponse(401, e.Message));
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound(e.Message);
+                return NotFound(new ErrorResponse(404, e.Message));
+            }
+            catch (UnauthorizedAccessException e) 
+            {
+                return StatusCode(403, new ErrorResponse(403, e.Message));
             }
         }
         
         private string GetCurrentUserId()
         {
-            return ControllerContext.HttpContext.User.Claims.Where(obj => 
+            var userId = ControllerContext.HttpContext.User.Claims.Where(obj => 
                     obj.Type == "UserId")
                 .Select(obj => obj.Value).SingleOrDefault();
+            if (userId is null)
+                throw new SecurityTokenValidationException("Invalid token");
+            return userId;
         }
     }
 }

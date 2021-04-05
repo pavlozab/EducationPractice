@@ -79,15 +79,11 @@
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/ref/ProductRest.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/ProductRest.pdb
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/ProductRest.xml
-/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/HealthChecks.MongoDb.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/AutoMapper.dll
-/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/DevOne.Security.Cryptography.BCrypt.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/BCrypt.Net.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/Castle.Core.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/DnsClient.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/FluentAssertions.dll
-/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/Microsoft.Extensions.Diagnostics.HealthChecks.dll
-/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/Microsoft.OpenApi.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/MongoDB.Bson.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/MongoDB.Driver.dll

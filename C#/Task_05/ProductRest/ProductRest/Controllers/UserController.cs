@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProductRest.Dto.User;
 using ProductRest.Entities;
+using ProductRest.Responses;
 using ProductRest.Services.Contracts;
 
 namespace ProductRest.Controllers
@@ -37,7 +37,7 @@ namespace ProductRest.Controllers
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             _logger.LogInformation("Returned all Users");
-            return Ok(await _userService.GetAllUsers());
+            return Ok(await _userService.GetAll());
         }
         
         /// <summary>
@@ -57,9 +57,9 @@ namespace ProductRest.Controllers
                 var user = await _userService.UpdateRoleOfUser(id, newRole);
                 return Ok(user);
             }
-            catch (Exception e)
+            catch (KeyNotFoundException e)
             {
-                return NotFound(e);
+                return NotFound(new ErrorResponse(404, e.Message));
             }
         }
         
@@ -74,22 +74,15 @@ namespace ProductRest.Controllers
         {
             try
             {
-                await _userService.DeleteUser(id);
+                await _userService.Delete(id);
                 
                 _logger.LogInformation("Deleted user with id: {0}", id);
                 return NoContent();
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound(e);
+                return NotFound(new ErrorResponse(404, e.Message));
             }
-        }
-        
-        private string GetCurrentUserId()
-        {
-            return ControllerContext.HttpContext.User.Claims.Where(obj => 
-                    obj.Type == "UserId")
-                .Select(obj => obj.Value).SingleOrDefault();
         }
     }
 }

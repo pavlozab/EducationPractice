@@ -17,7 +17,7 @@
             
              </remarks>
              <param name="loginDto">Login dto</param>
-             <response code="200">Token is successfully created</response> 
+             <response code="201">Token is successfully created</response> 
              <response code="401">Password or email is invalid</response>
         </member>
         <member name="M:ProductRest.Controllers.AuthController.Registration(ProductRest.Dto.Auth.RegistrationDto)">
@@ -34,7 +34,7 @@
                  }
             
              </remarks>
-             <response code="200">User is successfully created</response>
+             <response code="201">User is successfully created</response>
              <response code="401">Email is already exist</response>
         </member>
         <member name="M:ProductRest.Controllers.OrderController.GetAllOrders">
