@@ -26,6 +26,7 @@
       "ProductRest/1.0.0": {
         "dependencies": {
           "AutoMapper": "10.1.1",
+          "AutoWrapper.Core": "4.5.0",
           "BCrypt.Net": "0.1.0",
           "FluentAssertions": "6.0.0-alpha0002",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "5.0.4",
@@ -341,6 +342,20 @@
         },
         "compile": {
           "lib/netstandard2.0/AutoMapper.dll": {}
+        }
+      },
+      "AutoWrapper.Core/4.5.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.2"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/AutoWrapper.dll": {
+            "assemblyVersion": "4.5.0.0",
+            "fileVersion": "4.5.0.0"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.1/AutoWrapper.dll": {}
         }
       },
       "BCrypt.Net/0.1.0": {
@@ -690,6 +705,17 @@
           "System.Threading.Timer": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0",
           "System.Xml.XDocument": "4.3.0"
+        }
+      },
+      "Newtonsoft.Json/12.0.2": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.2.23222"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
       "NLog/4.7.8": {
@@ -3290,6 +3316,13 @@
       "path": "automapper/10.1.1",
       "hashPath": "automapper.10.1.1.nupkg.sha512"
     },
+    "AutoWrapper.Core/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GPI1nlVBd4kvz5gIFrMt/PITHuzhpD79PzuXZ/+lNbqHRWREgom1IaLXOwTXFIzkVdKYIcFXvbu2qKxTMy18tQ==",
+      "path": "autowrapper.core/4.5.0",
+      "hashPath": "autowrapper.core.4.5.0.nupkg.sha512"
+    },
     "BCrypt.Net/0.1.0": {
       "type": "package",
       "serviceable": true,
@@ -3492,6 +3525,13 @@
       "sha512": "sha512-WcSp3+vP+yHNgS8EV5J7pZ9IRpeDuARBPN28by8zqff1wJQXm26PVU8L3/fYLBJVU7BtDyqNVWq2KlCVvSSR4A==",
       "path": "netstandard.library/1.6.1",
       "hashPath": "netstandard.library.1.6.1.nupkg.sha512"
+    },
+    "Newtonsoft.Json/12.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rTK0s2EKlfHsQsH6Yx2smvcTCeyoDNgCW7FEYyV01drPlh2T243PR2DiDXqtC5N4GDm4Ma/lkxfW5a/4793vbA==",
+      "path": "newtonsoft.json/12.0.2",
+      "hashPath": "newtonsoft.json.12.0.2.nupkg.sha512"
     },
     "NLog/4.7.8": {
       "type": "package",

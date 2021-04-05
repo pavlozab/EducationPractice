@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using ProductRest.Dto.Order;
 using ProductRest.Entities;
+using ProductRest.Services;
 using ProductRest.Services.Contracts;
 
 namespace ProductRest.Controllers
@@ -48,13 +48,7 @@ namespace ProductRest.Controllers
             }
             catch (SecurityTokenValidationException e)
             {
-                return Unauthorized(new ProblemDetails
-                {
-                    Status = StatusCodes.Status401Unauthorized,
-                    Title = e.Message,
-                    Detail = "You are unauthorised",
-                    Instance = HttpContext.Request.Path
-                });
+                return Unauthorized(e.Message);
             }
         }
 
@@ -81,23 +75,11 @@ namespace ProductRest.Controllers
             }
             catch (SecurityTokenValidationException e)
             {
-                return Unauthorized(new ProblemDetails
-                {
-                    Status = StatusCodes.Status401Unauthorized,
-                    Title = e.Message,
-                    Detail = "You are unauthorised",
-                    Instance = HttpContext.Request.Path
-                });
+                return Unauthorized(e.Message);
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound(new ProblemDetails
-                {
-                    Status = StatusCodes.Status404NotFound,
-                    Title = e.Message,
-                    Detail = "No order found.",
-                    Instance = HttpContext.Request.Path
-                });
+                return NotFound(e.Message);
             }
         }
         
@@ -135,38 +117,23 @@ namespace ProductRest.Controllers
             }
             catch (SecurityTokenValidationException e)
             {
-                return Unauthorized(new ProblemDetails
-                {
-                    Status = StatusCodes.Status401Unauthorized,
-                    Title = e.Message,
-                    Detail = "You are unauthorised",
-                    Instance = HttpContext.Request.Path
-                });
+                return Unauthorized(e.Message);
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound(new ProblemDetails
-                {
-                    Status = StatusCodes.Status404NotFound,
-                    Title = e.Message,
-                    Detail = $"No found Product with id: {newOrder.ProductId}",
-                    Instance = HttpContext.Request.Path
-                });
+                return NotFound(e.Message);
             }
-            catch (UnauthorizedAccessException e) 
+            catch (OutOfStockException e)
             {
-                var problemDetail = new ProblemDetails
+                var problem = new OutOfStockProblemDetails()
                 {
-                    Status = StatusCodes.Status403Forbidden,
-                    Title = e.Message,
-                    Detail = $"Your current amount is {newOrder.Amount}",
-                    Instance = HttpContext.Request.Path
+                    Type = "",
+                    Title = "We do not have enough items.",
+                    Detail = $"Your amount is {e.OrderAmount}, but we have only {e.ProductAmount}",
+                    OrderAmount = e.OrderAmount,
+                    ProductAmount = e.ProductAmount
                 };
-                return new ObjectResult(problemDetail)
-                {
-                    ContentTypes = { "application/problem+json" },
-                    StatusCode = 403,
-                };
+                return BadRequest(problem);
             }
         }
         
@@ -179,5 +146,11 @@ namespace ProductRest.Controllers
                 throw new SecurityTokenValidationException("Invalid token");
             return userId;
         }
+    }
+
+    public class OutOfStockProblemDetails : ProblemDetails
+    {
+        public decimal OrderAmount { get; set; }
+        public decimal ProductAmount { get; set; }
     }
 }

@@ -2,12 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProductRest.Dto.User;
 using ProductRest.Entities;
-using ProductRest.Responses;
 using ProductRest.Services.Contracts;
 
 namespace ProductRest.Controllers
@@ -60,14 +58,7 @@ namespace ProductRest.Controllers
             }
             catch (KeyNotFoundException e)
             {
-                //return NotFound(new ErrorResponse(404, e.Message));
-                return NotFound(new ProblemDetails
-                {
-                    Status = StatusCodes.Status404NotFound,
-                    Title = e.Message,
-                    Detail = $"No found user with id: {id}",
-                    Instance = HttpContext.Request.Path
-                });
+                return NotFound(e.Message);
             }
         }
         
@@ -88,13 +79,7 @@ namespace ProductRest.Controllers
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound(new ProblemDetails
-                {
-                    Status = StatusCodes.Status404NotFound,
-                    Title = e.Message,
-                    Detail = $"Not found User with id: {id}",
-                    Instance = HttpContext.Request.Path
-                });
+                return NotFound(e.Message);
             }
         }
     }

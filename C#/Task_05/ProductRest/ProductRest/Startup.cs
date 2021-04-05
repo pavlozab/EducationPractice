@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using AutoMapper;
+using AutoWrapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -141,6 +142,10 @@ namespace ProductRest
                 app.UseSwaggerUI(c => 
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProductRest v1"));
             }
+            
+            app.UseApiResponseAndExceptionWrapper(new AutoWrapperOptions { 
+                UseApiProblemDetailsException = true 
+            });
 
             app.UseHttpsRedirection();
 

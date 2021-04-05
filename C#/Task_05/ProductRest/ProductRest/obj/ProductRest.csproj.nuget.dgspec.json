@@ -45,6 +45,10 @@
               "target": "Package",
               "version": "[10.1.1, )"
             },
+            "AutoWrapper.Core": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
             "BCrypt.Net": {
               "target": "Package",
               "version": "[0.1.0, )"

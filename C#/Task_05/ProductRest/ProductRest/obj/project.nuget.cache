@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "YffO0xrmSeHyLH/3Vo2Wk5bO4y/RuM02tl3/BIKkWlI1qyKgAnwnYq7a8hTZhnegdnh2DjZKVLYMdTwdt6GCrg==",
+  "dgSpecHash": "BJmAWMbpTCss0skJg8M7mjmQOuxe3bsVonFJZv5swMUMSoh5TaHyFU+QRcX+pmK92DIzZhw0cELjblh2eDTzGg==",
   "success": true,
   "projectFilePath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/ProductRest.csproj",
   "expectedPackageFiles": [
     "/Users/pasha/.nuget/packages/automapper/10.1.1/automapper.10.1.1.nupkg.sha512",
+    "/Users/pasha/.nuget/packages/autowrapper.core/4.5.0/autowrapper.core.4.5.0.nupkg.sha512",
     "/Users/pasha/.nuget/packages/bcrypt.net/0.1.0/bcrypt.net.0.1.0.nupkg.sha512",
     "/Users/pasha/.nuget/packages/castle.core/4.4.0/castle.core.4.4.0.nupkg.sha512",
     "/Users/pasha/.nuget/packages/dnsclient/1.4.0/dnsclient.1.4.0.nupkg.sha512",
@@ -34,6 +35,7 @@
     "/Users/pasha/.nuget/packages/mongodb.libmongocrypt/1.2.0/mongodb.libmongocrypt.1.2.0.nupkg.sha512",
     "/Users/pasha/.nuget/packages/moq/4.16.1/moq.4.16.1.nupkg.sha512",
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/netstandard.library/1.6.1/netstandard.library.1.6.1.nupkg.sha512",
+    "/Users/pasha/.nuget/packages/newtonsoft.json/12.0.2/newtonsoft.json.12.0.2.nupkg.sha512",
     "/Users/pasha/.nuget/packages/nlog/4.7.8/nlog.4.7.8.nupkg.sha512",
     "/Users/pasha/.nuget/packages/nlog.extensions.logging/1.7.1/nlog.extensions.logging.1.7.1.nupkg.sha512",
     "/Users/pasha/.nuget/packages/nlog.web.aspnetcore/4.11.0/nlog.web.aspnetcore.4.11.0.nupkg.sha512",

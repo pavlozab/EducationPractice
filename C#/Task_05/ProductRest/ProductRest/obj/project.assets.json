@@ -15,6 +15,21 @@
           "lib/netstandard2.0/AutoMapper.dll": {}
         }
       },
+      "AutoWrapper.Core/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.2"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/AutoWrapper.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/AutoWrapper.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "BCrypt.Net/0.1.0": {
         "type": "package",
         "compile": {
@@ -448,6 +463,15 @@
           "System.Threading.Timer": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0",
           "System.Xml.XDocument": "4.3.0"
+        }
+      },
+      "Newtonsoft.Json/12.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
       "NLog/4.7.8": {
@@ -1940,6 +1964,20 @@
         "lib/netstandard2.0/AutoMapper.xml"
       ]
     },
+    "AutoWrapper.Core/4.5.0": {
+      "sha512": "GPI1nlVBd4kvz5gIFrMt/PITHuzhpD79PzuXZ/+lNbqHRWREgom1IaLXOwTXFIzkVdKYIcFXvbu2qKxTMy18tQ==",
+      "type": "package",
+      "path": "autowrapper.core/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "autowrapper.core.4.5.0.nupkg.sha512",
+        "autowrapper.core.nuspec",
+        "icon.png",
+        "lib/netcoreapp3.0/AutoWrapper.dll",
+        "lib/netcoreapp3.1/AutoWrapper.dll"
+      ]
+    },
     "BCrypt.Net/0.1.0": {
       "sha512": "sST2w361Dxt9GGMfpOTiK50wXGV64Ybb1hiX3xjEWnhVYZNF43NuySGwADJa7X1R+bA53NsFR+tuDxcYiJeIOA==",
       "type": "package",
@@ -2605,6 +2643,36 @@
         "dotnet_library_license.txt",
         "netstandard.library.1.6.1.nupkg.sha512",
         "netstandard.library.nuspec"
+      ]
+    },
+    "Newtonsoft.Json/12.0.2": {
+      "sha512": "rTK0s2EKlfHsQsH6Yx2smvcTCeyoDNgCW7FEYyV01drPlh2T243PR2DiDXqtC5N4GDm4Ma/lkxfW5a/4793vbA==",
+      "type": "package",
+      "path": "newtonsoft.json/12.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "newtonsoft.json.12.0.2.nupkg.sha512",
+        "newtonsoft.json.nuspec"
       ]
     },
     "NLog/4.7.8": {
@@ -6585,6 +6653,7 @@
   "projectFileDependencyGroups": {
     "net5.0": [
       "AutoMapper >= 10.1.1",
+      "AutoWrapper.Core >= 4.5.0",
       "BCrypt.Net >= 0.1.0",
       "FluentAssertions >= 6.0.0-alpha0002",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 5.0.4",
@@ -6642,6 +6711,10 @@
           "AutoMapper": {
             "target": "Package",
             "version": "[10.1.1, )"
+          },
+          "AutoWrapper.Core": {
+            "target": "Package",
+            "version": "[4.5.0, )"
           },
           "BCrypt.Net": {
             "target": "Package",

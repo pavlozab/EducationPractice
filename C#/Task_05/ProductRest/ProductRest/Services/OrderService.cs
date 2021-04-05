@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Authentication;
 using System.Threading.Tasks;
 using ProductRest.Dto.Order;
 using ProductRest.Entities;
@@ -33,9 +32,8 @@ namespace ProductRest.Services
                 throw new KeyNotFoundException("No order found.");
 
             if (order.Id != userId)
-                throw new UnauthorizedAccessException();
-            
-            
+                throw new KeyNotFoundException("No order found.");
+
             return await _orderRepository.Get(id);
         }
 
@@ -47,7 +45,7 @@ namespace ProductRest.Services
                 throw new KeyNotFoundException("No order found.");
 
             if (currentProduct.Amount < newOrder.Amount)
-                return null; 
+                throw new OutOfStockException("Out of stock", newOrder.Amount, currentProduct.Amount);
             
             Order order = new()
             {
@@ -62,6 +60,19 @@ namespace ProductRest.Services
             await _productsRepository.Update(currentProduct);
             await _orderRepository.Create(order);
             return order;
+        }
+    }
+
+    public class OutOfStockException : Exception
+    {
+        public decimal OrderAmount { get; set; }
+        public decimal ProductAmount { get; set; }
+
+        public OutOfStockException(string message, decimal orderAmount, decimal productAmount) 
+            : base(message)
+        {
+            OrderAmount = orderAmount;
+            ProductAmount = productAmount;
         }
     }
 }

@@ -58,13 +58,7 @@ namespace ProductRest.Controllers
             var product = await _service.GetOne(id);
 
             if (product is null)
-                return NotFound(new ProblemDetails
-                {
-                    Status = StatusCodes.Status404NotFound,
-                    Title = "Product hasn't been found.",
-                    Detail = $"Not found Product with id: {id}",
-                    Instance = HttpContext.Request.Path
-                });
+                return NotFound("Product hasn't been found.");
 
             _logger .LogInformation("Returned product with id: {0}", id);
             return Ok(product);
@@ -139,13 +133,7 @@ namespace ProductRest.Controllers
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound(new ProblemDetails
-                {
-                    Status = StatusCodes.Status404NotFound,
-                    Title = e.Message,
-                    Detail = $"Not found Product with id: {id}",
-                    Instance = HttpContext.Request.Path
-                });
+                return NotFound(e.Message);
             }
         }
 
@@ -170,13 +158,7 @@ namespace ProductRest.Controllers
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound(new ProblemDetails
-                {
-                    Status = StatusCodes.Status404NotFound,
-                    Title = e.Message,
-                    Detail = $"Not found Product with id: {id}",
-                    Instance = HttpContext.Request.Path
-                });
+                return NotFound(e.Message);
             }
         }
     }

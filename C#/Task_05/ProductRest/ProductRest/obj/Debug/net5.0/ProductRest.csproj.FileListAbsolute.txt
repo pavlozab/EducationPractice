@@ -123,3 +123,5 @@
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/Microsoft.IdentityModel.Tokens.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/AutoWrapper.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/ProductRest/bin/Debug/net5.0/Newtonsoft.Json.dll
