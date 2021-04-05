@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using ProductRest.Dto.Order;
 using ProductRest.Entities;
-using ProductRest.Responses;
 using ProductRest.Services.Contracts;
 
 namespace ProductRest.Controllers
@@ -48,7 +48,13 @@ namespace ProductRest.Controllers
             }
             catch (SecurityTokenValidationException e)
             {
-                return Unauthorized(new ErrorResponse(401, e.Message));
+                return Unauthorized(new ProblemDetails
+                {
+                    Status = StatusCodes.Status401Unauthorized,
+                    Title = e.Message,
+                    Detail = "You are unauthorised",
+                    Instance = HttpContext.Request.Path
+                });
             }
         }
 
@@ -75,11 +81,23 @@ namespace ProductRest.Controllers
             }
             catch (SecurityTokenValidationException e)
             {
-                return Unauthorized(new ErrorResponse(401, e.Message));
+                return Unauthorized(new ProblemDetails
+                {
+                    Status = StatusCodes.Status401Unauthorized,
+                    Title = e.Message,
+                    Detail = "You are unauthorised",
+                    Instance = HttpContext.Request.Path
+                });
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound(new ErrorResponse(404, e.Message));
+                return NotFound(new ProblemDetails
+                {
+                    Status = StatusCodes.Status404NotFound,
+                    Title = e.Message,
+                    Detail = "No order found.",
+                    Instance = HttpContext.Request.Path
+                });
             }
         }
         
@@ -117,15 +135,38 @@ namespace ProductRest.Controllers
             }
             catch (SecurityTokenValidationException e)
             {
-                return Unauthorized(new ErrorResponse(401, e.Message));
+                return Unauthorized(new ProblemDetails
+                {
+                    Status = StatusCodes.Status401Unauthorized,
+                    Title = e.Message,
+                    Detail = "You are unauthorised",
+                    Instance = HttpContext.Request.Path
+                });
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound(new ErrorResponse(404, e.Message));
+                return NotFound(new ProblemDetails
+                {
+                    Status = StatusCodes.Status404NotFound,
+                    Title = e.Message,
+                    Detail = $"No found Product with id: {newOrder.ProductId}",
+                    Instance = HttpContext.Request.Path
+                });
             }
             catch (UnauthorizedAccessException e) 
             {
-                return StatusCode(403, new ErrorResponse(403, e.Message));
+                var problemDetail = new ProblemDetails
+                {
+                    Status = StatusCodes.Status403Forbidden,
+                    Title = e.Message,
+                    Detail = $"Your current amount is {newOrder.Amount}",
+                    Instance = HttpContext.Request.Path
+                };
+                return new ObjectResult(problemDetail)
+                {
+                    ContentTypes = { "application/problem+json" },
+                    StatusCode = 403,
+                };
             }
         }
         

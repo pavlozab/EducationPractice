@@ -1,6 +1,7 @@
 using System.Security.Authentication;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProductRest.Dto.Auth;
@@ -46,7 +47,13 @@ namespace ProductRest.Controllers
         public async Task<ActionResult<string>> Login(LoginDto loginDto)
         {
             if (!await _authService.ValidateUser(loginDto))
-                return Unauthorized(new ErrorResponse(401, "Password or email is invalid"));
+                return Unauthorized(new ProblemDetails
+                {
+                    Status = StatusCodes.Status401Unauthorized,
+                    Title = "Password or email is invalid",
+                    Detail = "Password or email is invalid",
+                    Instance = HttpContext.Request.Path
+                });
 
             _logger.LogInformation("Token is successfully created");
             return StatusCode(201, new TokenResponse(
@@ -89,7 +96,13 @@ namespace ProductRest.Controllers
             }
             catch (AuthenticationException e)
             {
-                return Unauthorized(new ErrorResponse(401, e.Message));
+                return Unauthorized(new ProblemDetails
+                {
+                    Status = StatusCodes.Status401Unauthorized,
+                    Title = "Password or email is invalid",
+                    Detail = "There is already a user with this email address. Please log in.",
+                    Instance = HttpContext.Request.Path
+                });
             }
         }
     }

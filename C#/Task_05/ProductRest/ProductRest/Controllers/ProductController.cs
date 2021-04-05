@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProductRest.Dto.Product;
@@ -57,7 +58,13 @@ namespace ProductRest.Controllers
             var product = await _service.GetOne(id);
 
             if (product is null)
-                return NotFound(new ErrorResponse(404, "Product hasn't been found."));
+                return NotFound(new ProblemDetails
+                {
+                    Status = StatusCodes.Status404NotFound,
+                    Title = "Product hasn't been found.",
+                    Detail = $"Not found Product with id: {id}",
+                    Instance = HttpContext.Request.Path
+                });
 
             _logger .LogInformation("Returned product with id: {0}", id);
             return Ok(product);
@@ -132,7 +139,13 @@ namespace ProductRest.Controllers
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound(new ErrorResponse(404, e.Message));
+                return NotFound(new ProblemDetails
+                {
+                    Status = StatusCodes.Status404NotFound,
+                    Title = e.Message,
+                    Detail = $"Not found Product with id: {id}",
+                    Instance = HttpContext.Request.Path
+                });
             }
         }
 
@@ -157,7 +170,13 @@ namespace ProductRest.Controllers
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound(new ErrorResponse(401, e.Message));
+                return NotFound(new ProblemDetails
+                {
+                    Status = StatusCodes.Status404NotFound,
+                    Title = e.Message,
+                    Detail = $"Not found Product with id: {id}",
+                    Instance = HttpContext.Request.Path
+                });
             }
         }
     }

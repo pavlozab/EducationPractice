@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProductRest.Dto.User;
@@ -59,7 +60,14 @@ namespace ProductRest.Controllers
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound(new ErrorResponse(404, e.Message));
+                //return NotFound(new ErrorResponse(404, e.Message));
+                return NotFound(new ProblemDetails
+                {
+                    Status = StatusCodes.Status404NotFound,
+                    Title = e.Message,
+                    Detail = $"No found user with id: {id}",
+                    Instance = HttpContext.Request.Path
+                });
             }
         }
         
@@ -67,7 +75,6 @@ namespace ProductRest.Controllers
         /// Delete User. Only for Admin User.
         /// </summary>
         /// <param name="id">The id of the user to be deleted.</param>
-
         [HttpDelete("{id}")]
         [Authorize(Roles = nameof(Role.Admin))]
         public async Task<ActionResult> DeleteUser(Guid id)
@@ -81,7 +88,13 @@ namespace ProductRest.Controllers
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound(new ErrorResponse(404, e.Message));
+                return NotFound(new ProblemDetails
+                {
+                    Status = StatusCodes.Status404NotFound,
+                    Title = e.Message,
+                    Detail = $"Not found User with id: {id}",
+                    Instance = HttpContext.Request.Path
+                });
             }
         }
     }

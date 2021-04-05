@@ -144,16 +144,12 @@
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/Product.UnitTests.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/ref/Product.UnitTests.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/Product.UnitTests.pdb
-/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/HealthChecks.MongoDb.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/AutoMapper.dll
-/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/DevOne.Security.Cryptography.BCrypt.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/BCrypt.Net.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/Castle.Core.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/DnsClient.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/FluentAssertions.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll
-/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/Microsoft.Extensions.Diagnostics.HealthChecks.dll
-/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/Microsoft.OpenApi.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/Microsoft.TestPlatform.CoreUtilities.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_05/ProductRest/Product.UnitTests/bin/Debug/net5.0/Microsoft.TestPlatform.PlatformAbstractions.dll
