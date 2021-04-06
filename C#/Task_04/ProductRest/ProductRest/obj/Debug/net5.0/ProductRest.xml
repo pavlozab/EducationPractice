@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ProductRest</name>
+    </assembly>
+    <members>
+        <member name="M:ProductRest.Controllers.ProductController.GetProducts(ProductRest.Models.QueryParametersModel)">
+            <summary>
+            Get Products.
+            </summary>
+            <response code="200">Returns Product List</response>
+        </member>
+        <member name="M:ProductRest.Controllers.ProductController.GetProduct(System.Guid)">
+            <summary>
+            Get a specific Product.
+            </summary>
+            <param name="id">The id of the item to be retrieved</param>
+            <response code="200">Returns a specific Product</response>
+            <response code="404">Product hasn't been found.</response>
+        </member>
+        <member name="M:ProductRest.Controllers.ProductController.CreateProduct(ProductRest.Dtos.CreateProductDto)">
+             <summary>
+             Create a Product.
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /products
+                 {
+                    "addressLine": "new address",
+                    "postalCode": "12345",
+                    "country": "new country",
+                    "city": "new city",
+                    "faxNumber": "+380111111111"
+                    "phoneNumber": "+380222222222"
+                 }
+            
+             </remarks>
+             <response code="201">Returns the newly created item</response>
+             <response code="400">One or more validation errors occurred.</response>    
+        </member>
+        <member name="M:ProductRest.Controllers.ProductController.UpdateProduct(System.Guid,ProductRest.Dtos.CreateProductDto)">
+            <summary>
+            Update a specific Product.
+            </summary>
+            <param name="id">The id of the item to be retrieved</param>
+            <param name="productDto">New product</param>
+            <response code="204">Updated product</response>
+            <response code="404">Product hasn't been found.</response>
+        </member>
+        <member name="M:ProductRest.Controllers.ProductController.DeleteProduct(System.Guid)">
+            <summary>
+            Deletes a specific Product.
+            </summary>
+            <param name="id">The id of the item to be deleted</param>
+            <response code="204">Deleted product</response>
+            <response code="404">Product hasn't been found.</response>
+        </member>
+    </members>
+</doc>
