@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.nuget/packages/microsoft.net.test.sdk/16.7.1/build/netcoreapp2.1" t="Include">
+      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
+    </e>
+    <e p="$USER_HOME$/.nuget/packages/mongodb.driver.core/2.12.0/contentFiles/any/netstandard2.1/Core" t="Include">
+      <e p="Compression" t="Include">
+        <e p="Snappy" t="Include">
+          <e p="lib" t="Include">
+            <e p="win" t="Include">
+              <e p="snappy32.dll" t="Include" />
+              <e p="snappy64.dll" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Zstandard" t="Include">
+          <e p="lib" t="Include">
+            <e p="win" t="Include">
+              <e p="libzstd.dll" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+    </e>
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.3/build/netcoreapp2.1/xunit.runner.reporters.netcoreapp10.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.3/build/netcoreapp2.1/xunit.runner.utility.netcoreapp10.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.3/build/netcoreapp2.1/xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Product.UnitTests" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net5.0" t="Include">
+              <e p="Product.UnitTests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Product.UnitTests.csproj" t="IncludeRecursive" />
+        <e p="ProductControllerTests.cs" t="Include" />
+      </e>
+      <e p="ProductRest" t="IncludeRecursive">
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="ProductController.cs" t="Include" />
+        </e>
+        <e p="Data" t="Include">
+          <e p="Contracts" t="Include">
+            <e p="IProductRepository.cs" t="Include" />
+          </e>
+          <e p="Repositories" t="Include">
+            <e p="MongoDbProductsRepository.cs" t="Include" />
+          </e>
+          <e p="Settings" t="Include">
+            <e p="MongoDbSettings.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Dtos" t="Include">
+          <e p="CreateProductDto.cs" t="Include" />
+          <e p="MappingProfile.cs" t="Include" />
+          <e p="ProductDto.cs" t="Include" />
+        </e>
+        <e p="Logs" t="Include">
+          <e p="internal-nlog.log" t="Include" />
+          <e p="nlog.config" t="Include" />
+        </e>
+        <e p="Models" t="Include">
+          <e p="QueryParametersModel.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net5.0" t="Include">
+              <e p="ProductRest.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="ProductRest.csproj" t="IncludeRecursive" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Responses" t="Include">
+          <e p="PagedResponse.cs" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+      </e>
+      <e p="ProductRest.sln" t="IncludeFlat" />
+    </e>
+    <e p="$USER_HOME$/Library/Caches/JetBrains/Rider2020.3/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/JetBrains/Rider2020.3/resharper-host/local/Transient/Rider/v203/SolutionCaches/_ProductRest.-1098966080.00" t="ExcludeRecursive" />
+  </component>
+</project>
