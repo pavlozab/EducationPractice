@@ -1,0 +1,113 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0478ad44_002D8774_002D47bc_002Dad80_002D5e7a2c8f81f3/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateProductAsync_WithProductToCreate_ReturnsCreatedProduct #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.CreateProductAsync_WithProductToCreate_ReturnsCreatedProduct&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=09255c09_002Dc143_002D4e46_002Dba7c_002Db1a2c5b6e8f8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProducts_WithUnexistingProduct_ReturnsProductWithSearchValue #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.GetProducts_WithUnexistingProduct_ReturnsProductWithSearchValue&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=114ee87f_002D5a5d_002D4221_002Db38a_002Db0ddc4f5cbcb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateProductAsync_WithProductToCreate_ReturnsCreatedProduct #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.CreateProductAsync_WithProductToCreate_ReturnsCreatedProduct&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.GetProducts_WithUnexistingProduct_ReturnsProductWithSearchValue&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=217da253_002D1c5d_002D438f_002Da452_002Dd77b1401c6ec/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateProductAsync_WithProductToCreate_ReturnsCreatedProduct #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.CreateProductAsync_WithProductToCreate_ReturnsCreatedProduct&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.GetProductsAsync_WithUnexistingProduct_ReturnsAllProducts&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.GetProducts_WithUnexistingProduct_ReturnsProductWithSearchValue&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=29edfc39_002Db5e3_002D43bf_002D8da1_002D51ce4f9e1660/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProducts_WithUnexistingProduct_ReturnsProductWithSearchValue" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.GetProducts_WithUnexistingProduct_ReturnsProductWithSearchValue&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3e62197f_002D6c75_002D4de7_002D9906_002Dc248011accc5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProductsAsync_WithUnexistingProduct_ReturnsAllProducts #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.GetProductsAsync_WithUnexistingProduct_ReturnsAllProducts&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.CreateProductAsync_WithProductToCreate_ReturnsCreatedProduct&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=447a5d16_002Deb89_002D4288_002Db752_002Da037eea4c564/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;ProductRest&amp;gt; #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_04/ProductRest/ProductRest" Presentation="&amp;lt;ProductRest&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4a79b6a4_002D08be_002D4fb6_002D9f35_002D76f9b3b47d5a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProducts_WithUnexistingProduct_ReturnsProductWithSearchValue #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.GetProducts_WithUnexistingProduct_ReturnsProductWithSearchValue&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6b944caa_002Dbe88_002D4352_002D84a2_002Dfb0145515540/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProductAsync_WithUnexistingProduct_ReturnsExpectedProduct" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6c2b1ae1_002D9f65_002D46e5_002D9393_002Df7bf84b3d7ce/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProducts_WithUnexistingProduct_ReturnsProductWithSearchValue #6" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=732f8397_002Db256_002D4cbd_002D8f54_002D0f2eeb55bccc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProductsAsync_WithUnexistingProduct_ReturnsAllProducts" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.GetProductsAsync_WithUnexistingProduct_ReturnsAllProducts&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=76ec1851_002Dbab3_002D4b8b_002D9a50_002D0f40003e2c79/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ProductControllerTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=81ee7384_002Df7bf_002D4915_002D9c35_002D9af24326e4c4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ProductControllerTests #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=85a47cd0_002D9a05_002D44c7_002D83bf_002Da4b67ccd9bd7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateProductAsync_WithProductToCreate_ReturnsCreatedProduct" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=92c42439_002D04b3_002D436a_002Dabcc_002D9618b0e2773b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;ProductRest&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_04/ProductRest/ProductRest" Presentation="&amp;lt;ProductRest&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b14e3ebf_002D9136_002D4818_002Db2ec_002D0685938d9bdd/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateProductAsync_WithProductToCreate_ReturnsCreatedProduct #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bb1df532_002D6f6b_002D4018_002D911d_002D56e48fff3307/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProducts_WithUnexistingProduct_ReturnsProductWithSearchValue #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.GetProducts_WithUnexistingProduct_ReturnsProductWithSearchValue&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cd3b98bf_002D4ce4_002D4a71_002Da965_002D3f01a162002c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProductsAsync_WithUnexistingProduct_ReturnsAllProducts #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.GetProductsAsync_WithUnexistingProduct_ReturnsAllProducts&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ce38ee80_002D3051_002D4300_002Db850_002D964b4267d1cc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ProductControllerTests #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=da82a737_002D01e3_002D421d_002D8074_002D2cfed1ccc9f7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProductsAsync_WithUnexistingProduct_ReturnsAllProducts #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f332cb68_002Db585_002D4d67_002D94ca_002Dd9b849ca3733/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProductsAsync_WithUnexistingProduct_ReturnsOkObjectResult" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests.GetProductAsync_WithUnexistingProduct_ReturnsNotFound&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f5b541c4_002D7f17_002D4c8d_002Db120_002D000c127573b1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetProducts_WithUnexistingProduct_ReturnsProductWithSearchValue #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::29270435-48CA-4362-AA14-D09F29CF4939::net5.0::Product.UnitTests.ProductControllerTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
