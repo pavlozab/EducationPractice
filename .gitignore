@@ -4,3 +4,7 @@ Programming/.DS_Store
 Programming/Django/address_django/.DS_Store
 *.pyc
 Programming/.DS_Store
+
+
+# OS
+.DS_Store
