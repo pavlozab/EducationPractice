@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyApi</name>
+    </assembly>
+    <members>
+        <member name="M:MyApi.Controllers.ProductController.GetProducts">
+            <summary>
+            Get Products.
+            </summary>
+            <response code="200">Returns Product List.</response>
+        </member>
+        <member name="M:MyApi.Controllers.ProductController.GetProduct(System.Guid)">
+            <summary>
+            Get a specific Product.
+            </summary>
+            <param name="id">The id of the item to be retrieved.</param>
+            <response code="200">Returns a specific Product.</response>
+            <response code="404">Product hasn't been found.</response>
+        </member>
+        <member name="M:MyApi.Controllers.ProductController.CreateProduct(Dto.CreateProductDto)">
+             <summary>
+             Create a Product.
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /products
+                 {
+                    "addressLine": "new address",
+                    "postalCode": "12345",
+                    "country": "new country",
+                    "city": "new city",
+                    "faxNumber": "+380111111111",
+                    "phoneNumber": "+380222222222",
+                    "amount": 4
+                 }
+            
+             </remarks>
+             <response code="201">Returns the newly created item.</response>
+             <response code="400">Product is not created.</response>  
+        </member>
+        <member name="M:MyApi.Controllers.ProductController.UpdateProduct(System.Guid,Dto.UpdateProductDto)">
+             <summary>
+             Update a specific Product.
+             </summary>
+             <remarks>
+              Sample request:
+            
+                 PUT /products
+                 {
+                    "addressLine": "new address",
+                    "postalCode": "12345",
+                    "country": "new country",
+                    "city": "new city",
+                    "faxNumber": "+380111111111",
+                    "phoneNumber": "+380222222222",
+                    "amount": 4
+                 }
+            
+             </remarks>
+             <param name="id">The id of the item to be updated.</param>
+             <param name="productDto">Updated product.</param>
+             <response code="204">Updated product.</response>
+             <response code="404">Product hasn't been found.</response>
+        </member>
+        <member name="M:MyApi.Controllers.ProductController.DeleteProduct(System.Guid)">
+            <summary>
+            Deletes a specific Product.
+            </summary>
+            <param name="id">The id of the item to be deleted</param>
+            <response code="204">Deleted product</response>
+            <response code="404">Product hasn't been found.</response>
+        </member>
+        <member name="M:MyApi.Controllers.AuthController.Login(Dto.LoginDto)">
+             <summary> Login. </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /login
+                 {
+                     email: ‘test@email.com’,
+                     password: ‘12345’
+                 }
+            
+             </remarks>
+             <param name="loginDto">Login dto</param>
+             <response code="201">Token is successfully created</response> 
+             <response code="401">Password or email is invalid</response>
+        </member>
+        <member name="M:MyApi.Controllers.AuthController.Registration(Dto.RegistrationDto)">
+             <summary> Registration. </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /registration
+                 {
+                     firstname: ‘John’,
+                     lastname: ‘Doe’,
+                     email: ‘test@email.com’,
+                     password: ‘12345’
+                 }
+            
+             </remarks>
+             <response code="201">User is successfully created</response>
+             <response code="401">Email is already exist</response>
+        </member>
+        <member name="M:MyApi.Controllers.OrderController.GetAllOrders">
+            <summary>
+            Get all your Orders.
+            </summary>
+            <returns>All your orders.</returns>
+            <response code="200">Orders are successfully returned.</response>
+            <response code="401">Invalid token.</response>
+        </member>
+        <member name="M:MyApi.Controllers.OrderController.GetOrder(System.Guid)">
+            <summary>
+            Get a specific Order.
+            </summary>
+            <param name="id">The id of the order to be retrieved.</param>
+            <returns>Specific Order.</returns>
+            <response code="200">Returns order.</response>
+            <response code="401">Invalid token.</response>
+            <response code="404">Order hasn't been found.</response>
+        </member>
+        <member name="M:MyApi.Controllers.OrderController.CreateOrder(Dto.CreateOrderDto)">
+             <summary>
+             Create a new Order.
+             </summary>
+             /// <remarks>
+             Sample request:
+            
+                 POST /orders
+                 {
+                    "productId": "8a4263bb-fca6-4ab0-a3c9-cf524fe32b8e",
+                    "amount": 1
+                 }
+            
+             </remarks>
+             <param name="newOrder">New Order</param>
+             <returns>New Order</returns>
+             <response code="201">Returns the newly created order</response>
+             <response code="403">Not enough product</response>
+             <response code="404">Product hasn't been found.</response>
+        </member>
+        <member name="M:MyApi.Controllers.UserController.UpdateRoleOfUser(System.Guid,Entities.Role)">
+            <summary>
+            Update Role of User. Only for Admin User.
+            </summary>
+            <param name="id">The id of the user which Role to be updated.</param>
+            <param name="newRole">New Role</param>
+            <returns>User with updated Role's.</returns>
+            <response code="200">Updated user</response>
+        </member>
+        <member name="M:MyApi.Controllers.UserController.DeleteUser(System.Guid)">
+            <summary>
+            Delete User. Only for Admin User.
+            </summary>
+            <param name="id">The id of the user to be deleted.</param>
+        </member>
+    </members>
+</doc>
