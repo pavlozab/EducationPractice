@@ -19,7 +19,7 @@ namespace Data
         {
             var contextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql("Server=localhost;Port=5432;Database=myapi;Username=pasha;Password=1111")
-                .Options;
+                .Options; // FIXME Dependency inversion
             _context = new ApplicationDbContext(contextOptions);
         }
         

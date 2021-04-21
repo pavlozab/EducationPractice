@@ -10,3 +10,15 @@
 /Users/pasha/EducationPractice/MyApi/Entities/obj/Debug/net5.0/Entities.dll
 /Users/pasha/EducationPractice/MyApi/Entities/obj/Debug/net5.0/ref/Entities.dll
 /Users/pasha/EducationPractice/MyApi/Entities/obj/Debug/net5.0/Entities.pdb
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/bin/Debug/net5.0/Entities.deps.json
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/bin/Debug/net5.0/Entities.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/bin/Debug/net5.0/ref/Entities.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/bin/Debug/net5.0/Entities.pdb
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/obj/Debug/net5.0/Entities.csprojAssemblyReference.cache
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/obj/Debug/net5.0/Entities.GeneratedMSBuildEditorConfig.editorconfig
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/obj/Debug/net5.0/Entities.AssemblyInfoInputs.cache
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/obj/Debug/net5.0/Entities.AssemblyInfo.cs
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/obj/Debug/net5.0/Entities.csproj.CoreCompileInputs.cache
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/obj/Debug/net5.0/Entities.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/obj/Debug/net5.0/ref/Entities.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/obj/Debug/net5.0/Entities.pdb

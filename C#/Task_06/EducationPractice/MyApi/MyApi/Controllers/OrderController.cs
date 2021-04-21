@@ -16,7 +16,7 @@ namespace MyApi.Controllers
     [Produces("application/json")]
     [ApiController]
     [Route("api/v1/orders")]
-    public class OrderController: ControllerBase
+    public class OrderController: BaseController //ControllerBase, 
     {
         private readonly ILogger<OrderController> _logger;
         private readonly IOrderService _orderService;
@@ -43,7 +43,7 @@ namespace MyApi.Controllers
                 var userId = GetCurrentUserId();
 
                 _logger.LogInformation("Orders is successfully returned");
-                return Ok(await _orderService.GetAll(new Guid(userId)));
+                return Ok(await _orderService.GetAll(userId));
             }
             catch (SecurityTokenValidationException e)
             {
@@ -70,7 +70,7 @@ namespace MyApi.Controllers
                 var userId = GetCurrentUserId();
 
                 _logger.LogInformation("Order is successfully returned");
-                return Ok(await _orderService.GetOne(id, new Guid(userId)));
+                return Ok(await _orderService.GetOne(id, userId));
             }
             catch (SecurityTokenValidationException e)
             {
@@ -109,7 +109,7 @@ namespace MyApi.Controllers
             try
             {
                 var userId = GetCurrentUserId();
-                var order = await _orderService.Create(newOrder, new Guid(userId));
+                var order = await _orderService.Create(newOrder, userId);
 
                 _logger.LogInformation("Order is successfully created");
                 return CreatedAtAction("GetOrder", new { id = order.Id }, order);
@@ -134,16 +134,6 @@ namespace MyApi.Controllers
                 };
                 return BadRequest(problem);
             }
-        }
-        
-        private string GetCurrentUserId()
-        {
-            var userId = ControllerContext.HttpContext.User.Claims.Where(obj => 
-                    obj.Type == "UserId")
-                .Select(obj => obj.Value).SingleOrDefault();
-            if (userId is null)
-                throw new SecurityTokenValidationException("Invalid token");
-            return userId;
         }
     }
 

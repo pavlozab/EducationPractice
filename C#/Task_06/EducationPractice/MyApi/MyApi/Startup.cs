@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using AutoMapper;
+using AutoWrapper;
 using Config;
 using Data;
 using Entities;
@@ -48,6 +49,11 @@ namespace MyApi
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             
             // Redis
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = Configuration.GetConnectionString("Redis");
+                options.InstanceName = "MyApi_";
+            });
 
             // Mapping
             var mappingConfig = new MapperConfiguration(mc =>
@@ -70,7 +76,7 @@ namespace MyApi
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
             
-            services.AddSingleton<IJwtAuthManager, JwtAuthManager>();
+            services.AddScoped<IJwtAuthManager, JwtAuthManager>();
             
             services.AddSingleton<IOrderRepository, OrderRepository>();
             services.AddSingleton<IOrderService, OrderService>();
@@ -91,7 +97,7 @@ namespace MyApi
                     ValidateIssuer = true,
                     ValidIssuer = jwtTokenConfig.Issuer,
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtTokenConfig.Secret)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtTokenConfig.SecretKey)),
                     ValidAudience = jwtTokenConfig.Audience,
                     ValidateAudience = true,
                     ValidateLifetime = true,
@@ -151,9 +157,9 @@ namespace MyApi
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProductRest v1"));
             }
             
-            // app.UseApiResponseAndExceptionWrapper(new AutoWrapperOptions { 
-            //     UseApiProblemDetailsException = true 
-            // });
+            app.UseApiResponseAndExceptionWrapper(new AutoWrapperOptions { 
+                UseApiProblemDetailsException = true 
+            });
 
             app.UseHttpsRedirection();
 

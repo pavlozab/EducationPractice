@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Data.Dto;
 using Dto;
 using Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -13,8 +14,8 @@ namespace MyApi.Controllers
     [Authorize]
     [Produces("application/json")]
     [ApiController]
-    [Route("api/v1/addresses")]
-    public class ProductController : ControllerBase
+    [Route("api/v1/address")]
+    public class ProductController : BaseController//ControllerBase
     {
         private readonly IAddressService _service;
         private readonly ILogger<ProductController> _logger;
@@ -42,11 +43,10 @@ namespace MyApi.Controllers
         [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<Address>> GetProducts()
+        public async Task<ActionResult<PaginatedResponseDto<Address>>> GetAll([FromQuery]QueryMetaDto queryMetaDto)
         {
             _logger.LogInformation("Returned all products");
-            var products = await _service.GetAll();
-            var count = await _service.Count();
+            var products = await _service.GetAll(queryMetaDto);
             return Ok(products);
         }
 
@@ -60,7 +60,7 @@ namespace MyApi.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<Address>> GetProduct(Guid id)
+        public async Task<ActionResult<Address>> GetOne(Guid id)
         {
             var product = await _service.GetOne(id);
 
@@ -92,15 +92,15 @@ namespace MyApi.Controllers
         /// <response code="201">Returns the newly created item.</response>
         /// <response code="400">Product is not created.</response>  
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<Address>> CreateProduct(CreateProductDto productDto)
+        public async Task<ActionResult<Address>> Create(CreateProductDto productDto)
         {
-            var product = await _service.Create(productDto);
-                
+            var product = await _service.Create(productDto, GetCurrentUserId());
+
             _logger.LogInformation("Create a Product");
-            return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
+            return CreatedAtAction(nameof(GetOne), new { id = product.Id }, product);
         }
 
         /// <summary>
@@ -126,14 +126,14 @@ namespace MyApi.Controllers
         /// <response code="204">Updated product.</response>
         /// <response code="404">Product hasn't been found.</response>
         [HttpPut("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult> UpdateProduct(Guid id, UpdateProductDto productDto)
+        public async Task<ActionResult> Update(Guid id, UpdateProductDto productDto)
         {
             try
             {
-                await _service.Update(id, productDto);
+                await _service.Update(id, productDto, GetCurrentUserId());
 
                 _logger.LogInformation("Updated product with id: {0}", id);
                 return NoContent();
@@ -151,14 +151,14 @@ namespace MyApi.Controllers
         /// <response code="204">Deleted product</response>
         /// <response code="404">Product hasn't been found.</response>
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult> DeleteProduct(Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             try
             {
-                await _service.Delete(id);
+                await _service.Delete(id, GetCurrentUserId());
 
                 _logger.LogInformation("Deleted product with id: {0}", id);
                 return NoContent();

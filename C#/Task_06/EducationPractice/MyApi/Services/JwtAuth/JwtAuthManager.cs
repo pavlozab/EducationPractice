@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using Config;
 using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
@@ -13,18 +15,15 @@ namespace JwtAuth
     public class JwtAuthManager : IJwtAuthManager
     {
         private readonly JwtTokenConfig _jwtTokenConfig;
-        private readonly byte[] _secret;
 
         public JwtAuthManager(JwtTokenConfig jwtTokenConfig)
         {
             _jwtTokenConfig = jwtTokenConfig;
-            _secret = Encoding.ASCII.GetBytes(jwtTokenConfig.Secret);
         }
 
-        public string GenerateTokens(string email, Claim[] claims)
+        public async Task<AccessToken> GenerateTokens(List<Claim> claims)
         {
             var now = DateTime.Now;
-            Console.WriteLine(now);
             var shouldAddAudienceClaim = string.IsNullOrWhiteSpace(claims?.FirstOrDefault(x =>
                 x.Type == JwtRegisteredClaimNames.Aud)?.Value);
 
@@ -33,11 +32,20 @@ namespace JwtAuth
                 shouldAddAudienceClaim ? _jwtTokenConfig.Audience : string.Empty,
                 claims,
                 expires: now.AddMinutes(_jwtTokenConfig.AccessTokenExpiration),
-                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(_secret),
+                signingCredentials: new SigningCredentials(new 
+                        SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtTokenConfig.SecretKey)),
                     SecurityAlgorithms.HmacSha256Signature));
 
             var accessToken = new JwtSecurityTokenHandler().WriteToken(jwtToken);
-            return accessToken;
+            return new AccessToken
+            {
+                access_token = accessToken
+            };
         }
+    }
+
+    public class AccessToken
+    {
+        public string access_token { get; set; }
     }
 }

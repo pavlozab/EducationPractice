@@ -12,6 +12,7 @@ namespace Entities
         public string LastName { get; set; }
         
         public ICollection<Order> Orders { get; set; }
+        public ICollection<Address> Addresses { get; set; }
     }
     
     public class UserConfiguration : IEntityTypeConfiguration<User>

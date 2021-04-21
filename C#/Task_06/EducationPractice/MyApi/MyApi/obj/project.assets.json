@@ -29,6 +29,21 @@
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
+      "AutoWrapper.Core/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.2"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/AutoWrapper.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/AutoWrapper.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "BCrypt.Net/0.1.0": {
         "type": "package",
         "compile": {
@@ -208,6 +223,20 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Caching.Memory.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.0-preview.3.21201.13": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Abstractions": "6.0.0-preview.3.21201.4",
+          "Microsoft.Extensions.Options": "6.0.0-preview.3.21201.4",
+          "StackExchange.Redis": "2.0.593"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll": {}
         }
       },
       "Microsoft.Extensions.Configuration.Abstractions/6.0.0-preview.3.21201.4": {
@@ -436,6 +465,15 @@
             "assetType": "runtime",
             "rid": "win"
           }
+        }
+      },
+      "Newtonsoft.Json/12.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
       "Npgsql/6.0.0-preview2": {
@@ -775,6 +813,7 @@
         "dependencies": {
           "Entities": "1.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.0-preview.3.21201.2",
+          "Microsoft.Extensions.Caching.StackExchangeRedis": "6.0.0-preview.3.21201.13",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "6.0.0-preview2",
           "StackExchange.Redis": "2.2.4"
         },
@@ -791,6 +830,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.0-preview.3.21201.13",
           "Microsoft.EntityFrameworkCore": "6.0.0-preview.3.21201.2",
+          "Microsoft.Extensions.Caching.StackExchangeRedis": "6.0.0-preview.3.21201.13",
           "StackExchange.Redis": "2.2.4"
         },
         "compile": {
@@ -809,6 +849,7 @@
           "Data": "1.0.0",
           "Entities": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "5.0.4",
+          "Microsoft.Extensions.Caching.StackExchangeRedis": "6.0.0-preview.3.21201.13",
           "StackExchange.Redis": "2.2.4"
         },
         "compile": {
@@ -851,6 +892,20 @@
         "automapper.extensions.microsoft.dependencyinjection.nuspec",
         "icon.png",
         "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
+      ]
+    },
+    "AutoWrapper.Core/4.5.0": {
+      "sha512": "GPI1nlVBd4kvz5gIFrMt/PITHuzhpD79PzuXZ/+lNbqHRWREgom1IaLXOwTXFIzkVdKYIcFXvbu2qKxTMy18tQ==",
+      "type": "package",
+      "path": "autowrapper.core/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "autowrapper.core.4.5.0.nupkg.sha512",
+        "autowrapper.core.nuspec",
+        "icon.png",
+        "lib/netcoreapp3.0/AutoWrapper.dll",
+        "lib/netcoreapp3.1/AutoWrapper.dll"
       ]
     },
     "BCrypt.Net/0.1.0": {
@@ -1153,6 +1208,21 @@
         "lib/netstandard2.0/Microsoft.Extensions.Caching.Memory.xml",
         "microsoft.extensions.caching.memory.6.0.0-preview.3.21201.4.nupkg.sha512",
         "microsoft.extensions.caching.memory.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.0-preview.3.21201.13": {
+      "sha512": "dHQ/3bDitOlTn6MYzpNMoERl3jYVRS3/9yl6B/c1qbGdU3Exr7JWkFrkL9z25HqrIpeFHWD689556nhRQyICpg==",
+      "type": "package",
+      "path": "microsoft.extensions.caching.stackexchangeredis/6.0.0-preview.3.21201.13",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.xml",
+        "microsoft.extensions.caching.stackexchangeredis.6.0.0-preview.3.21201.13.nupkg.sha512",
+        "microsoft.extensions.caching.stackexchangeredis.nuspec"
       ]
     },
     "Microsoft.Extensions.Configuration.Abstractions/6.0.0-preview.3.21201.4": {
@@ -1517,6 +1587,36 @@
         "runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.xml",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "Newtonsoft.Json/12.0.2": {
+      "sha512": "rTK0s2EKlfHsQsH6Yx2smvcTCeyoDNgCW7FEYyV01drPlh2T243PR2DiDXqtC5N4GDm4Ma/lkxfW5a/4793vbA==",
+      "type": "package",
+      "path": "newtonsoft.json/12.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "newtonsoft.json.12.0.2.nupkg.sha512",
+        "newtonsoft.json.nuspec"
       ]
     },
     "Npgsql/6.0.0-preview2": {
@@ -2321,8 +2421,10 @@
   "projectFileDependencyGroups": {
     "net5.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 8.1.1",
+      "AutoWrapper.Core >= 4.5.0",
       "Data >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.0-preview.3.21201.2",
+      "Microsoft.Extensions.Caching.StackExchangeRedis >= 6.0.0-preview.3.21201.13",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 6.0.0-preview2",
       "Services >= 1.0.0",
       "StackExchange.Redis >= 2.2.4",
@@ -2336,11 +2438,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/pasha/EducationPractice/MyApi/MyApi/MyApi.csproj",
+      "projectUniqueName": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/MyApi.csproj",
       "projectName": "MyApi",
-      "projectPath": "/Users/pasha/EducationPractice/MyApi/MyApi/MyApi.csproj",
+      "projectPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/MyApi.csproj",
       "packagesPath": "/Users/pasha/.nuget/packages/",
-      "outputPath": "/Users/pasha/EducationPractice/MyApi/MyApi/obj/",
+      "outputPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -2358,11 +2460,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "/Users/pasha/EducationPractice/MyApi/Data/Data.csproj": {
-              "projectPath": "/Users/pasha/EducationPractice/MyApi/Data/Data.csproj"
+            "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Data/Data.csproj": {
+              "projectPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Data/Data.csproj"
             },
-            "/Users/pasha/EducationPractice/MyApi/Services/Services.csproj": {
-              "projectPath": "/Users/pasha/EducationPractice/MyApi/Services/Services.csproj"
+            "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Services/Services.csproj": {
+              "projectPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Services/Services.csproj"
             }
           }
         }
@@ -2381,11 +2483,19 @@
             "target": "Package",
             "version": "[8.1.1, )"
           },
+          "AutoWrapper.Core": {
+            "target": "Package",
+            "version": "[4.5.0, )"
+          },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
             "target": "Package",
             "version": "[6.0.0-preview.3.21201.2, )"
+          },
+          "Microsoft.Extensions.Caching.StackExchangeRedis": {
+            "target": "Package",
+            "version": "[6.0.0-preview.3.21201.13, )"
           },
           "Npgsql.EntityFrameworkCore.PostgreSQL": {
             "target": "Package",

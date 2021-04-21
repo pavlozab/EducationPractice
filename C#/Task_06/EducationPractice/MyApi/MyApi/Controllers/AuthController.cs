@@ -1,6 +1,7 @@
 using System.Security.Authentication;
 using System.Threading.Tasks;
 using Dto;
+using JwtAuth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -41,16 +42,12 @@ namespace MyApi.Controllers
         [HttpPost("login")]
         [ProducesResponseType(201)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<string>> Login(LoginDto loginDto)
+        public async Task<ActionResult<AccessToken>> Login(LoginDto loginDto)
         {
             if (!await _authService.ValidateUser(loginDto))
                 return Unauthorized("Password or email is invalid");
 
             _logger.LogInformation("Token is successfully created");
-            // return StatusCode(201, new TokenResponse(
-            //     loginDto.Email, 
-            //     await _authService.Login(loginDto))
-            // );
             return StatusCode(201, await _authService.Login(loginDto));
         }
 
@@ -74,17 +71,12 @@ namespace MyApi.Controllers
         [HttpPost("registration")]
         [ProducesResponseType(201)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<string>> Registration(RegistrationDto registrationDto)
+        public async Task<ActionResult<AccessToken>> Registration(RegistrationDto registrationDto)
         {
             try
             {
                 var jwtResult = await _authService.Registration(registrationDto);
                 
-                _logger.LogInformation("User is successfully created");
-                // return StatusCode(201, new TokenResponse(
-                //     registrationDto.Email, 
-                //     jwtResult)
-                // );
                 return StatusCode(201, jwtResult);
             }
             catch (AuthenticationException e)

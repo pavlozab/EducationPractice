@@ -46,7 +46,12 @@ namespace Data.Migrations
                     b.Property<string>("PostalCode")
                         .HasColumnType("text");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Addresses");
                 });
@@ -159,9 +164,6 @@ namespace Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid?>("RolesId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
@@ -180,8 +182,6 @@ namespace Data.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
-
-                    b.HasIndex("RolesId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -287,6 +287,17 @@ namespace Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Entities.Address", b =>
+                {
+                    b.HasOne("Entities.User", "User")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Entities.Order", b =>
                 {
                     b.HasOne("Entities.Address", "Address")
@@ -304,15 +315,6 @@ namespace Data.Migrations
                     b.Navigation("Address");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Entities.User", b =>
-                {
-                    b.HasOne("Entities.Role", "Roles")
-                        .WithMany()
-                        .HasForeignKey("RolesId");
-
-                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -373,6 +375,8 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entities.User", b =>
                 {
+                    b.Navigation("Addresses");
+
                     b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618

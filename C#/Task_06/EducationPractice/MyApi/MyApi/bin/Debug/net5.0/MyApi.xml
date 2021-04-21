@@ -4,13 +4,13 @@
         <name>MyApi</name>
     </assembly>
     <members>
-        <member name="M:MyApi.Controllers.ProductController.GetProducts">
+        <member name="M:MyApi.Controllers.ProductController.GetAll(Data.Dto.QueryMetaDto)">
             <summary>
             Get Products.
             </summary>
             <response code="200">Returns Product List.</response>
         </member>
-        <member name="M:MyApi.Controllers.ProductController.GetProduct(System.Guid)">
+        <member name="M:MyApi.Controllers.ProductController.GetOne(System.Guid)">
             <summary>
             Get a specific Product.
             </summary>
@@ -18,7 +18,7 @@
             <response code="200">Returns a specific Product.</response>
             <response code="404">Product hasn't been found.</response>
         </member>
-        <member name="M:MyApi.Controllers.ProductController.CreateProduct(Dto.CreateProductDto)">
+        <member name="M:MyApi.Controllers.ProductController.Create(Dto.CreateProductDto)">
              <summary>
              Create a Product.
              </summary>
@@ -40,7 +40,7 @@
              <response code="201">Returns the newly created item.</response>
              <response code="400">Product is not created.</response>  
         </member>
-        <member name="M:MyApi.Controllers.ProductController.UpdateProduct(System.Guid,Dto.UpdateProductDto)">
+        <member name="M:MyApi.Controllers.ProductController.Update(System.Guid,Dto.UpdateProductDto)">
              <summary>
              Update a specific Product.
              </summary>
@@ -64,7 +64,7 @@
              <response code="204">Updated product.</response>
              <response code="404">Product hasn't been found.</response>
         </member>
-        <member name="M:MyApi.Controllers.ProductController.DeleteProduct(System.Guid)">
+        <member name="M:MyApi.Controllers.ProductController.Delete(System.Guid)">
             <summary>
             Deletes a specific Product.
             </summary>

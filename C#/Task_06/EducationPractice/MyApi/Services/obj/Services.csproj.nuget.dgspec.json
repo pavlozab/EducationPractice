@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/pasha/EducationPractice/MyApi/Services/Services.csproj": {}
+    "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Services/Services.csproj": {}
   },
   "projects": {
-    "/Users/pasha/EducationPractice/MyApi/Data/Data.csproj": {
+    "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Data/Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/pasha/EducationPractice/MyApi/Data/Data.csproj",
+        "projectUniqueName": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Data/Data.csproj",
         "projectName": "Data",
-        "projectPath": "/Users/pasha/EducationPractice/MyApi/Data/Data.csproj",
+        "projectPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Data/Data.csproj",
         "packagesPath": "/Users/pasha/.nuget/packages/",
-        "outputPath": "/Users/pasha/EducationPractice/MyApi/Data/obj/",
+        "outputPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Data/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -29,8 +29,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "/Users/pasha/EducationPractice/MyApi/Entities/Entities.csproj": {
-                "projectPath": "/Users/pasha/EducationPractice/MyApi/Entities/Entities.csproj"
+              "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/Entities.csproj": {
+                "projectPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/Entities.csproj"
               }
             }
           }
@@ -48,6 +48,10 @@
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.0-preview.3.21201.2, )"
+            },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[6.0.0-preview.3.21201.13, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
@@ -77,14 +81,14 @@
         }
       }
     },
-    "/Users/pasha/EducationPractice/MyApi/Entities/Entities.csproj": {
+    "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/pasha/EducationPractice/MyApi/Entities/Entities.csproj",
+        "projectUniqueName": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "/Users/pasha/EducationPractice/MyApi/Entities/Entities.csproj",
+        "projectPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/Entities.csproj",
         "packagesPath": "/Users/pasha/.nuget/packages/",
-        "outputPath": "/Users/pasha/EducationPractice/MyApi/Entities/obj/",
+        "outputPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -122,6 +126,10 @@
               "target": "Package",
               "version": "[6.0.0-preview.3.21201.2, )"
             },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[6.0.0-preview.3.21201.13, )"
+            },
             "StackExchange.Redis": {
               "target": "Package",
               "version": "[2.2.4, )"
@@ -146,14 +154,14 @@
         }
       }
     },
-    "/Users/pasha/EducationPractice/MyApi/Services/Services.csproj": {
+    "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Services/Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/pasha/EducationPractice/MyApi/Services/Services.csproj",
+        "projectUniqueName": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Services/Services.csproj",
         "projectName": "Services",
-        "projectPath": "/Users/pasha/EducationPractice/MyApi/Services/Services.csproj",
+        "projectPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Services/Services.csproj",
         "packagesPath": "/Users/pasha/.nuget/packages/",
-        "outputPath": "/Users/pasha/EducationPractice/MyApi/Services/obj/",
+        "outputPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Services/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -171,11 +179,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "/Users/pasha/EducationPractice/MyApi/Data/Data.csproj": {
-                "projectPath": "/Users/pasha/EducationPractice/MyApi/Data/Data.csproj"
+              "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Data/Data.csproj": {
+                "projectPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Data/Data.csproj"
               },
-              "/Users/pasha/EducationPractice/MyApi/Entities/Entities.csproj": {
-                "projectPath": "/Users/pasha/EducationPractice/MyApi/Entities/Entities.csproj"
+              "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/Entities.csproj": {
+                "projectPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/Entities.csproj"
               }
             }
           }
@@ -201,6 +209,10 @@
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[5.0.4, )"
+            },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[6.0.0-preview.3.21201.13, )"
             },
             "StackExchange.Redis": {
               "target": "Package",

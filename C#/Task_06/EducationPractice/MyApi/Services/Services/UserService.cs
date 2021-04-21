@@ -43,7 +43,7 @@ namespace Services
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(registrationDto.Password),
             }; 
             await _userManager.CreateAsync(user);
-            await _userManager.AddToRoleAsync(user, "Admin");
+            await _userManager.AddToRoleAsync(user, "User");
             return user;
         }
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kaOLk6u/ICNyQ/gNiLiLaJURhDGraXuSc/7qGhI68sY/PiZu0SPIdA+moZGf0xwqqcnnUCkXWKzZlToKKmOXGw==",
+  "dgSpecHash": "sIB+7kxxSGvuEQb4koBSo1EEhj0N+7YkpZzVv8DxHpls/tE7bU73Tuz0Paszd1Jv9W9lAWPywU4gjex9KMs/1A==",
   "success": true,
-  "projectFilePath": "/Users/pasha/EducationPractice/MyApi/Services/Services.csproj",
+  "projectFilePath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Services/Services.csproj",
   "expectedPackageFiles": [
     "/Users/pasha/.nuget/packages/automapper/10.1.1/automapper.10.1.1.nupkg.sha512",
     "/Users/pasha/.nuget/packages/bcrypt.net/0.1.0/bcrypt.net.0.1.0.nupkg.sha512",
@@ -17,6 +17,7 @@
     "/Users/pasha/.nuget/packages/microsoft.entityframeworkcore.relational/6.0.0-preview.3.21201.2/microsoft.entityframeworkcore.relational.6.0.0-preview.3.21201.2.nupkg.sha512",
     "/Users/pasha/.nuget/packages/microsoft.extensions.caching.abstractions/6.0.0-preview.3.21201.4/microsoft.extensions.caching.abstractions.6.0.0-preview.3.21201.4.nupkg.sha512",
     "/Users/pasha/.nuget/packages/microsoft.extensions.caching.memory/6.0.0-preview.3.21201.4/microsoft.extensions.caching.memory.6.0.0-preview.3.21201.4.nupkg.sha512",
+    "/Users/pasha/.nuget/packages/microsoft.extensions.caching.stackexchangeredis/6.0.0-preview.3.21201.13/microsoft.extensions.caching.stackexchangeredis.6.0.0-preview.3.21201.13.nupkg.sha512",
     "/Users/pasha/.nuget/packages/microsoft.extensions.configuration.abstractions/6.0.0-preview.3.21201.4/microsoft.extensions.configuration.abstractions.6.0.0-preview.3.21201.4.nupkg.sha512",
     "/Users/pasha/.nuget/packages/microsoft.extensions.dependencyinjection/6.0.0-preview.3.21201.4/microsoft.extensions.dependencyinjection.6.0.0-preview.3.21201.4.nupkg.sha512",
     "/Users/pasha/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/6.0.0-preview.3.21201.4/microsoft.extensions.dependencyinjection.abstractions.6.0.0-preview.3.21201.4.nupkg.sha512",

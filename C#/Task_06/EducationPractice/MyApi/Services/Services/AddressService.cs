@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Data;
+using Data.Dto;
 using Entities;
 using Dto;
 
@@ -26,9 +27,10 @@ namespace Services
         //     return products;
         // }
 
-        public async Task<IEnumerable<Address>> GetAll()
+        public async Task<PaginatedResponseDto<Address>> GetAll(QueryMetaDto queryMetaDto)
         {
-            return await _repository.GetAll();
+            var validQuery = new QueryMetaDto(queryMetaDto);
+            return await _repository.GetAll(validQuery);
         }
 
         public async Task<Address> GetOne(Guid id)
@@ -36,7 +38,7 @@ namespace Services
             return await _repository.GetOne(id);
         }
 
-        public async Task<Address> Create(CreateProductDto productDto)
+        public async Task<Address> Create(CreateProductDto productDto, Guid UserId)
         {
             Address product = new()
             {
@@ -47,13 +49,14 @@ namespace Services
                 City = productDto.City,
                 FaxNumber = productDto.FaxNumber,
                 PhoneNumber = productDto.PhoneNumber,
-                Amount = productDto.Amount
+                Amount = productDto.Amount,
+                UserId = UserId
             };
             await _repository.Create(product);
             return product;
         }
 
-        public async Task Update(Guid id, UpdateProductDto productDto)
+        public async Task Update(Guid id, UpdateProductDto productDto, Guid UserId)
         {
             var existingProduct = await  _repository.GetOne(id);
 
@@ -61,16 +64,19 @@ namespace Services
                 throw new KeyNotFoundException("Product hasn't been found");
             
             _mapper.Map(productDto, existingProduct);
+            existingProduct.UserId = UserId;
 
             await _repository.Update(existingProduct);
         }
 
-        public async Task Delete(Guid id)
+        public async Task Delete(Guid id, Guid UserId)
         {
             var existingProduct = await _repository.GetOne(id);
 
             if (existingProduct is null)
                 throw new KeyNotFoundException("Product hasn't been found");
+
+            existingProduct.UserId = UserId;
 
             await _repository.Delete(id);
         }
