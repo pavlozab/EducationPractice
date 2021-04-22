@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Data.Dto;
 using Dto;
 using Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Services;
 
 namespace MyApi.Controllers
@@ -15,12 +18,12 @@ namespace MyApi.Controllers
     [Produces("application/json")]
     [ApiController]
     [Route("api/v1/address")]
-    public class ProductController : BaseController//ControllerBase
+    public class AddressController : BaseController
     {
         private readonly IAddressService _service;
-        private readonly ILogger<ProductController> _logger;
+        private readonly ILogger<AddressController> _logger;
 
-        public ProductController(IAddressService service, ILogger<ProductController> logger)
+        public AddressController(IAddressService service, ILogger<AddressController> logger)
         {
             _service = service;
             _logger = logger;
@@ -30,24 +33,20 @@ namespace MyApi.Controllers
         /// Get Products.
         /// </summary>
         /// <response code="200">Returns Product List.</response>
-        // [AllowAnonymous]
-        // [HttpGet]
-        // [ProducesResponseType(200)]
-        // public async Task<ActionResult<PagedResponse<Product>>> GetProducts([FromQuery]QueryParametersModel filter)
-        // {
-        //     _logger.LogInformation("Returned all products");
-        //     var products = await _service.GetAll(filter);
-        //     var count = await _service.Count();
-        //     return Ok(new PagedResponse<Product>(products, count));
-        // }
         [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(200)]
         public async Task<ActionResult<PaginatedResponseDto<Address>>> GetAll([FromQuery]QueryMetaDto queryMetaDto)
         {
-            _logger.LogInformation("Returned all products");
-            var products = await _service.GetAll(queryMetaDto);
-            return Ok(products);
+            var count = await _service.Count();
+            var addresses = await _service.GetAll(queryMetaDto);
+            // _logger.LogInformation("Returned all products");
+
+            return Ok(new PaginatedResponseDto<Address>
+            {
+                Items = addresses,
+                Meta = new MetaDto(queryMetaDto, count)
+            });
         }
 
         /// <summary>

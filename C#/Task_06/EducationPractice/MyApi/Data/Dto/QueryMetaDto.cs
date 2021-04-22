@@ -1,5 +1,6 @@
 using System.Linq;
 using Entities;
+using Microsoft.Extensions.Options;
 
 namespace Data.Dto
 {
@@ -23,13 +24,18 @@ namespace Data.Dto
         public QueryMetaDto(QueryMetaDto filter)
         {
             Search = filter.Search;
+            Validate();
+        }
+        
+        public void Validate()
+        {
             SortBy = typeof(Address).GetProperties()
                 .Select(obj => obj.Name)
-                .Contains(filter.SortBy) ? filter.SortBy : "AddressLine";
+                .Contains(SortBy) ? SortBy : "AddressLine";
             
-            SortType = filter.SortType == "desc" ? "desc" : "asc";
-            Offset = filter.Offset < 0 ? 0 : filter.Offset;
-            Limit = filter.Limit > 10 ? 10 : filter.Limit;
+            SortType = SortType == "desc" ? "desc" : "asc";
+            Offset = Offset < 0 ? 0 : Offset;
+            Limit = Limit > 10 ? 10 : Limit;
         }
     }
 }

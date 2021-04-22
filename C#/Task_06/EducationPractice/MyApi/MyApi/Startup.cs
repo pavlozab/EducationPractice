@@ -7,6 +7,8 @@ using AutoMapper;
 using AutoWrapper;
 using Config;
 using Data;
+using EFCache;
+using EFCache.Redis;
 using Entities;
 using JwtAuth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -20,6 +22,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MyApi.Profiles;
 using Services;
+using StackExchange.Redis;
+using Role = Entities.Role;
 
 namespace MyApi
 {
@@ -40,6 +44,8 @@ namespace MyApi
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(dbConfig.ConnectionString));
+
+            
             
             // services.AddDbContextFactory<ApplicationDbContext>(
             //     options =>
@@ -54,6 +60,7 @@ namespace MyApi
                 options.Configuration = Configuration.GetConnectionString("Redis");
                 options.InstanceName = "MyApi_";
             });
+            
 
             // Mapping
             var mappingConfig = new MapperConfiguration(mc =>

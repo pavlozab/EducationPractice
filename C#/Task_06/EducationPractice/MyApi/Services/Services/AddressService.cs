@@ -6,6 +6,8 @@ using Data;
 using Data.Dto;
 using Entities;
 using Dto;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 
 namespace Services
 {
@@ -13,24 +15,33 @@ namespace Services
     {
         private readonly IAddressRepository _repository;
         private readonly IMapper _mapper;
+        private readonly IDistributedCache _distributedCache;
 
-        public AddressService(IAddressRepository repository, IMapper mapper)
+        public AddressService(
+            IAddressRepository repository, 
+            IMapper mapper,
+            IDistributedCache distributedCache)
         {
             _repository = repository;
             _mapper = mapper;
+            _distributedCache = distributedCache;
         }
 
-        // public async Task<IEnumerable<Address>> GetAll(QueryParametersModel filter)
-        // {
-        //     var validFilter = new QueryParametersModel(filter);
-        //     var products = await _repository.GetAll(validFilter);
-        //     return products;
-        // }
-
-        public async Task<PaginatedResponseDto<Address>> GetAll(QueryMetaDto queryMetaDto)
+        public async Task<IEnumerable<Address>> GetAll(QueryMetaDto queryMetaDto)
         {
-            var validQuery = new QueryMetaDto(queryMetaDto);
-            return await _repository.GetAll(validQuery);
+            IEnumerable<Address> addresses;
+            queryMetaDto.Validate();
+
+            if (queryMetaDto.Search is null)
+            {
+                addresses = await GetFromCache(queryMetaDto);
+            }
+            else
+            {
+                addresses = await _repository.GetAll(queryMetaDto);
+            }
+
+            return addresses;
         }
 
         public async Task<Address> GetOne(Guid id)
@@ -53,6 +64,9 @@ namespace Services
                 UserId = UserId
             };
             await _repository.Create(product);
+            
+            RemoveAllCache();
+
             return product;
         }
 
@@ -67,6 +81,7 @@ namespace Services
             existingProduct.UserId = UserId;
 
             await _repository.Update(existingProduct);
+            RemoveAllCache();
         }
 
         public async Task Delete(Guid id, Guid UserId)
@@ -79,11 +94,43 @@ namespace Services
             existingProduct.UserId = UserId;
 
             await _repository.Delete(id);
+            RemoveAllCache();
         }
 
         public async Task<long> Count()
         {
             return await _repository.Count();
         }
+        
+        private async Task<IEnumerable<Address>> GetFromCache(QueryMetaDto queryMetaDto)
+        {
+            var key = JsonConvert.SerializeObject(queryMetaDto);
+            var cache = await _distributedCache.GetStringAsync(key);
+            
+            IEnumerable<Address> addresses;
+            
+            if (cache is null)
+            {
+                addresses = await _repository.GetAll(queryMetaDto);
+
+                var productsCache = JsonConvert.SerializeObject(addresses);
+
+                await _distributedCache.SetStringAsync(key, productsCache);
+            }
+            else
+            {
+                addresses = JsonConvert.DeserializeObject<List<Address>>(cache);
+            }
+            
+            return addresses;
+        }
+
+        private void RemoveAllCache()
+        {
+        }
+        
+        // private static void GenerateNewCache(object sender, EventArgs eventArgs)
+        // {
+        // }
     }
 }

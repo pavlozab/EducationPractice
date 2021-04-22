@@ -7,7 +7,7 @@ namespace Data
 {
     public interface IAddressRepository : IBaseRepository<Address>
     {
-        Task<PaginatedResponseDto<Address>> GetAll(QueryMetaDto queryMetaDto); 
+        Task<IEnumerable<Address>> GetAll(QueryMetaDto queryMetaDto); 
         Task Update(Address item);
         Task<long> Count();
     }

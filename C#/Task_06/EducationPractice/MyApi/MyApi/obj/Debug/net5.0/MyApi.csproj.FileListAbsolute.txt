@@ -150,3 +150,14 @@
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/bin/Debug/net5.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/bin/Debug/net5.0/AutoWrapper.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/bin/Debug/net5.0/Newtonsoft.Json.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/bin/Debug/net5.0/EFCache.Redis.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/bin/Debug/net5.0/EntityFramework.SqlServer.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/bin/Debug/net5.0/EntityFramework.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/bin/Debug/net5.0/EFCache.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/bin/Debug/net5.0/System.CodeDom.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/bin/Debug/net5.0/System.Data.SqlClient.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/bin/Debug/net5.0/runtimes/win-arm64/native/sni.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/bin/Debug/net5.0/runtimes/win-x64/native/sni.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/bin/Debug/net5.0/runtimes/win-x86/native/sni.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/bin/Debug/net5.0/runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/MyApi/bin/Debug/net5.0/runtimes/win/lib/netcoreapp2.1/System.Data.SqlClient.dll

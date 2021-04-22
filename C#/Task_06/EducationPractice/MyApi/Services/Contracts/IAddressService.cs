@@ -9,7 +9,7 @@ namespace Services
 {
     public interface IAddressService
     {
-        Task<PaginatedResponseDto<Address>> GetAll(QueryMetaDto queryMetaDto);
+        Task<IEnumerable<Address>> GetAll(QueryMetaDto queryMetaDto);
         Task<Address> GetOne(Guid id);
         Task<Address> Create(CreateProductDto productDto, Guid UserId);
         Task Update(Guid id, UpdateProductDto productDto, Guid UserId);

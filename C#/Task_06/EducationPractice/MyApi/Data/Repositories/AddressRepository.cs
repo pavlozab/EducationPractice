@@ -14,7 +14,7 @@ namespace Data
         // {
         // }
 
-        public async Task<PaginatedResponseDto<Address>> GetAll(QueryMetaDto queryMetaDto)
+        public async Task<IEnumerable<Address>> GetAll(QueryMetaDto queryMetaDto)
         {
             var strReprOfSearch = "";
             // return await _context.Addresses.Find() Where(obj =>
@@ -37,13 +37,7 @@ namespace Data
                 .Take(queryMetaDto.Limit)
                 .ToListAsync();
 
-            var count = await Count();
-
-            return new PaginatedResponseDto<Address>
-            {
-                Items = addresses,
-                Meta = new MetaDto(queryMetaDto, count)
-            };
+            return await _context.Addresses.ToListAsync();
         }
         
         public async Task Update(Address obj)

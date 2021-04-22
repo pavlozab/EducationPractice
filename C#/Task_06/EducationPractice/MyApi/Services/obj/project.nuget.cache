@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "sIB+7kxxSGvuEQb4koBSo1EEhj0N+7YkpZzVv8DxHpls/tE7bU73Tuz0Paszd1Jv9W9lAWPywU4gjex9KMs/1A==",
+  "dgSpecHash": "45yeW/BLlqig7nwgHIVt8hTs0CtpvnK5VjFOdBCbVIEakoGHhFK901xK2UUcUr1NZx7T9gOa5TtWomoxHCHdFA==",
   "success": true,
   "projectFilePath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Services/Services.csproj",
   "expectedPackageFiles": [
@@ -35,6 +35,7 @@
     "/Users/pasha/.nuget/packages/microsoft.netcore.platforms/5.0.0/microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "/Users/pasha/.nuget/packages/microsoft.win32.registry/5.0.0/microsoft.win32.registry.5.0.0.nupkg.sha512",
     "/Users/pasha/.nuget/packages/microsoft.win32.systemevents/5.0.0/microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "/Users/pasha/.nuget/packages/newtonsoft.json/12.0.2/newtonsoft.json.12.0.2.nupkg.sha512",
     "/Users/pasha/.nuget/packages/npgsql/6.0.0-preview2/npgsql.6.0.0-preview2.nupkg.sha512",
     "/Users/pasha/.nuget/packages/npgsql.entityframeworkcore.postgresql/6.0.0-preview2/npgsql.entityframeworkcore.postgresql.6.0.0-preview2.nupkg.sha512",
     "/Users/pasha/.nuget/packages/pipelines.sockets.unofficial/2.2.0/pipelines.sockets.unofficial.2.2.0.nupkg.sha512",
