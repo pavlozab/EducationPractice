@@ -49,10 +49,6 @@
               "target": "Package",
               "version": "[6.0.0-preview.3.21201.2, )"
             },
-            "Microsoft.Extensions.Caching.StackExchangeRedis": {
-              "target": "Package",
-              "version": "[6.0.0-preview.3.21201.13, )"
-            },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[6.0.0-preview2, )"
@@ -125,14 +121,6 @@
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.0-preview.3.21201.2, )"
-            },
-            "Microsoft.Extensions.Caching.StackExchangeRedis": {
-              "target": "Package",
-              "version": "[6.0.0-preview.3.21201.13, )"
-            },
-            "StackExchange.Redis": {
-              "target": "Package",
-              "version": "[2.2.4, )"
             }
           },
           "imports": [
@@ -184,6 +172,9 @@
               },
               "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/Entities.csproj": {
                 "projectPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/Entities.csproj"
+              },
+              "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/WebFramework.csproj": {
+                "projectPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/WebFramework.csproj"
               }
             }
           }
@@ -210,10 +201,6 @@
               "target": "Package",
               "version": "[5.0.4, )"
             },
-            "Microsoft.Extensions.Caching.StackExchangeRedis": {
-              "target": "Package",
-              "version": "[6.0.0-preview.3.21201.13, )"
-            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[12.0.2, )"
@@ -237,6 +224,71 @@
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
             },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/WebFramework.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/WebFramework.csproj",
+        "projectName": "WebFramework",
+        "projectPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/WebFramework.csproj",
+        "packagesPath": "/Users/pasha/.nuget/packages/",
+        "outputPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/Users/pasha/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/Entities.csproj": {
+                "projectPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/Entities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[10.1.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

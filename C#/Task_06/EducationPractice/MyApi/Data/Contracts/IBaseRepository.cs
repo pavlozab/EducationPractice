@@ -6,7 +6,7 @@ namespace Data
     public interface IBaseRepository<TEntity> 
     {
         Task<TEntity> GetOne(Guid id);
-        Task Create(TEntity order);
-        Task Delete(Guid id);
+        Task Create(TEntity item);
+        Task Delete(TEntity item);
     }
 }

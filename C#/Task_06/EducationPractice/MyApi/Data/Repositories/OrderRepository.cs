@@ -9,8 +9,8 @@ namespace Data
 {
     public class OrderRepository : BaseRepository<Order>, IOrderRepository
     {
-        // public OrderRepository(ApplicationDbContext context)
-        //     : base(context) { }
+        public OrderRepository(ApplicationDbContext context)
+            : base(context) { }
 
         public async Task<IEnumerable<Order>> GetAll(Guid userId)
         {

@@ -160,20 +160,6 @@
           "lib/netstandard2.0/Microsoft.Extensions.Caching.Memory.dll": {}
         }
       },
-      "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.0-preview.3.21201.13": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Caching.Abstractions": "6.0.0-preview.3.21201.4",
-          "Microsoft.Extensions.Options": "6.0.0-preview.3.21201.4",
-          "StackExchange.Redis": "2.0.593"
-        },
-        "compile": {
-          "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll": {}
-        }
-      },
       "Microsoft.Extensions.Configuration.Abstractions/6.0.0-preview.3.21201.4": {
         "type": "package",
         "dependencies": {
@@ -688,7 +674,6 @@
         "dependencies": {
           "Entities": "1.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.0-preview.3.21201.2",
-          "Microsoft.Extensions.Caching.StackExchangeRedis": "6.0.0-preview.3.21201.13",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "6.0.0-preview2",
           "StackExchange.Redis": "2.2.4"
         },
@@ -704,15 +689,27 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.0-preview.3.21201.13",
-          "Microsoft.EntityFrameworkCore": "6.0.0-preview.3.21201.2",
-          "Microsoft.Extensions.Caching.StackExchangeRedis": "6.0.0-preview.3.21201.13",
-          "StackExchange.Redis": "2.2.4"
+          "Microsoft.EntityFrameworkCore": "6.0.0-preview.3.21201.2"
         },
         "compile": {
           "bin/placeholder/Entities.dll": {}
         },
         "runtime": {
           "bin/placeholder/Entities.dll": {}
+        }
+      },
+      "WebFramework/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "AutoMapper": "10.1.1",
+          "Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/WebFramework.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WebFramework.dll": {}
         }
       }
     }
@@ -976,21 +973,6 @@
         "lib/netstandard2.0/Microsoft.Extensions.Caching.Memory.xml",
         "microsoft.extensions.caching.memory.6.0.0-preview.3.21201.4.nupkg.sha512",
         "microsoft.extensions.caching.memory.nuspec"
-      ]
-    },
-    "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.0-preview.3.21201.13": {
-      "sha512": "dHQ/3bDitOlTn6MYzpNMoERl3jYVRS3/9yl6B/c1qbGdU3Exr7JWkFrkL9z25HqrIpeFHWD689556nhRQyICpg==",
-      "type": "package",
-      "path": "microsoft.extensions.caching.stackexchangeredis/6.0.0-preview.3.21201.13",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll",
-        "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.xml",
-        "microsoft.extensions.caching.stackexchangeredis.6.0.0-preview.3.21201.13.nupkg.sha512",
-        "microsoft.extensions.caching.stackexchangeredis.nuspec"
       ]
     },
     "Microsoft.Extensions.Configuration.Abstractions/6.0.0-preview.3.21201.4": {
@@ -2090,6 +2072,11 @@
       "type": "project",
       "path": "../Entities/Entities.csproj",
       "msbuildProject": "../Entities/Entities.csproj"
+    },
+    "WebFramework/1.0.0": {
+      "type": "project",
+      "path": "../WebFramework/WebFramework.csproj",
+      "msbuildProject": "../WebFramework/WebFramework.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -2099,9 +2086,9 @@
       "Data >= 1.0.0",
       "Entities >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 5.0.4",
-      "Microsoft.Extensions.Caching.StackExchangeRedis >= 6.0.0-preview.3.21201.13",
       "Newtonsoft.Json >= 12.0.2",
-      "StackExchange.Redis >= 2.2.4"
+      "StackExchange.Redis >= 2.2.4",
+      "WebFramework >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2138,6 +2125,9 @@
             },
             "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/Entities.csproj": {
               "projectPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Entities/Entities.csproj"
+            },
+            "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/WebFramework.csproj": {
+              "projectPath": "/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/WebFramework.csproj"
             }
           }
         }
@@ -2163,10 +2153,6 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[5.0.4, )"
-          },
-          "Microsoft.Extensions.Caching.StackExchangeRedis": {
-            "target": "Package",
-            "version": "[6.0.0-preview.3.21201.13, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dto
 {
-    public class CreateProductDto
+    public class CreateAddressDto
     {
         [Required]
         [RegularExpression(@"[a-zA-z,.\s]+", ErrorMessage = "{0} must contain only letters ")]

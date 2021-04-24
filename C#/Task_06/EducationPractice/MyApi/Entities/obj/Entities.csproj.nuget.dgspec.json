@@ -48,14 +48,6 @@
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.0-preview.3.21201.2, )"
-            },
-            "Microsoft.Extensions.Caching.StackExchangeRedis": {
-              "target": "Package",
-              "version": "[6.0.0-preview.3.21201.13, )"
-            },
-            "StackExchange.Redis": {
-              "target": "Package",
-              "version": "[2.2.4, )"
             }
           },
           "imports": [

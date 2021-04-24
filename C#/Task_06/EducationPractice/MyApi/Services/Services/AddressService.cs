@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -6,95 +7,85 @@ using Data;
 using Data.Dto;
 using Entities;
 using Dto;
-using Microsoft.Extensions.Caching.Distributed;
-using Newtonsoft.Json;
+using Services.Cache;
 
 namespace Services
 {
     public class AddressService: IAddressService
     {
         private readonly IAddressRepository _repository;
+        private readonly ICacheClient _cacheClient;
         private readonly IMapper _mapper;
-        private readonly IDistributedCache _distributedCache;
 
-        public AddressService(
-            IAddressRepository repository, 
-            IMapper mapper,
-            IDistributedCache distributedCache)
+        public AddressService(IAddressRepository repository, IMapper mapper, ICacheClient cacheClient)
         {
             _repository = repository;
             _mapper = mapper;
-            _distributedCache = distributedCache;
+            _cacheClient = cacheClient;
         }
 
-        public async Task<IEnumerable<Address>> GetAll(QueryMetaDto queryMetaDto)
+        public async Task<IEnumerable<AddressResponseDto>> GetAll(QueryMetaDto queryMetaDto)
         {
-            IEnumerable<Address> addresses;
-            queryMetaDto.Validate();
+            IEnumerable<AddressResponseDto> result;
 
             if (queryMetaDto.Search is null)
             {
-                addresses = await GetFromCache(queryMetaDto);
+                result = await _cacheClient.GetQuery(queryMetaDto);
+                
+                if (result is null)
+                {
+                    var addresses = await _repository.GetAll(queryMetaDto);
+                    result = _mapper.Map<IEnumerable<Address>, IEnumerable<AddressResponseDto>>(addresses);
+                    await _cacheClient.SetQuery(queryMetaDto, result);
+                }
             }
             else
             {
-                addresses = await _repository.GetAll(queryMetaDto);
+                var addresses = await _repository.GetAll(queryMetaDto);
+                result = _mapper.Map<IEnumerable<Address>, IEnumerable<AddressResponseDto>>(addresses);
             }
 
-            return addresses;
+            return result;
         }
 
-        public async Task<Address> GetOne(Guid id)
+        public async Task<AddressResponseDto> GetOne(Guid id)
         {
-            return await _repository.GetOne(id);
+            var address = await _repository.GetOne(id);
+            return _mapper.Map<AddressResponseDto>(address);
         }
 
-        public async Task<Address> Create(CreateProductDto productDto, Guid UserId)
+        public async Task<AddressResponseDto> Create(CreateAddressDto addressDto)
         {
-            Address product = new()
-            {
-                Id = Guid.NewGuid(),
-                AddressLine = productDto.AddressLine,
-                PostalCode = productDto.PostalCode,
-                Country = productDto.Country,
-                City = productDto.City,
-                FaxNumber = productDto.FaxNumber,
-                PhoneNumber = productDto.PhoneNumber,
-                Amount = productDto.Amount,
-                UserId = UserId
-            };
+            var product = _mapper.Map<Address>(addressDto);
             await _repository.Create(product);
             
-            RemoveAllCache();
+            _cacheClient.RemoveAllCache();
 
-            return product;
+            return _mapper.Map<AddressResponseDto>(product);
         }
 
-        public async Task Update(Guid id, UpdateProductDto productDto, Guid UserId)
+        public async Task Update(Guid id, UpdateAddressDto addressDto)
         {
             var existingProduct = await  _repository.GetOne(id);
 
             if (existingProduct is null)
-                throw new KeyNotFoundException("Product hasn't been found");
+                throw new KeyNotFoundException("Address hasn't been found");
             
-            _mapper.Map(productDto, existingProduct);
-            existingProduct.UserId = UserId;
+            _mapper.Map(addressDto, existingProduct);
 
+            _cacheClient.RemoveAllCache();
             await _repository.Update(existingProduct);
-            RemoveAllCache();
         }
 
-        public async Task Delete(Guid id, Guid UserId)
+        public async Task Delete(Guid id)
         {
             var existingProduct = await _repository.GetOne(id);
 
             if (existingProduct is null)
-                throw new KeyNotFoundException("Product hasn't been found");
+                throw new KeyNotFoundException("Address hasn't been found");
 
-            existingProduct.UserId = UserId;
-
-            await _repository.Delete(id);
-            RemoveAllCache();
+            await _repository.Delete(existingProduct);
+            _cacheClient.RemoveAllCache();
         }
 
         public async Task<long> Count()
@@ -102,33 +93,11 @@ namespace Services
             return await _repository.Count();
         }
         
-        private async Task<IEnumerable<Address>> GetFromCache(QueryMetaDto queryMetaDto)
-        {
-            var key = JsonConvert.SerializeObject(queryMetaDto);
-            var cache = await _distributedCache.GetStringAsync(key);
-            
-            IEnumerable<Address> addresses;
-            
-            if (cache is null)
-            {
-                addresses = await _repository.GetAll(queryMetaDto);
+        // private async Task<IEnumerable<Address>> GetFromCache(QueryMetaDto queryMetaDto)
+        // {
+        //     
+        // }
 
-                var productsCache = JsonConvert.SerializeObject(addresses);
-
-                await _distributedCache.SetStringAsync(key, productsCache);
-            }
-            else
-            {
-                addresses = JsonConvert.DeserializeObject<List<Address>>(cache);
-            }
-            
-            return addresses;
-        }
-
-        private void RemoveAllCache()
-        {
-        }
-        
         // private static void GenerateNewCache(object sender, EventArgs eventArgs)
         // {
         // }

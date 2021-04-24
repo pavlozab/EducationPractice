@@ -32,3 +32,5 @@
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Services/obj/Debug/net5.0/Services.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Services/obj/Debug/net5.0/ref/Services.dll
 /Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Services/obj/Debug/net5.0/Services.pdb
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Services/bin/Debug/net5.0/WebFramework.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/Services/bin/Debug/net5.0/WebFramework.pdb

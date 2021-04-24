@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Data.Dto;
 using Entities;
@@ -9,35 +8,26 @@ namespace Data
 {
     public class AddressRepository : BaseRepository<Address>, IAddressRepository
     {
-        // public AddressRepository(ApplicationDbContext context)
-        //     : base(context)
-        // {
-        // }
+        public AddressRepository(ApplicationDbContext context)
+            : base(context)
+        {
+        }
 
         public async Task<IEnumerable<Address>> GetAll(QueryMetaDto queryMetaDto)
         {
-            var strReprOfSearch = "";
-            // return await _context.Addresses.Find() Where(obj =>
-            //     EF.Functions.ILike(obj.AddressLine, $"%{queryMetaDto.Search}%"))
-            //     .Skip(queryMetaDto.Offset * queryMetaDto.Limit)
-            //     .Take(queryMetaDto.Limit)
-            //     .ToListAsync();
+            var sql = $"SELECT * FROM \"Addresses\" " +
+                      $"WHERE \"AddressLine\" LIKE '%{queryMetaDto.Search}%' OR " +
+                      $"\"PostalCode\" LIKE '%{queryMetaDto.Search}%' OR " +
+                      $"\"Country\" LIKE '%{queryMetaDto.Search}%' OR " +
+                      $"\"City\" LIKE '%{queryMetaDto.Search}%' OR " +
+                      $"\"FaxNumber\" LIKE '%{queryMetaDto.Search}%' OR " +
+                      $"\"PhoneNumber\" LIKE '%{queryMetaDto.Search}%' " +
+                      $"ORDER BY \"{queryMetaDto.SortBy}\" {queryMetaDto.SortType} " +
+                      $"LIMIT {queryMetaDto.Limit} OFFSET {queryMetaDto.Offset};";
             
-            // var addresses =  await _context.Addresses.Where(obj
-            //     => obj.AddressLine.Contains(queryMetaDto.Search)
-            //        || obj.PostalCode.Contains(queryMetaDto.Search)
-            //        || obj.Country.Contains(queryMetaDto.Search)
-            //        || obj.City.Contains(queryMetaDto.Search)
-            //        || obj.FaxNumber.Contains(queryMetaDto.Search)
-            //        || obj.PhoneNumber.Contains(queryMetaDto.Search)
-            // ).Skip(queryMetaDto.Offset * queryMetaDto.Limit)
-            // .Take(queryMetaDto.Limit)
-            // .ToListAsync();
-            var addresses =  await _context.Addresses.Skip(queryMetaDto.Offset * queryMetaDto.Limit)
-                .Take(queryMetaDto.Limit)
-                .ToListAsync();
-
-            return await _context.Addresses.ToListAsync();
+            IEnumerable<Address> addresses = await _context.Addresses.FromSqlRaw(sql).ToListAsync();
+            
+            return addresses;
         }
         
         public async Task Update(Address obj)

@@ -14,13 +14,13 @@ namespace Data.Dto
 
         public QueryMetaDto()
         {
-            Search = null;
+            Search = "";
             SortBy = "AddressLine";
-            SortType = "asc";
+            SortType = "ASC";
             Offset = 0;
             Limit = 10;
         }
-        
+
         public QueryMetaDto(QueryMetaDto filter)
         {
             Search = filter.Search;
@@ -33,7 +33,7 @@ namespace Data.Dto
                 .Select(obj => obj.Name)
                 .Contains(SortBy) ? SortBy : "AddressLine";
             
-            SortType = SortType == "desc" ? "desc" : "asc";
+            SortType = SortType == "DESC" ? "DESC" : "ASC";
             Offset = Offset < 0 ? 0 : Offset;
             Limit = Limit > 10 ? 10 : Limit;
         }

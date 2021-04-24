@@ -9,11 +9,11 @@ namespace Services
 {
     public interface IAddressService
     {
-        Task<IEnumerable<Address>> GetAll(QueryMetaDto queryMetaDto);
-        Task<Address> GetOne(Guid id);
-        Task<Address> Create(CreateProductDto productDto, Guid UserId);
-        Task Update(Guid id, UpdateProductDto productDto, Guid UserId);
-        Task Delete(Guid id, Guid UserId);
+        Task<IEnumerable<AddressResponseDto>> GetAll(QueryMetaDto queryMetaDto);
+        Task<AddressResponseDto> GetOne(Guid id);
+        Task<AddressResponseDto> Create(CreateAddressDto addressDto);
+        Task Update(Guid id, UpdateAddressDto addressDto);
+        Task Delete(Guid id);
         Task<long> Count();
     }
 }

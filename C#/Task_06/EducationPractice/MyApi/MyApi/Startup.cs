@@ -1,14 +1,11 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using AutoMapper;
 using AutoWrapper;
 using Config;
 using Data;
-using EFCache;
-using EFCache.Redis;
 using Entities;
 using JwtAuth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MyApi.Profiles;
 using Services;
+using Services.Cache;
 using StackExchange.Redis;
 using Role = Entities.Role;
 
@@ -44,24 +42,15 @@ namespace MyApi
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(dbConfig.ConnectionString));
-
-            
-            
-            // services.AddDbContextFactory<ApplicationDbContext>(
-            //     options =>
-            //         options.UseNpgsql(dbConfig.ConnectionString));
-            
-            services.AddIdentity<User, Role>(options => options.SignIn.RequireConfirmedAccount = true) 
-                .AddEntityFrameworkStores<ApplicationDbContext>();
             
             // Redis
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = Configuration.GetConnectionString("Redis");
-                options.InstanceName = "MyApi_";
-            });
+            var redisConfig = Configuration.GetSection(nameof(RedisConfig)).Get<RedisConfig>();
             
+            services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer
+                .Connect(redisConfig.ConnectionString));
 
+            services.AddScoped<ICacheClient, CacheClient>();
+            
             // Mapping
             var mappingConfig = new MapperConfiguration(mc =>
             {
@@ -69,24 +58,19 @@ namespace MyApi
             });
             services.AddSingleton(mappingConfig.CreateMapper());
             
-            // var contextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
-            //     .UseNpgsql(dbConfig.ConnectionString)
-            //     .Options;
-
-            // services.AddSingleton<ApplicationDbContext>(ServiceProvider => 
-            //     new ApplicationDbContext(contextOptions));
-
-            // 
-            services.AddSingleton<IAddressRepository, AddressRepository>();
-            services.AddSingleton<IAddressService, AddressService>();
-            
+            // Services
+            services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
-            
             services.AddScoped<IJwtAuthManager, JwtAuthManager>();
+            services.AddScoped<IOrderService, OrderService>();
             
-            services.AddSingleton<IOrderRepository, OrderRepository>();
-            services.AddSingleton<IOrderService, OrderService>();
+            // Repositories
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            
+            services.AddIdentity<User, Role>(options => options.SignIn.RequireConfirmedAccount = true) 
+                .AddEntityFrameworkStores<ApplicationDbContext>();
             
             // JWT
             var jwtTokenConfig = Configuration.GetSection(nameof(JwtTokenConfig)).Get<JwtTokenConfig>();

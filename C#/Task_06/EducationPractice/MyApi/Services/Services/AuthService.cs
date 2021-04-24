@@ -16,14 +16,11 @@ namespace Services
     {
         private readonly IUserService _userService;
         private readonly IJwtAuthManager _jwtAuthManager;
-        private readonly RoleManager<Role> _roleManager;
-        
 
-        public AuthService(IUserService userService, IJwtAuthManager jwtAuthManager, RoleManager<Role> roleManager)
+        public AuthService(IUserService userService, IJwtAuthManager jwtAuthManager)
         {
             _userService = userService;
             _jwtAuthManager = jwtAuthManager;
-            _roleManager = roleManager;
         }
 
         private async Task<AccessToken> GetAccessToken(User user)
@@ -66,25 +63,5 @@ namespace Services
 
             return await GetAccessToken(user);
         }
-
-        // private async Task CreateRolesIfNotExists() // new controller
-        // {
-        //     if (!await _roleManager.RoleExistsAsync("Admin"))
-        //     {
-        //         await _roleManager.CreateAsync(new Role
-        //         {
-        //             Name = "Admin",
-        //             Description = "admin role"
-        //         });
-        //     }
-        //     if (!await _roleManager.RoleExistsAsync("User"))
-        //     {
-        //         await _roleManager.CreateAsync(new Role
-        //         {
-        //             Name = "User",
-        //             Description = "user role"
-        //         });
-        //     }
-        // }
     }
 }

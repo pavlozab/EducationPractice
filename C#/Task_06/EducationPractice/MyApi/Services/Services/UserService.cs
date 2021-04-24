@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Data;
 using Dto;
 using Entities;
@@ -11,6 +12,7 @@ namespace Services
     public class UserService: IUserService
     {
         private readonly UserManager<User> _userManager;
+        private readonly IMapper _mapper;
 
         public UserService(UserManager<User> userManager)
         {
@@ -24,7 +26,7 @@ namespace Services
 
         public async Task Delete(Guid id)
         {
-            var existingUser = await _userManager.FindByIdAsync(id.ToString()); // _repository.GetOne(id);
+            var existingUser = await _userManager.FindByIdAsync(id.ToString());
             if (existingUser is null)
                 throw new KeyNotFoundException("User hasn't been found");
 
@@ -33,15 +35,17 @@ namespace Services
 
         public async Task<User> Create(RegistrationDto registrationDto)
         {
-            User user = new()
-            {
-                Id = Guid.NewGuid(),
-                FirstName = registrationDto.FirstName,
-                LastName = registrationDto.LastName,
-                UserName = registrationDto.UserName,
-                Email = registrationDto.Email,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(registrationDto.Password),
-            }; 
+            var user = _mapper.Map<User>(registrationDto);
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(registrationDto.Password);
+            // User user = new()
+            // {
+            //     Id = Guid.NewGuid(),
+            //     FirstName = registrationDto.FirstName,
+            //     LastName = registrationDto.LastName,
+            //     UserName = registrationDto.UserName,
+            //     Email = registrationDto.Email,
+            //     PasswordHash = BCrypt.Net.BCrypt.HashPassword(registrationDto.Password),
+            // }; 
             await _userManager.CreateAsync(user);
             await _userManager.AddToRoleAsync(user, "User");
             return user;

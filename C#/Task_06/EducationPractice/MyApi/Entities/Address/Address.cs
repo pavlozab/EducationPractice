@@ -14,10 +14,7 @@ namespace Entities
         public string FaxNumber { get; set; }
         public string PhoneNumber { get; set; }
         public int Amount { get; set; }
-        public Guid UserId { get; set; }
-
         public ICollection<Order> Orders { get; set; }
-        public User User { get; set; }
     }
     
     public class AddressConfiguration : IEntityTypeConfiguration<Address>
@@ -25,7 +22,6 @@ namespace Entities
         public void Configure(EntityTypeBuilder<Address> builder)
         {
             builder.Property(p => p.Amount).IsRequired();
-            builder.HasOne(p => p.User).WithMany(u => u.Addresses).HasForeignKey(p => p.UserId);
         }
     }
 }

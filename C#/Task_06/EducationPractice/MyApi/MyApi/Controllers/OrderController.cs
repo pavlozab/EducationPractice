@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Dto;
 using Entities;
@@ -16,7 +15,7 @@ namespace MyApi.Controllers
     [Produces("application/json")]
     [ApiController]
     [Route("api/v1/orders")]
-    public class OrderController: BaseController //ControllerBase, 
+    public class OrderController: BaseController
     {
         private readonly ILogger<OrderController> _logger;
         private readonly IOrderService _orderService;
@@ -63,7 +62,7 @@ namespace MyApi.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<Order>> GetOrder(Guid id)
+        public async Task<ActionResult<OrderResponseDto>> GetOrder(Guid id)
         {
             try
             {
@@ -104,15 +103,14 @@ namespace MyApi.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(403)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult> CreateOrder(CreateOrderDto newOrder)
+        public async Task<ActionResult<OrderResponseDto>> CreateOrder(CreateOrderDto newOrder)
         {
             try
             {
                 var userId = GetCurrentUserId();
                 var order = await _orderService.Create(newOrder, userId);
 
-                _logger.LogInformation("Order is successfully created");
-                return CreatedAtAction("GetOrder", new { id = order.Id }, order);
+                return CreatedAtAction(nameof(GetOrder), new { id = order.Id }, order);
             }
             catch (SecurityTokenValidationException e)
             {
@@ -124,21 +122,24 @@ namespace MyApi.Controllers
             }
             catch (OutOfStockException e)
             {
-                var problem = new OutOfStockProblemDetails()
-                {
-                    Type = "",
-                    Title = "We do not have enough items.",
-                    Detail = $"Your amount is {e.OrderAmount}, but we have only {e.ProductAmount}",
-                    OrderAmount = e.OrderAmount,
-                    ProductAmount = e.ProductAmount
-                };
-                return BadRequest(problem);
+                // var problem = new OutOfStockProblemDetails() 
+                // {
+                //     Type = "",
+                //     Title = "We do not have enough items.",
+                //     Detail = $"Your amount is {e.OrderAmount}, but we have only {e.ProductAmount}",
+                //     OrderAmount = e.OrderAmount,
+                //     ProductAmount = e.ProductAmount
+                // };
+                return BadRequest($"Out of stock. Your amount is {e.OrderAmount}, but we have only {e.ProductAmount}");
             }
         }
     }
 
     public class OutOfStockProblemDetails : ProblemDetails
     {
+        public OutOfStockProblemDetails()
+        {
+        }
         public decimal OrderAmount { get; set; }
         public decimal ProductAmount { get; set; }
     }

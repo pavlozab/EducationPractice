@@ -1,15 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Data.Dto;
 using Dto;
-using Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Services;
 
 namespace MyApi.Controllers
@@ -36,16 +32,20 @@ namespace MyApi.Controllers
         [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<PaginatedResponseDto<Address>>> GetAll([FromQuery]QueryMetaDto queryMetaDto)
+        public async Task<ActionResult<PaginatedResponseDto<AddressResponseDto>>> GetAll([FromQuery]QueryMetaDto queryMetaDto)
         {
             var count = await _service.Count();
+            queryMetaDto.Validate();
             var addresses = await _service.GetAll(queryMetaDto);
-            // _logger.LogInformation("Returned all products");
 
-            return Ok(new PaginatedResponseDto<Address>
+            return Ok(new PaginatedResponseDto<AddressResponseDto>
             {
                 Items = addresses,
-                Meta = new MetaDto(queryMetaDto, count)
+                Meta = new MetaDto
+                {
+                    QueryMetaDto = queryMetaDto,
+                    Count = count
+                }
             });
         }
 
@@ -59,7 +59,7 @@ namespace MyApi.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<Address>> GetOne(Guid id)
+        public async Task<ActionResult<AddressResponseDto>> GetOne(Guid id)
         {
             var product = await _service.GetOne(id);
 
@@ -94,9 +94,9 @@ namespace MyApi.Controllers
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<Address>> Create(CreateProductDto productDto)
+        public async Task<ActionResult<AddressResponseDto>> Create(CreateAddressDto addressDto)
         {
-            var product = await _service.Create(productDto, GetCurrentUserId());
+            var product = await _service.Create(addressDto);
 
             _logger.LogInformation("Create a Product");
             return CreatedAtAction(nameof(GetOne), new { id = product.Id }, product);
@@ -121,18 +121,18 @@ namespace MyApi.Controllers
         ///
         /// </remarks>
         /// <param name="id">The id of the item to be updated.</param>
-        /// <param name="productDto">Updated product.</param>
+        /// <param name="addressDto">Updated product.</param>
         /// <response code="204">Updated product.</response>
         /// <response code="404">Product hasn't been found.</response>
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "ADMIN")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult> Update(Guid id, UpdateProductDto productDto)
+        public async Task<ActionResult> Update(Guid id, UpdateAddressDto addressDto)
         {
             try
             {
-                await _service.Update(id, productDto, GetCurrentUserId());
+                await _service.Update(id, addressDto);
 
                 _logger.LogInformation("Updated product with id: {0}", id);
                 return NoContent();
@@ -157,7 +157,7 @@ namespace MyApi.Controllers
         {
             try
             {
-                await _service.Delete(id, GetCurrentUserId());
+                await _service.Delete(id);
 
                 _logger.LogInformation("Deleted product with id: {0}", id);
                 return NoContent();
