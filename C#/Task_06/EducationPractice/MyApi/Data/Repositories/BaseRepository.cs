@@ -38,8 +38,7 @@ namespace Data
             await _context.SaveChangesAsync();
         }
         
-        // public void ReceiveNotification()
-        //  database notify
+        // public void ReceiveNotification()  // database notify
         // {
         //     _context.
         // }

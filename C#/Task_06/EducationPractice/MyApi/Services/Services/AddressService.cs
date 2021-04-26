@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -92,14 +91,5 @@ namespace Services
         {
             return await _repository.Count();
         }
-        
-        // private async Task<IEnumerable<Address>> GetFromCache(QueryMetaDto queryMetaDto)
-        // {
-        //     
-        // }
-
-        // private static void GenerateNewCache(object sender, EventArgs eventArgs)
-        // {
-        // }
     }
 }

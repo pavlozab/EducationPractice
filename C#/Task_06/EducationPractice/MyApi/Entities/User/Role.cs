@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Entities
 {
-    public class Role : IdentityRole<Guid>//, IEntity
+    public class Role : IdentityRole<Guid>
     {
         [Required]
         [StringLength(100)]

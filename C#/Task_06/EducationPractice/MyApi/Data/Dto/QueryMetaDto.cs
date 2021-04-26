@@ -1,6 +1,5 @@
 using System.Linq;
 using Entities;
-using Microsoft.Extensions.Options;
 
 namespace Data.Dto
 {

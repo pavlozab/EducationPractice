@@ -2,7 +2,6 @@
 using Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
 
 namespace Data
 {
@@ -10,7 +9,6 @@ namespace Data
     {
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Order> Orders { get; set; }
-        //public DbSet<User> Users { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }

@@ -5,7 +5,7 @@ using AutoMapper;
 
 namespace WebFramework.CustomMapping
 {
-    public class AutoMapperConfiguration
+    public class AutoMapperConfiguration // FIXME
     {
         // public static void InitializeAutoMapper()
         // {

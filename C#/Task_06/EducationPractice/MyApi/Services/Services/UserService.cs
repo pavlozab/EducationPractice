@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Data;
 using Dto;
 using Entities;
 using Microsoft.AspNetCore.Identity;
