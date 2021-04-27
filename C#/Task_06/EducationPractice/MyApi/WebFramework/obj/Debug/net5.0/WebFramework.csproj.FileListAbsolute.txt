@@ -1,0 +1,15 @@
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/obj/Debug/net5.0/WebFramework.csprojAssemblyReference.cache
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/obj/Debug/net5.0/WebFramework.GeneratedMSBuildEditorConfig.editorconfig
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/obj/Debug/net5.0/WebFramework.AssemblyInfoInputs.cache
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/obj/Debug/net5.0/WebFramework.AssemblyInfo.cs
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/obj/Debug/net5.0/WebFramework.csproj.CoreCompileInputs.cache
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/bin/Debug/net5.0/WebFramework.deps.json
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/bin/Debug/net5.0/WebFramework.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/bin/Debug/net5.0/ref/WebFramework.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/bin/Debug/net5.0/WebFramework.pdb
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/bin/Debug/net5.0/Entities.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/bin/Debug/net5.0/Entities.pdb
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/obj/Debug/net5.0/WebFramework.csproj.CopyComplete
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/obj/Debug/net5.0/WebFramework.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/obj/Debug/net5.0/ref/WebFramework.dll
+/Users/pasha/Documents/GitHub/PythonGit/LNUStudy/C#/Task_06/EducationPractice/MyApi/WebFramework/obj/Debug/net5.0/WebFramework.pdb
